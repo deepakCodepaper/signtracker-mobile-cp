@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "614080365239",
+    "firebase_url": "https://thesigntracker.firebaseio.com",
+    "project_id": "thesigntracker",
+    "storage_bucket": "thesigntracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614080365239:android:5bdda2a4fddef0dc8f4332",
+        "android_client_info": {
+          "package_name": "com.cardanmarketing.signtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614080365239-m9np4o0o5tqums4qql9mfblp9oiaf3ve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD06HiApbAH9qCMvfFlKTy3qokfySLeh2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614080365239-m9np4o0o5tqums4qql9mfblp9oiaf3ve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
