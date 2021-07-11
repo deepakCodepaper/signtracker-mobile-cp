@@ -494,7 +494,7 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
 
   viewPlan() async {
     var isChangePlan;
-    if (project.plan != 'http://api.thesigntracker.com/storage') {
+    if (project.plan != 'https://api.thesigntracker.com/storage') {
       print(project.plan);
       isChangePlan = await viewPlanOnline(context, project.plan);
       print(isChangePlan);

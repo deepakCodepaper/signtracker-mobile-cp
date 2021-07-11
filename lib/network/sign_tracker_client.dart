@@ -8,7 +8,7 @@ import 'package:signtracker/api/apis/users_api.dart';
 import 'package:signtracker/utilities/token_helper.dart';
 
 class SignTrackerClient {
-  final String _apiBaseUrl = 'http://api.thesigntracker.com/api/v1/';
+  final String _apiBaseUrl = 'https://api.thesigntracker.com/api/v1/';
 
   Future<String> _getToken() async => await TokenHelper().getToken();
 

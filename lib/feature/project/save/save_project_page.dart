@@ -624,7 +624,7 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
 
   viewPlan() async {
     var isChangePlan;
-    if (project.plan != 'http://api.thesigntracker.com/storage') {
+    if (project.plan != 'https://api.thesigntracker.com/storage') {
       isChangePlan = await viewPlanOnline(context, project.plan);
       print(isChangePlan);
     } else if (imagepath != null) {
