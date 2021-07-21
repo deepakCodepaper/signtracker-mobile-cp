@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -20,9 +20,7 @@ import 'package:signtracker/feature/members/invite_members.dart';
 import 'package:signtracker/feature/project/adjust_settings/adjust_settings_page.dart';
 import 'package:signtracker/feature/project/email_recipients/email_recipient_views.dart';
 import 'package:signtracker/feature/project/maps/project_map_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
 import 'package:signtracker/feature/sub_project/create_sub_project.dart';
-import 'package:signtracker/feature/template/template_list_page.dart';
 import 'package:signtracker/feature/template/template_parameters_page.dart';
 import 'package:signtracker/repository/invitation_repository.dart';
 import 'package:signtracker/repository/project_repository.dart';
@@ -31,7 +29,6 @@ import 'package:signtracker/utilities/color_helper.dart';
 import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
-import 'package:path/path.dart' as p;
 
 class SaveProjectPageArgs {
   const SaveProjectPageArgs(this.project, this.returnToDashboard);
@@ -213,7 +210,7 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
                             ),
                             Expanded(
                               child: Text(
-                                projectName,
+                                projectName ?? "",
                                 style: GoogleFonts.montserrat(
                                   fontSize: 15,
                                   color: Colors.black,
@@ -472,14 +469,20 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
     ).show();
   }
 
+  String getDescription() {
+    if (project.identifier != null) return "Project ${project.identifier}";
+    if (project.contractNumber != null)
+      return "Project ${project.contractNumber}";
+    return "Project";
+  }
+
   showProjectCreated(BuildContext context) {
-    String description =
-        'Project ${project.identifier != null ? project.identifier : project.contractNumber}';
+    String description = getDescription();
     double heightDialog = 140;
     if (project.plan != null) {
       heightDialog = 250;
       description =
-          'Project ${project.identifier != null ? project.identifier : project.contractNumber} with Template ${project.type == null ? 'Custom' : project.type}';
+          '${getDescription()} with Template ${project.type == null ? 'Custom' : project.type}';
     }
 
     showDialog<dynamic>(
@@ -515,7 +518,7 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
                 child: Column(
                   children: [
                     Text(
-                      description,
+                      description ?? "",
                       style: GoogleFonts.karla(
                           fontSize: 16, fontStyle: FontStyle.normal),
                       textAlign: TextAlign.center,

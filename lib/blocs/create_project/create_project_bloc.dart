@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:signtracker/api/model/invite.dart';
 import 'package:signtracker/api/model/request/project_create_request.dart';
-import 'package:signtracker/api/model/request/send_invite_request.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/repository/invitation_repository.dart';
@@ -50,21 +50,37 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
       int templateId,
       double distance,
       String commissionedBy) {
-    add(CreateCreateProjectEvent(signProject.rebuild((b) {
-      b
-        ..identifier = projectId
-        ..contractNumber = projectId
-        ..commissionedBy = commissionedBy
-        ..type = type
-        ..highway = highway
-        ..intersection = intersection
-        ..templateId = templateId
-        ..distance = distance
-        ..startDate = signProject.startDate
-        ..endDate = signProject.endDate
-        ..notifyFrequency = 120
-        ..inactiveNotifyFrequency = 240;
-    })));
+    if (projectId != null && projectId.isNotEmpty) {
+      add(CreateCreateProjectEvent(signProject.rebuild((b) {
+        b
+          ..identifier = projectId
+          ..contractNumber = projectId
+          ..commissionedBy = commissionedBy
+          ..type = type
+          ..highway = highway
+          ..intersection = intersection
+          ..templateId = templateId
+          ..distance = distance
+          ..startDate = signProject.startDate
+          ..endDate = signProject.endDate
+          ..notifyFrequency = 120
+          ..inactiveNotifyFrequency = 240;
+      })));
+    } else {
+      add(CreateCreateProjectEvent(signProject.rebuild((b) {
+        b
+          ..commissionedBy = commissionedBy
+          ..type = type
+          ..highway = highway
+          ..intersection = intersection
+          ..templateId = templateId
+          ..distance = distance
+          ..startDate = signProject.startDate
+          ..endDate = signProject.endDate
+          ..notifyFrequency = 120
+          ..inactiveNotifyFrequency = 240;
+      })));
+    }
   }
 
   void createProjectWithImage(

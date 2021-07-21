@@ -187,10 +187,10 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
   void validateForm() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     final prNumber = projectNumber.text;
-    if (prNumber?.isEmpty == true) {
+    /*if (prNumber?.isEmpty == true) {
       showMessage('Enter Project Number.');
       return;
-    }
+    }*/
     final inNr1 = intersectionNumber1.text;
     if (inNr1?.isEmpty == true) {
       showMessage('Complete intersection number.');
