@@ -145,7 +145,7 @@ class _SignLibraryPageState extends State<SignLibraryPage> {
                                           child: CachedNetworkImage(
                                             imageUrl: sign.imageUrl != null
                                                 ? sign.imageUrl
-                                                : 'http://portal.thesigntracker.com/images/signs/no-sign.png',
+                                                : 'https://portal.thesigntracker.com/images/signs/no-sign.png',
                                             progressIndicatorBuilder: (context,
                                                     url, downloadProgress) =>
                                                 CircularProgressIndicator(

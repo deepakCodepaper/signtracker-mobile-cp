@@ -432,27 +432,27 @@ class _AddSignsPageState extends State<AddSignsPage> {
 
     if (fileName != 'existing-sign') {
       await _downloadFile(
-          'http://portal.thesigntracker.com/images/signs-check/$fileName.png',
+          'https://portal.thesigntracker.com/images/signs-check/$fileName.png',
           '${fileName}check',
           widget.directory);
       print('downloaded sign-check');
       await _downloadFile(
-          'http://portal.thesigntracker.com/images/signs-check-against/$fileName.png',
+          'https://portal.thesigntracker.com/images/signs-check-against/$fileName.png',
           '${fileName}checkagainst',
           widget.directory);
       print('downloaded check-against');
       await _downloadFile(
-          'http://portal.thesigntracker.com/images/signs-shaded/$fileName.png',
+          'https://portal.thesigntracker.com/images/signs-shaded/$fileName.png',
           '${fileName}shaded',
           widget.directory);
       print('downloaded shaded');
       await _downloadFile(
-          'http://portal.thesigntracker.com/images/signs-shaded-check/$fileName.png',
+          'https://portal.thesigntracker.com/images/signs-shaded-check/$fileName.png',
           '${fileName}shadedcheck',
           widget.directory);
       print('downloaded shaded-check');
       await _downloadFile(
-          'http://portal.thesigntracker.com/images/signs-shaded-check-against/$fileName.png',
+          'https://portal.thesigntracker.com/images/signs-shaded-check-against/$fileName.png',
           '${fileName}shadedcheckagainst',
           widget.directory);
       print('downloaded shadedcheckagainst');

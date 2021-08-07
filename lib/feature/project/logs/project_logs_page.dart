@@ -472,7 +472,7 @@ Widget info(String label, String info, Widget leadingInfo) {
             ],
             Expanded(
               child: Text(
-                info,
+                info ?? "",
                 maxLines: 10,
                 style: GoogleFonts.karla(
                     textStyle: TextStyle(fontSize: 14, color: Colors.black)),

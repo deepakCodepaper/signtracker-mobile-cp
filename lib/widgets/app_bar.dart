@@ -10,7 +10,7 @@ class SignTrackerAppBar {
     return AppBar(
       leading: title == 'My Dashboard' ? null : BackButton(color: Colors.black),
       backgroundColor: Colors.white,
-      title: Text(title,
+      title: Text(title ?? "",
           style: GoogleFonts.montserrat(
               color: Colors.black, fontWeight: FontWeight.w700)),
       centerTitle: false,

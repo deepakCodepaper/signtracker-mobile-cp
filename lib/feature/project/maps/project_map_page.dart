@@ -1484,10 +1484,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     bool isExist = File(file).existsSync();
     if (!isExist) {
       print('================download====================$folder');
-      print('http://portal.thesigntracker.com/images/$folder/$fileName.png');
+      print('https://portal.thesigntracker.com/images/$folder/$fileName.png');
       print('$fileName$status');
       await _downloadFile(
-          'http://portal.thesigntracker.com/images/$folder/$fileName.png',
+          'https://portal.thesigntracker.com/images/$folder/$fileName.png',
           '$fileName$status',
           appDirectory.path);
     } else {

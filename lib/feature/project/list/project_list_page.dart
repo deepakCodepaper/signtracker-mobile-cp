@@ -111,12 +111,8 @@ class _ProjectListPageState extends State<ProjectListPage> {
               });
 
               projects = tempList;
-
               projects.sort((a, b) => b.createdAt.compareTo(a.createdAt));
               final list = projects
-                  .where((project) => project.contractNumber != null
-                      ? project.contractNumber.startsWith(queryText)
-                      : project.identifier.startsWith(queryText))
                   .map(
                     (project) => ExpandableProjectItem(
                       onPressed: () => routeOpenProject(project),

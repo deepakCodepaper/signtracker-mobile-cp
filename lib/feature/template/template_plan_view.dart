@@ -110,7 +110,7 @@ class _TemplatePlanListItemViewPageState
                   color: Colors.white,
                   child: PhotoView(
                     imageProvider: NetworkImage(
-                        'http://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg'),
+                        'https://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg'),
                   ),
                 ),
                 Positioned(
@@ -160,7 +160,7 @@ class _TemplatePlanListItemViewPageState
       SignProject signProject = widget.signProject;
       signProject = signProject.rebuild((b) => b
         ..plan =
-            'http://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg'
+            'https://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg'
         ..type = '${widget.selectedTemplate.name}');
 
       String identifier = '';
@@ -208,7 +208,7 @@ class _TemplatePlanListItemViewPageState
     }
 
     File imageTest = await _downloadFile(
-        'http://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg',
+        'https://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg',
         '$identifier',
         appDocPath);
 

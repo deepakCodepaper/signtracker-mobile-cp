@@ -150,7 +150,7 @@ class _SignListPageState extends State<SignListPage> {
                                               child: CachedNetworkImage(
                                                 imageUrl: sign.imageUrl != null
                                                     ? sign.imageUrl
-                                                    : 'http://portal.thesigntracker.com/images/signs/no-sign.png',
+                                                    : 'https://portal.thesigntracker.com/images/signs/no-sign.png',
                                                 progressIndicatorBuilder:
                                                     (context, url,
                                                             downloadProgress) =>

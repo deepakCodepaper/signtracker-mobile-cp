@@ -277,7 +277,7 @@ class _AdjustSettingsPageState extends State<AdjustSettingsPage> {
                           color: Colors.black,
                           child: Center(
                             child: Text(
-                              'Project ${(widget.project.identifier != null ? widget.project.identifier : widget.project.contractNumber + ' ' + widget.project.intersection.toString() + ':' + widget.project.highway.toString())}' ??
+                              'Project ${(widget.project.identifier != null ? widget.project.identifier : (widget.project.contractNumber ?? "") + ' ' + widget.project.intersection.toString() + ':' + widget.project.highway.toString())}' ??
                                   'Project 1124123 43:22',
                               style: GoogleFonts.karla(
                                   textStyle: TextStyle(
