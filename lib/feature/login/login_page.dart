@@ -1,7 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:signtracker/blocs/auth/authentication_bloc.dart';
 import 'package:signtracker/blocs/login/login_bloc.dart';
@@ -9,7 +8,6 @@ import 'package:signtracker/blocs/login/login_state.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
 import 'package:signtracker/feature/register/register_page.dart';
 import 'package:signtracker/repository/user_repository.dart';
-import 'package:signtracker/utilities/token_helper.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -29,8 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   // Initially password is obscure
   bool _obscureText = true;
-
-  String _password;
 
   // Toggles the password show status
   void _toggle() {
@@ -82,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: _LoginAppbar(),
+      backgroundColor: Colors.white,
       body: BlocConsumer<LoginBloc, LoginState>(
         bloc: bloc,
         listener: (context, state) {
@@ -96,7 +93,6 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context, state) {
           return SingleChildScrollView(
             child: Container(
-              color: Colors.white,
               child: Column(
                 children: [
                   Padding(
@@ -104,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextField(
                       controller: usernameController,
                       enabled: !(state is LoginLoading),
-                      style: textTheme.body1.copyWith(
+                      style: textTheme.bodyText2.copyWith(
                         color: Colors.black45,
                       ),
                       keyboardType: TextInputType.emailAddress,
@@ -127,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         hintText: 'Email',
-                        hintStyle: textTheme.body1.copyWith(
+                        hintStyle: textTheme.bodyText2.copyWith(
                           color: Colors.black12,
                         ),
                       ),
@@ -140,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passwordController,
                       enabled: !(state is LoginLoading),
                       obscureText: _obscureText,
-                      style: textTheme.body1.copyWith(
+                      style: textTheme.bodyText2.copyWith(
                         color: Colors.yellow[700],
                       ),
                       decoration: InputDecoration(
@@ -172,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         hintText: 'Password',
-                        hintStyle: textTheme.body1.copyWith(
+                        hintStyle: textTheme.bodyText2.copyWith(
                           color: Colors.black12,
                         ),
                       ),
@@ -201,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               Text(
                                 'Remember me',
-                                style: textTheme.body1.copyWith(
+                                style: textTheme.bodyText2.copyWith(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -209,18 +205,23 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                         ),
-                        FlatButton(
-                          child: Text(
-                            'Forgot Password?',
-                            style: textTheme.body1.copyWith(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                        Visibility(
+                          visible: false,
+                          // hide for now as we don't have process for forgot password
+                          child: TextButton(
+                            child: Text(
+                              'Forgot Password?',
+                              style: textTheme.bodyText2.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
+                            onPressed: () {
+                              usernameController.text =
+                                  'rhys.coronado@gmail.com';
+                              passwordController.text = 'test1234';
+                            },
                           ),
-                          onPressed: () {
-                            usernameController.text = 'rhys.coronado@gmail.com';
-                            passwordController.text = 'test1234';
-                          },
                         ),
                       ],
                     ),
@@ -350,8 +351,6 @@ class _LoginPageState extends State<LoginPage> {
 class _LoginAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Container(
       color: Colors.white,
       child: Column(
