@@ -91,6 +91,7 @@ flutter:
   assets:
     - assets/images/
     - assets/drawables/
+    - assets/countries_regions.json
     - google_fonts/
 
   # To add assets to your application, add an assets section, like this:
