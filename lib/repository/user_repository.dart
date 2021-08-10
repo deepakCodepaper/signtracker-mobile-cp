@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:signtracker/api/model/login.dart';
 import 'package:signtracker/api/model/user.dart';
 import 'package:signtracker/api/model/user_device.dart';
 import 'package:signtracker/network/auth_client.dart';
@@ -32,9 +31,14 @@ class UserRepository {
     @required String password,
     @required String name,
     @required String companyName,
+    String countryName,
+    String countryCode,
+    String stateName,
+    String stateCode,
   }) async {
     final api = authClient.getAuthApi();
-    final register = await api.register(username, password, name, companyName);
+    final register = await api.register(username, password, name, companyName,
+        countryName, countryCode, stateName, stateCode);
     if (register == true) {
       return true;
     }

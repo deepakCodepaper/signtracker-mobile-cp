@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:signtracker/blocs/auth/authentication_bloc.dart';
 import 'package:signtracker/repository/user_repository.dart';
+
 import 'login_event.dart';
 import 'login_state.dart';
 
@@ -23,13 +25,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void registerButtonPressed(
-      String username, String password, String name, String companyName) {
+      String username,
+      String password,
+      String name,
+      String companyName,
+      String countryName,
+      String countryCode,
+      String stateName,
+      String stateCode) {
     add(RegisterButtonPressed(
-      username: username,
-      password: password,
-      name: name,
-      companyName: companyName,
-    ));
+        username: username,
+        password: password,
+        name: name,
+        companyName: companyName,
+        countryName: countryName,
+        countryCode: countryCode,
+        stateName: stateName,
+        stateCode: stateCode));
   }
 
   String validateLogin(String username, String password) {
@@ -38,12 +50,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     return null;
   }
 
-  String validateRegister(
-      String username, String password, String name, String companyName) {
+  String validateRegister(String username, String password, String name,
+      String companyName, String countryCode, String stateCode) {
     if (username.isEmpty) return 'Username is required!';
     if (password.isEmpty) return 'Password is required!';
     if (name.isEmpty) return 'Name is required!';
     if (companyName.isEmpty) return 'Company Name is required!';
+    if (countryCode.isEmpty) return 'Country is required!';
+    if (stateCode.isEmpty) return 'State is required!';
+    return null;
   }
 
   @override
@@ -69,14 +84,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     if (event is RegisterButtonPressed) {
-      final validationMessage = validateRegister(
-          event.username, event.password, event.name, event.companyName);
+      final validationMessage = validateRegister(event.username, event.password,
+          event.name, event.companyName, event.countryCode, event.stateCode);
       if (validationMessage?.isNotEmpty == true) {
         yield ValidationFailure(error: validationMessage);
       } else {
         yield LoginLoading();
         final login = await authenticationBloc.register(
-            event.username, event.password, event.name, event.companyName);
+            event.username,
+            event.password,
+            event.name,
+            event.companyName,
+            event.countryName,
+            event.countryCode,
+            event.stateName,
+            event.stateCode);
         if (login) {
           yield LoginSuccess();
         } else

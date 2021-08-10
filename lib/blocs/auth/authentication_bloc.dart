@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:signtracker/api/model/login.dart';
 
+import '../../repository/user_repository.dart';
 import 'authentication_event.dart';
 import 'authentication_state.dart';
-import '../../repository/user_repository.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -25,12 +24,24 @@ class AuthenticationBloc
   }
 
   Future<bool> register(
-      String username, String password, String name, String companyName) async {
+      String username,
+      String password,
+      String name,
+      String companyName,
+      String countryName,
+      String countryCode,
+      String stateName,
+      String stateCode) async {
+
     return await userRepository.register(
       username: username,
       password: password,
       name: name,
       companyName: companyName,
+      countryName: countryName,
+      countryCode: countryCode,
+      stateName: stateName,
+      stateCode: stateCode,
     );
   }
 

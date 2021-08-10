@@ -40,10 +40,10 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  String countryState = "";
-  List countryStates = List.empty(growable: true);
+  String stateCode = "";
+  List states = List.empty(growable: true);
 
-  String country = "";
+  String countryCode = "";
   List countries = List.empty(growable: true);
 
   loadJson() async {
@@ -72,16 +72,28 @@ class _RegisterPageState extends State<RegisterPage> {
     final password = passwordController.text;
     final name = nameController.text;
     final companyName = companyNameController.text;
+    final countryIndex =
+        countries.indexWhere((element) => element['iso3'] == countryCode);
+    final countryName = countryIndex > 0 ? countries[countryIndex]['name'] : "";
+    final stateIndex =
+        states.indexWhere((element) => element['state_code'] == stateCode);
+    final stateName = stateIndex > 0 ? states[stateIndex]['name'] : "";
+
     if (username.isEmpty) {
-      showSnackBar('Username is required!');
+      showSnackBar('Username is required.');
     } else if (password.isEmpty) {
-      showSnackBar('Password is required!');
+      showSnackBar('Password is required.');
     } else if (name.isEmpty) {
-      showSnackBar('Name is required!');
+      showSnackBar('Name is required.');
     } else if (companyName.isEmpty) {
-      showSnackBar('Company Name is required!');
+      showSnackBar('Company Name is required.');
+    } else if (countryCode.isEmpty) {
+      showSnackBar('Country is required.');
+    } else if (states.length > 0 && stateCode.isEmpty) {
+      showSnackBar('State is required.');
     } else {
-      bloc.registerButtonPressed(username, password, name, companyName);
+      bloc.registerButtonPressed(username, password, name, companyName,
+          countryName, countryCode, stateName, stateCode);
     }
   }
 
@@ -191,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: usernameController,
                       enabled: !(state is LoginLoading),
                       style: textTheme.bodyText2.copyWith(
-                        color: Colors.black45,
+                        color: Colors.yellow[700],
                       ),
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -209,7 +221,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         hintText: 'Email',
                         hintStyle: textTheme.bodyText2.copyWith(
-                          color: Colors.black12,
+                          color: Colors.black38,
                         ),
                       ),
                     ),
@@ -249,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         hintText: 'Password',
                         hintStyle: textTheme.bodyText2.copyWith(
-                          color: Colors.black12,
+                          color: Colors.black38,
                         ),
                       ),
                     ),
@@ -278,7 +290,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         hintText: 'Name',
                         hintStyle: textTheme.bodyText2.copyWith(
-                          color: Colors.black12,
+                          color: Colors.black38,
                         ),
                       ),
                     ),
@@ -307,7 +319,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         hintText: 'Company Name',
                         hintStyle: textTheme.bodyText2.copyWith(
-                          color: Colors.black12,
+                          color: Colors.black38,
                         ),
                       ),
                     ),
@@ -316,41 +328,41 @@ class _RegisterPageState extends State<RegisterPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: DropdownButtonFormField(
-                      hint: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text(
-                              'Select Country',
-                              style: TextStyle(color: Colors.black),
-                            ),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[200],
+                            width: 2,
                           ),
-                        ],
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.yellow[700],
+                            width: 2,
+                          ),
+                        ),
+                        hintText: 'Select Country',
+                        hintStyle: textTheme.bodyText2.copyWith(
+                          color: Colors.black38,
+                        ),
                       ),
-                      value: country == '' ? null : country,
+                      value: countryCode == '' ? null : countryCode,
                       onChanged: (newValue) {
                         setState(() {
-                          country = newValue;
+                          countryCode = newValue;
                           final index = countries.indexWhere(
-                                  (element) => element['iso3'] == country);
-                          countryStates.clear();
-                          countryStates = countries[index]['states'];
-                          countryState = "";
+                              (element) => element['iso3'] == countryCode);
+                          states.clear();
+                          states = countries[index]['states'];
+                          stateCode = "";
                         });
                       },
                       items: countries.map((item) {
                         return DropdownMenuItem(
                           value: item['iso3'],
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                child: Text(
-                                  item['name'],
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ],
+                          child: Text(
+                            item['name'],
+                            style: TextStyle(color: Colors.black87),
                           ),
                         );
                       }).toList(),
@@ -360,36 +372,36 @@ class _RegisterPageState extends State<RegisterPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: DropdownButtonFormField(
-                      hint: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text(
-                              'Select State',
-                              style: TextStyle(color: Colors.black),
-                            ),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[200],
+                            width: 2,
                           ),
-                        ],
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.yellow[700],
+                            width: 2,
+                          ),
+                        ),
+                        hintText: 'Select State',
+                        hintStyle: textTheme.bodyText2.copyWith(
+                          color: Colors.black38,
+                        ),
                       ),
-                      value: countryState == '' ? null : countryState,
+                      value: stateCode == '' ? null : stateCode,
                       onChanged: (newValue) {
                         setState(() {
-                          countryState = newValue;
+                          stateCode = newValue;
                         });
                       },
-                      items: countryStates.map((item) {
+                      items: states.map((item) {
                         return DropdownMenuItem(
                           value: item['state_code'],
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                child: Text(
-                                  item['name'],
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ],
+                          child: Text(
+                            item['name'],
+                            style: TextStyle(color: Colors.black87),
                           ),
                         );
                       }).toList(),

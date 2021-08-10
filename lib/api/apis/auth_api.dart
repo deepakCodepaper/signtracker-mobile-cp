@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
@@ -44,22 +45,33 @@ class AuthApi {
   }
 
   Future<bool> register(
-      String email, String password, String name, String companyName) async {
+      String email,
+      String password,
+      String name,
+      String companyName,
+      String countryName,
+      String countryCode,
+      String stateName,
+      String stateCode) async {
+
     final requestBody = <String, dynamic>{
       'email': email,
       'password': password,
       'name': name,
       'company_name': companyName,
+      'country_name': countryName,
+      'country_code': countryCode,
+      'state_name': stateName,
+      'state_code': stateCode,
     };
 
     if (email == null) throw Exception('Email is required');
-
     if (password == null) throw Exception('Password is required');
 
     final path = 'admin/$apiPath/register';
 
     try {
-      final response = await apiClient.dio.post(path,
+      final _ = await apiClient.dio.post(path,
           data: jsonEncode(requestBody),
           options: buildCacheOptions(Duration(hours: 1)));
 

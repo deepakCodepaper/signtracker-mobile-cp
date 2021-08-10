@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         hintText: 'Email',
                         hintStyle: textTheme.bodyText2.copyWith(
-                          color: Colors.black12,
+                          color: Colors.black38,
                         ),
                       ),
                     ),
@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         hintText: 'Password',
                         hintStyle: textTheme.bodyText2.copyWith(
-                          color: Colors.black12,
+                          color: Colors.black38,
                         ),
                       ),
                     ),
