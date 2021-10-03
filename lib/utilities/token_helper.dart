@@ -3,6 +3,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class TokenHelper {
   static const KEY_TOKEN = "access_token";
   static const USER_NAME = "user_name";
+  static const COUNTRY_CODE = "country_code";
+  static const STATE_CODE = "state_code";
 
   final _storage = new FlutterSecureStorage();
 
@@ -30,5 +32,31 @@ class TokenHelper {
 
   Future<void> deleteName() async {
     await _storage.delete(key: USER_NAME);
+  }
+
+  Future<void> persistCountryCode(String countryCode) async {
+    await _storage.write(key: COUNTRY_CODE, value: countryCode);
+  }
+
+  Future<String> getCountryCode() async {
+    final countryCode = await _storage.read(key: COUNTRY_CODE);
+    return countryCode;
+  }
+
+  Future<void> deleteCountryCode() async {
+    await _storage.delete(key: COUNTRY_CODE);
+  }
+
+  Future<void> persistStateCode(String stateCode) async {
+    await _storage.write(key: STATE_CODE, value: stateCode);
+  }
+
+  Future<String> getStateCode() async {
+    final stateCode = await _storage.read(key: STATE_CODE);
+    return stateCode;
+  }
+
+  Future<void> deleteStateCode() async {
+    await _storage.delete(key: STATE_CODE);
   }
 }

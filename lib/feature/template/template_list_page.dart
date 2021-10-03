@@ -3,26 +3,18 @@ import 'dart:async';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:signtracker/api/model/invitation.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
-import 'package:signtracker/blocs/check_signs/check_signs_bloc.dart';
-import 'package:signtracker/blocs/check_signs/check_signs_states.dart';
 import 'package:signtracker/blocs/template/template_list_bloc.dart';
 import 'package:signtracker/blocs/template/template_list_state.dart';
 import 'package:signtracker/feature/project/maps/project_map_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
 import 'package:signtracker/feature/template/template_list_item_page.dart';
 import 'package:signtracker/feature/template/template_plan_view.dart';
-import 'package:signtracker/repository/invitation_repository.dart';
 import 'package:signtracker/repository/project_repository.dart';
-import 'package:signtracker/repository/user_repository.dart';
-import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 
@@ -117,7 +109,6 @@ class _TemplatePlanListPageState extends State<TemplatePlanListPage> {
             pr.show();
           }
           if (state is LoadingTemplatesSuccessState) {
-            print('asdasdasdasdsa');
             print(widget.isLoadMyTemplates);
             pr.hide().then((isHidden) {
               print(isHidden);
@@ -125,10 +116,8 @@ class _TemplatePlanListPageState extends State<TemplatePlanListPage> {
             if (state.template.length < 1) {
               showSnackBar('No templates found based on parameters');
             } else {
-              print('asdasdasdasdsa');
               print(widget.isLoadMyTemplates);
               if (widget.isLoadMyTemplates) {
-                print('load my tempaltes');
                 var temporaryList = new List<Template>();
 
                 state.template.forEach((template) {

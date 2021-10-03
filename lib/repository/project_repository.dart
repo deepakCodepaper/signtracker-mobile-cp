@@ -1,16 +1,16 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
 import 'package:signtracker/api/model/check_sign_project.dart';
 import 'package:signtracker/api/model/emails.dart';
 import 'package:signtracker/api/model/project_logs.dart';
+import 'package:signtracker/api/model/request/close_project_request.dart';
 import 'package:signtracker/api/model/request/emails_request.dart';
 import 'package:signtracker/api/model/request/project_create_request.dart';
 import 'package:signtracker/api/model/request/update_project_request.dart';
-import 'package:signtracker/api/model/request/close_project_request.dart';
 import 'package:signtracker/api/model/schedule.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/network/sign_tracker_client.dart';
+import 'package:signtracker/utilities/token_helper.dart';
 
 class ProjectRepository {
   final _signTrackerClient = SignTrackerClient();
@@ -109,18 +109,26 @@ class ProjectRepository {
 
   Future<List<Template>> getTemplate(String template) async {
     final api = await _signTrackerClient.getTemplatesApi();
-    return await api.fetchTemplatesByName(template);
+    final countryCode = await TokenHelper().getCountryCode();
+    final stateCode = await TokenHelper().getStateCode();
+    return await api.fetchTemplatesByName(template, countryCode, stateCode);
   }
 
   Future<List<Template>> getTemplateParams(
       String duration, String lanes, String closure) async {
     final api = await _signTrackerClient.getTemplatesApi();
-    return await api.filterTemplates(duration, lanes, closure);
+    final countryCode = await TokenHelper().getCountryCode();
+    final stateCode = await TokenHelper().getStateCode();
+    return await api.filterTemplates(
+        duration, lanes, closure, countryCode, stateCode);
   }
 
   Future<List<Template>> getTemplateDrawingNumber(String drawingNumber) async {
     final api = await _signTrackerClient.getTemplatesApi();
-    return await api.filterByDrawingNumber(drawingNumber);
+    final countryCode = await TokenHelper().getCountryCode();
+    final stateCode = await TokenHelper().getStateCode();
+    return await api.filterByDrawingNumber(
+        drawingNumber, countryCode, stateCode);
   }
 
   Future<Schedule> getReportSchedule(int projectId) async {

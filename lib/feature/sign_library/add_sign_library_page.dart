@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signtracker/api/model/sign.dart';
+import 'package:signtracker/utilities/validators.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
 import 'package:signtracker/widgets/success_box.dart';
@@ -24,7 +25,7 @@ class _AddSignLibraryPageState extends State<AddSignLibraryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SignTrackerAppBar.createAppBar(context,'Sign Library'),
+      appBar: SignTrackerAppBar.createAppBar(context, 'Sign Library'),
       body: Container(
         padding: EdgeInsets.symmetric(
           vertical: 30,
@@ -45,7 +46,7 @@ class _AddSignLibraryPageState extends State<AddSignLibraryPage> {
                       width: MediaQuery.of(context).size.width * 0.65,
                       height: MediaQuery.of(context).size.width * 0.65,
                       child: Image.network(
-                        widget.sign.image,
+                        Validators.getSignImageLink(widget.sign.image),
                         color: Colors.lightBlue,
                         loadingBuilder: (_, __, ___) => Center(
                           child: CircularProgressIndicator(),
@@ -72,7 +73,8 @@ class _AddSignLibraryPageState extends State<AddSignLibraryPage> {
               textColor: Colors.white,
               color: Colors.blue,
               onPressed: () async {
-                await Navigator.push(context, MaterialPageRoute(builder: (_) => _AddedToLibraryPage()));
+                await Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => _AddedToLibraryPage()));
                 Navigator.pop(context);
               },
             ),

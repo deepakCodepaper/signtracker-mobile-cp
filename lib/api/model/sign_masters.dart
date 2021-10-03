@@ -1,6 +1,5 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/serializers.dart';
 
 part 'sign_masters.g.dart';

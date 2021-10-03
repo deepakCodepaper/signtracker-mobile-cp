@@ -1,7 +1,5 @@
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -9,9 +7,6 @@ import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/blocs/template/template_list_bloc.dart';
 import 'package:signtracker/blocs/template/template_list_state.dart';
-import 'package:signtracker/feature/project/create/initialize_project_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
-import 'package:signtracker/feature/template/template_list_item_page.dart';
 import 'package:signtracker/feature/template/template_list_page.dart';
 import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
@@ -531,14 +526,14 @@ class _TemplateParametersPageState extends State<TemplateParametersPage> {
     navigateToTemplateListPage(true);
   }
 
-  navigateToTemplateListPage(bool withParameters) {
+  navigateToTemplateListPage(bool withParameters) async {
     loadMyTemplates = false;
     if (withParameters) {
-      byParameters = true;
       setState(() {
         loadByDrawingNumber = false;
         loadByParameters = true;
       });
+      byParameters = true;
       templateListBloc.getTemplateListByParameters(duration, lanes, closure);
     } else {
       setState(() {
@@ -550,7 +545,7 @@ class _TemplateParametersPageState extends State<TemplateParametersPage> {
     }
   }
 
-  navigateToMyTemplateListPage() {
+  navigateToMyTemplateListPage() async {
     loadMyTemplates = true;
     templateListBloc.getTemplateListByParameters(' ', ' ', 'none');
   }

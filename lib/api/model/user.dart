@@ -36,6 +36,14 @@ abstract class User implements Built<User, UserBuilder> {
   @nullable
   String get avatar;
 
+  @BuiltValueField(wireName: "country_code")
+  @nullable
+  String get countryCode;
+
+  @BuiltValueField(wireName: "state_code")
+  @nullable
+  String get stateCode;
+
   /// serializer
   static Serializer<User> get serializer => _$userSerializer;
 

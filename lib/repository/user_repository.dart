@@ -21,6 +21,8 @@ class UserRepository {
     if (login?.success == true) {
       tokenHelper.persistName(login.user.name);
       tokenHelper.persistToken(login.accessToken);
+      tokenHelper.persistCountryCode(login.user.countryCode);
+      tokenHelper.persistStateCode(login.user.stateCode);
       return true;
     }
     return false;

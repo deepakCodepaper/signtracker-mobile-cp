@@ -5,6 +5,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -14,8 +15,8 @@ import 'package:signtracker/blocs/sign_library/sign_library_bloc.dart';
 import 'package:signtracker/blocs/sign_library/sign_library_states.dart';
 import 'package:signtracker/repository/sign_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
+import 'package:signtracker/utilities/validators.dart';
 import 'package:signtracker/widgets/app_bar.dart';
-import 'package:path/path.dart' as p;
 
 class SignLibraryTemplatePageArgs {
   const SignLibraryTemplatePageArgs(this.project, this.method);
@@ -295,9 +296,9 @@ class _SignLibraryTemplatePageState extends State<SignLibraryTemplatePage> {
                                           children: <Widget>[
                                             Expanded(
                                               child: CachedNetworkImage(
-                                                imageUrl: sign.imageUrl != null
-                                                    ? sign.imageUrl
-                                                    : 'https://portal.thesigntracker.com/images/signs/no-sign.png',
+                                                imageUrl:
+                                                    Validators.getSignImageLink(
+                                                        sign.imageUrl),
                                                 progressIndicatorBuilder:
                                                     (context, url,
                                                             downloadProgress) =>

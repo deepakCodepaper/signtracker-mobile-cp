@@ -14,4 +14,14 @@ class Validators {
   static isValidPassword(String password) {
     return _passwordRegExp.hasMatch(password);
   }
+
+  static getSignImageLink(String imageUrl) {
+    if (imageUrl == null) {
+      return "https://portal.thesigntracker.com/images/signs/no-sign.png";
+    } else {
+      return imageUrl.startsWith("http://")
+          ? imageUrl.replaceAll("http://", "https://")
+          : imageUrl;
+    }
+  }
 }

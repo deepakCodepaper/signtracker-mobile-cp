@@ -34,7 +34,7 @@ android {
 
     def versionMajor = 1  // incompatible API changes or any breaking changes
     def versionMinor = 2 // functionality improvements that is backwards-compatible
-    def versionPatch = 2 // bug fixes that is backwards-compatible
+    def versionPatch = 3 // bug fixes that is backwards-compatible
     def versionBuild = 0 // changes that is not a bug or a functionality
 
     defaultConfig {

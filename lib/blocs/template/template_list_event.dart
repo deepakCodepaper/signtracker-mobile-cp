@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:signtracker/api/model/sign_project.dart';
 
 abstract class TemplateListEvent extends Equatable {
   TemplateListEvent([List props = const []]) : super([props]);
+
   @override
   String toString() => 'CreateProjectEvent';
 }

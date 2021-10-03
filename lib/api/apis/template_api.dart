@@ -1,19 +1,23 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:signtracker/api/api_client.dart';
 import 'package:signtracker/api/model/template.dart';
-import 'package:signtracker/api/model/user_device.dart';
 import 'package:signtracker/api/serializers.dart';
-import 'package:dio/dio.dart';
 
 class TemplateApi {
   TemplateApi({this.apiClient});
 
   final ApiClient apiClient;
 
-  Future<List<Template>> fetchTemplatesByName(String templateName) async {
-    final path = 'templates?template_name=$templateName';
+  Future<List<Template>> fetchTemplatesByName(
+      String templateName, String countryCode, String stateCode) async {
+    var path = 'templates?template_name=$templateName';
 
+    if (countryCode != null && countryCode.isNotEmpty) {
+      path = "$path&country_code=$countryCode";
+    }
+    if (stateCode != null && stateCode.isNotEmpty) {
+      path = "$path&state_code=$stateCode";
+    }
     try {
       final response = await apiClient.dio.get(path);
 
@@ -29,11 +33,18 @@ class TemplateApi {
     return null;
   }
 
-  Future<List<Template>> filterTemplates(
-      String duration, String lanes, String closure) async {
-    final path =
+  Future<List<Template>> filterTemplates(String duration, String lanes,
+      String closure, String countryCode, String stateCode) async {
+    var path =
         'templates?duration=$duration&number_of_lanes=$lanes&closure=$closure';
 
+    if (countryCode != null && countryCode.isNotEmpty) {
+      path = "$path&country_code=$countryCode";
+    }
+    if (stateCode != null && stateCode.isNotEmpty) {
+      path = "$path&state_code=$stateCode";
+    }
+
     try {
       final response = await apiClient.dio.get(path);
 
@@ -45,13 +56,18 @@ class TemplateApi {
     } on Exception catch (e) {
       print(e.toString());
     }
-
     return null;
   }
 
-  Future<List<Template>> filterByDrawingNumber(String drawingNumber) async {
-    final path = 'templates?drawing_number=$drawingNumber';
-
+  Future<List<Template>> filterByDrawingNumber(
+      String drawingNumber, String countryCode, String stateCode) async {
+    var path = 'templates?drawing_number=$drawingNumber';
+    if (countryCode != null && countryCode.isNotEmpty) {
+      path = "$path&country_code=$countryCode";
+    }
+    if (stateCode != null && stateCode.isNotEmpty) {
+      path = "$path&state_code=$stateCode";
+    }
     try {
       final response = await apiClient.dio.get(path);
 

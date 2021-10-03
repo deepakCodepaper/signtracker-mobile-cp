@@ -3,17 +3,15 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:signtracker/api/model/sign_masters.dart';
 import 'package:signtracker/blocs/sign_library/sign_library_bloc.dart';
 import 'package:signtracker/blocs/sign_library/sign_library_states.dart';
 import 'package:signtracker/repository/sign_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
-import 'package:signtracker/utilities/photo_util.dart';
+import 'package:signtracker/utilities/validators.dart';
 import 'package:signtracker/widgets/app_bar.dart';
-import 'package:path/path.dart' as p;
-
-import 'add_sign_library_page.dart';
 
 class SignLibraryPage extends StatefulWidget {
   static const String route = '/sign-library';
@@ -143,9 +141,9 @@ class _SignLibraryPageState extends State<SignLibraryPage> {
                                       children: <Widget>[
                                         Expanded(
                                           child: CachedNetworkImage(
-                                            imageUrl: sign.imageUrl != null
-                                                ? sign.imageUrl
-                                                : 'https://portal.thesigntracker.com/images/signs/no-sign.png',
+                                            imageUrl:
+                                                Validators.getSignImageLink(
+                                                    sign.imageUrl),
                                             progressIndicatorBuilder: (context,
                                                     url, downloadProgress) =>
                                                 CircularProgressIndicator(

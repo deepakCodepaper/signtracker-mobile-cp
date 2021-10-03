@@ -63,6 +63,18 @@ class _$UserSerializer implements StructuredSerializer<User> {
         ..add(serializers.serialize(object.avatar,
             specifiedType: const FullType(String)));
     }
+    if (object.countryCode != null) {
+      result
+        ..add('country_code')
+        ..add(serializers.serialize(object.countryCode,
+            specifiedType: const FullType(String)));
+    }
+    if (object.stateCode != null) {
+      result
+        ..add('state_code')
+        ..add(serializers.serialize(object.stateCode,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -109,6 +121,14 @@ class _$UserSerializer implements StructuredSerializer<User> {
           result.avatar = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'country_code':
+          result.countryCode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'state_code':
+          result.stateCode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -133,6 +153,10 @@ class _$User extends User {
   final String phone;
   @override
   final String avatar;
+  @override
+  final String countryCode;
+  @override
+  final String stateCode;
 
   factory _$User([void Function(UserBuilder) updates]) =>
       (new UserBuilder()..update(updates)).build();
@@ -145,7 +169,9 @@ class _$User extends User {
       this.updatedAt,
       this.username,
       this.phone,
-      this.avatar})
+      this.avatar,
+      this.countryCode,
+      this.stateCode})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('User', 'id');
@@ -170,7 +196,9 @@ class _$User extends User {
         updatedAt == other.updatedAt &&
         username == other.username &&
         phone == other.phone &&
-        avatar == other.avatar;
+        avatar == other.avatar &&
+        countryCode == other.countryCode &&
+        stateCode == other.stateCode;
   }
 
   @override
@@ -180,13 +208,17 @@ class _$User extends User {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, id.hashCode), name.hashCode),
-                            email.hashCode),
-                        createdAt.hashCode),
-                    updatedAt.hashCode),
-                username.hashCode),
-            phone.hashCode),
-        avatar.hashCode));
+                        $jc(
+                            $jc(
+                                $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                    email.hashCode),
+                                createdAt.hashCode),
+                            updatedAt.hashCode),
+                        username.hashCode),
+                    phone.hashCode),
+                avatar.hashCode),
+            countryCode.hashCode),
+        stateCode.hashCode));
   }
 
   @override
@@ -199,7 +231,9 @@ class _$User extends User {
           ..add('updatedAt', updatedAt)
           ..add('username', username)
           ..add('phone', phone)
-          ..add('avatar', avatar))
+          ..add('avatar', avatar)
+          ..add('countryCode', countryCode)
+          ..add('stateCode', stateCode))
         .toString();
   }
 }
@@ -208,36 +242,64 @@ class UserBuilder implements Builder<User, UserBuilder> {
   _$User _$v;
 
   int _id;
+
   int get id => _$this._id;
+
   set id(int id) => _$this._id = id;
 
   String _name;
+
   String get name => _$this._name;
+
   set name(String name) => _$this._name = name;
 
   String _email;
+
   String get email => _$this._email;
+
   set email(String email) => _$this._email = email;
 
   DateTime _createdAt;
+
   DateTime get createdAt => _$this._createdAt;
+
   set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
 
   DateTime _updatedAt;
+
   DateTime get updatedAt => _$this._updatedAt;
+
   set updatedAt(DateTime updatedAt) => _$this._updatedAt = updatedAt;
 
   String _username;
+
   String get username => _$this._username;
+
   set username(String username) => _$this._username = username;
 
   String _phone;
+
   String get phone => _$this._phone;
+
   set phone(String phone) => _$this._phone = phone;
 
   String _avatar;
+
   String get avatar => _$this._avatar;
+
   set avatar(String avatar) => _$this._avatar = avatar;
+
+  String _countryCode;
+
+  String get countryCode => _$this._countryCode;
+
+  set countryCode(String countryCode) => _$this._countryCode = countryCode;
+
+  String _stateCode;
+
+  String get stateCode => _$this._stateCode;
+
+  set stateCode(String stateCode) => _$this._stateCode = stateCode;
 
   UserBuilder();
 
@@ -251,6 +313,8 @@ class UserBuilder implements Builder<User, UserBuilder> {
       _username = _$v.username;
       _phone = _$v.phone;
       _avatar = _$v.avatar;
+      _countryCode = _$v.countryCode;
+      _stateCode = _$v.stateCode;
       _$v = null;
     }
     return this;
@@ -280,7 +344,9 @@ class UserBuilder implements Builder<User, UserBuilder> {
             updatedAt: updatedAt,
             username: username,
             phone: phone,
-            avatar: avatar);
+            avatar: avatar,
+            countryCode: countryCode,
+            stateCode: stateCode);
     replace(_$result);
     return _$result;
   }

@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:signtracker/api/model/sign.dart';
 import 'package:signtracker/api/model/sign_masters.dart';
@@ -19,6 +19,7 @@ import 'package:signtracker/feature/project/update/open_project_page.dart';
 import 'package:signtracker/repository/sign_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/utilities/pop_result.dart';
+import 'package:signtracker/utilities/validators.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
 import 'package:signtracker/widgets/success_box.dart';
@@ -427,7 +428,8 @@ class _AddSignsPageState extends State<AddSignsPage> {
 
     await pr.show();
 
-    await _downloadFile(sign.imageUrl, '$fileName', widget.directory);
+    await _downloadFile(Validators.getSignImageLink(sign.imageUrl), '$fileName',
+        widget.directory);
     print('downloaded sign-normal');
 
     if (fileName != 'existing-sign') {
