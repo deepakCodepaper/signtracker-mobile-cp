@@ -157,9 +157,6 @@ class _AddSignsPageState extends State<AddSignsPage> {
   }
 
   void goToSuccessfulPage(Sign sign) async {
-    final signWithImageName =
-        sign.rebuild((b) => b.image = widget.signSelected.imageUrl);
-
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -249,7 +246,8 @@ class _AddSignsPageState extends State<AddSignsPage> {
                                     height: MediaQuery.of(context).size.width *
                                         0.60,
                                     child: CachedNetworkImage(
-                                      imageUrl: widget.signSelected.imageUrl,
+                                      imageUrl: Validators.getSignImageLink(
+                                          widget.signSelected.imageUrl),
                                       progressIndicatorBuilder: (context, url,
                                               downloadProgress) =>
                                           CircularProgressIndicator(

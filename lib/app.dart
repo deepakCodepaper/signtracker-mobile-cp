@@ -1,17 +1,13 @@
-import 'dart:io';
-
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signtracker/blocs/auth/authentication_bloc.dart';
 import 'package:signtracker/feature/project/list/project_list_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
 import 'package:signtracker/feature/splash/splash_page.dart';
 import 'package:signtracker/repository/invitation_repository.dart';
 import 'package:signtracker/repository/project_repository.dart';
@@ -19,8 +15,8 @@ import 'package:signtracker/repository/sign_repository.dart';
 import 'package:signtracker/utilities/app_router.dart';
 import 'package:signtracker/utilities/app_theme.dart';
 import 'package:signtracker/utilities/notif_helper.dart';
+
 import 'feature/check_signs/check_signs_page.dart';
-import 'feature/landing/landing_page.dart';
 import 'repository/user_repository.dart';
 
 class App extends StatelessWidget {
@@ -55,7 +51,7 @@ class _StatefulAppState extends State<StatefulApp> {
   }
 
   Future<void> onSelectNotification(String payload) {
-    Navigator.pushNamed(context, CheckSignsPage.route,
+    return Navigator.pushNamed(context, CheckSignsPage.route,
         arguments: CheckSignsPageArgs(true));
   }
 
@@ -68,20 +64,6 @@ class _StatefulAppState extends State<StatefulApp> {
     // Since the only thing we can get current are new Alerts -- go to the Alert screen
     navigatorKey.currentState
         .pushNamed(CheckSignsPage.route, arguments: CheckSignsPageArgs(true));
-  }
-
-  void _handleSendNotification(String message) async {
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-    var playerId = status.subscriptionStatus.userId;
-    var notification = OSCreateNotification(
-        playerIds: [playerId],
-        content: message,
-        heading: "Test Notification",
-        buttons: [
-          OSActionButton(text: "test1", id: "id1"),
-          OSActionButton(text: "test2", id: "id2")
-        ]);
-    var response = await OneSignal.shared.postNotification(notification);
   }
 
   void _handleNotificationReceived(OSNotification notification) async {
