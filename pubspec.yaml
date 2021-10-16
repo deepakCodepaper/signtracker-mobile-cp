@@ -42,7 +42,7 @@ dependencies:
   flutter_launcher_icons: ^0.7.4
   jiffy: ^2.2.0
   keyboard_actions: ^3.2.1
-  smart_select: ^3.0.3
+  smart_select: ^4.3.2
   flutter_svg: ^0.19.0
   rflutter_alert: ^1.0.3
   flushbar: 1.10.2
@@ -60,7 +60,7 @@ dependencies:
   dropdown_formfield: ^0.1.2
   cached_network_image: ^2.1.0+1
   shared_preferences: ^0.5.7
-  flutter_ringtone_player: ^2.0.0
+  flutter_ringtone_player: ^3.0.0
   uni_links: ^0.4.0
   firebase_dynamic_links: ^0.5.0+11
   file_picker: ^1.9.0+1

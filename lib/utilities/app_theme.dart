@@ -6,18 +6,18 @@ final defaultAppTheme = ThemeData(
   primarySwatch: Colors.yellow,
   primaryColor: AppColors.yellowPrimary,
   textTheme: TextTheme(
-    headline: TextStyle(
+    headline1: TextStyle(
       fontSize: 72.0,
       fontWeight: FontWeight.bold,
     ),
-    title: TextStyle(
+    headline2: TextStyle(
       fontSize: 36.0,
       fontStyle: FontStyle.italic,
     ),
-    body1: TextStyle(
+    bodyText1: TextStyle(
       fontSize: 14.0,
     ),
-    body2: TextStyle(
+    bodyText2: TextStyle(
       color: Colors.blueAccent,
     ),
   ),

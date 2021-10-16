@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:signtracker/feature/check_signs/check_signs_page.dart';
-import 'package:signtracker/feature/project/create/choose_template2_page.dart';
 import 'package:signtracker/feature/project/create/initialize_project_page.dart';
 import 'package:signtracker/feature/project/list/project_list_page.dart';
 import 'package:signtracker/styles/values/values.dart';
@@ -161,7 +160,7 @@ class _Card extends StatelessWidget {
                   child: Text(
                     text,
                     style: GoogleFonts.montserrat(
-                      textStyle: textTheme.body1.copyWith(
+                      textStyle: textTheme.bodyText1.copyWith(
                         color: Colors.black,
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,

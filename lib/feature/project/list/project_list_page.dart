@@ -8,7 +8,6 @@ import 'package:signtracker/blocs/project_list/project_list_bloc.dart';
 import 'package:signtracker/blocs/project_list/project_list_states.dart';
 import 'package:signtracker/feature/check_signs/check_signs_page.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
-import 'package:signtracker/feature/project/create/create_project_page.dart';
 import 'package:signtracker/feature/project/create/initialize_project_page.dart';
 import 'package:signtracker/feature/project/update/open_project_page.dart';
 import 'package:signtracker/repository/invitation_repository.dart';
@@ -164,7 +163,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                           ),
                           hintText: 'Project Name',
                         ),
-                        style: textTheme.body1.copyWith(
+                        style: textTheme.bodyText1.copyWith(
                           color: Colors.yellow[700],
                         ),
                       ),

@@ -11,11 +11,11 @@ class FeaturesMultiPopup extends StatefulWidget {
 class _FeaturesMultiPopupState extends State<FeaturesMultiPopup> {
   List<String> _fruit = ['mel'];
 
-  List<SmartSelectOption<String>> options = [
-    SmartSelectOption<String>(value: 'active', title: 'Active'),
-    SmartSelectOption<String>(value: 'pending', title: 'Inactive'),
-    SmartSelectOption<String>(value: 'covered', title: 'Covered'),
-    SmartSelectOption<String>(value: 'pending', title: 'Uncovered'),
+  List<S2Choice<String>> options = [
+    S2Choice<String>(value: 'active', title: 'Active'),
+    S2Choice<String>(value: 'pending', title: 'Inactive'),
+    S2Choice<String>(value: 'covered', title: 'Covered'),
+    S2Choice<String>(value: 'pending', title: 'Uncovered'),
   ];
 
   @override
@@ -27,41 +27,47 @@ class _FeaturesMultiPopupState extends State<FeaturesMultiPopup> {
           SmartSelect<String>.multiple(
             title: 'Fruit',
             value: _fruit,
-            isTwoLine: true,
-            options: options,
-            modalType: SmartSelectModalType.popupDialog,
-            leading: Container(
-              width: 40,
-              alignment: Alignment.center,
-              child: const Icon(Icons.shopping_cart),
-            ),
-            onChange: (val) => setState(() => _fruit = val),
+            tileBuilder: (context, state) {
+              return S2Tile.fromState(
+                state,
+                isTwoLine: true,
+                leading: Container(
+                  width: 40,
+                  alignment: Alignment.center,
+                  child: const Icon(Icons.shopping_cart),
+                ),
+              );
+            },
+            choiceItems: options,
+            modalType: S2ModalType.popupDialog,
+            onChange: (state) => setState(() => _fruit = state.value),
           ),
           Divider(indent: 20),
           SmartSelect<String>.multiple(
             title: 'Frameworks',
             value: _fruit,
-            options: options,
-            modalType: SmartSelectModalType.popupDialog,
-            builder: (context, state, showOptions) {
-              return ListTile(
-                title: Text(state.title),
-                subtitle: Text(
-                  state.valueDisplay,
+            choiceItems: options,
+            modalType: S2ModalType.popupDialog,
+            tileBuilder: (context, state) {
+              return S2Tile.fromState(
+                state,
+                title: Text(
+                  state.title,
                   style: TextStyle(color: Colors.grey),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
+                value: state.valueDisplay,
                 leading: CircleAvatar(
                   backgroundColor: Colors.blue,
                   child: Text(_fruit.length.toString(),
                       style: TextStyle(color: Colors.white)),
                 ),
                 trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-                onTap: () => showOptions(context),
+                onTap: () => state.showModal(),
               );
             },
-            onChange: (val) => setState(() => _fruit = val),
+            onChange: (state) => setState(() => _fruit = state.value),
           ),
           Container(height: 7),
         ],

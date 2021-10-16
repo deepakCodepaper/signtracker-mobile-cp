@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/feature/project/maps/project_map_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
 import 'package:signtracker/feature/sub_project/create_sub_project.dart';
 import 'package:signtracker/styles/values/values.dart';
 
@@ -261,7 +260,7 @@ class _ExpandableProjectItemState extends State<ExpandableProjectItem>
     final ThemeData theme = Theme.of(context);
     _borderColor.end = theme.dividerColor;
     _headerColor
-      ..begin = theme.textTheme.subhead.color
+      ..begin = theme.textTheme.subtitle1.color
       ..end = theme.accentColor;
     _iconColor
       ..begin = theme.unselectedWidgetColor

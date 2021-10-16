@@ -38,7 +38,7 @@ class CardButtons extends StatelessWidget {
               text,
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
-                textStyle: textTheme.body1.copyWith(
+                textStyle: textTheme.bodyText1.copyWith(
                   color: Colors.black,
                   fontSize: 14.0,
                 ),
