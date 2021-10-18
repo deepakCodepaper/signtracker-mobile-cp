@@ -45,6 +45,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         stateCode: stateCode));
   }
 
+  void resetPasswordButtonPressed(String email) {
+    add(ResetPasswordButtonPressed(email: email));
+  }
+
   String validateLogin(String username, String password) {
     if (username.isEmpty) return 'Username is required!';
     if (password.isEmpty) return 'Password is required!';
@@ -59,6 +63,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (companyName.isEmpty) return 'Company Name is required!';
     if (countryCode.isEmpty) return 'Country is required!';
     if (stateCode.isEmpty) return 'State is required!';
+    return null;
+  }
+
+  String validateResetPassword(String email) {
+    if (email.isEmpty) return 'Email is required!';
     return null;
   }
 
@@ -105,6 +114,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else
           yield LoginFailure(
               error: 'Either the email or company name is taken.');
+      }
+    }
+
+    if (event is ResetPasswordButtonPressed) {
+      final validationMessage = validateResetPassword(event.email);
+      if (validationMessage?.isNotEmpty == true) {
+        yield ValidationFailure(error: validationMessage);
+      } else {
+        yield LoginLoading();
+        final result = await authenticationBloc.resetPassword(event.email);
+        if (result) {
+          yield LoginInfo(
+              info: 'You will receive an email to reset your password.');
+        } else {
+          yield LoginFailure(
+              error:
+                  'Failed to reset password. Please make sure your email is correct.');
+        }
       }
     }
   }

@@ -7,6 +7,7 @@ import 'package:signtracker/blocs/login/login_bloc.dart';
 import 'package:signtracker/blocs/login/login_state.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
 import 'package:signtracker/feature/register/register_page.dart';
+import 'package:signtracker/feature/reset_password/reset_password.dart';
 import 'package:signtracker/repository/user_repository.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
 
@@ -205,23 +206,18 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                         ),
-                        Visibility(
-                          visible: false,
-                          // hide for now as we don't have process for forgot password
-                          child: TextButton(
-                            child: Text(
-                              'Forgot Password?',
-                              style: textTheme.bodyText2.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        TextButton(
+                          child: Text(
+                            'Forgot Password?',
+                            style: textTheme.bodyText2.copyWith(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
-                            onPressed: () {
-                              usernameController.text =
-                                  'rhys.coronado@gmail.com';
-                              passwordController.text = 'test1234';
-                            },
                           ),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, ResetPasswordPage.route);
+                          },
                         ),
                       ],
                     ),
@@ -246,64 +242,6 @@ class _LoginPageState extends State<LoginPage> {
                     elevation: 0.0,
                   ),
                   SizedBox(height: 40),
-//                  Text(
-//                    'or sign in with',
-//                    style: textTheme.body1.copyWith(
-//                      color: Colors.grey,
-//                      fontSize: 15.0,
-//                      fontWeight: FontWeight.w800,
-//                    ),
-//                  ),
-//                  SizedBox(height: 20),
-//                  Padding(
-//                    padding: EdgeInsets.symmetric(horizontal: 20),
-//                    child: Row(
-//                      children: [
-//                        Expanded(
-//                          child: RoundedButton(
-//                            height: 50.0,
-//                            radius: 5.0,
-//                            onPressed: () {},
-//                            text: 'Google',
-//                            textColor: Colors.black,
-//                            textSize: 14.0,
-//                            textAlign: TextAlign.left,
-//                            borderColor: Colors.yellow[700],
-//                            borderWidth: 2.0,
-//                            color: Colors.white,
-//                            elevation: 0.0,
-//                            leading: Row(
-//                              children: [
-//                                SvgPicture.asset('assets/drawables/google.svg'),
-//                              ],
-//                            ),
-//                          ),
-//                        ),
-//                        SizedBox(width: 5),
-//                        Expanded(
-//                          child: RoundedButton(
-//                            height: 50.0,
-//                            radius: 5.0,
-//                            onPressed: () {},
-//                            text: 'Facebook',
-//                            textColor: Colors.black,
-//                            textSize: 14.0,
-//                            textAlign: null,
-//                            borderColor: Colors.yellow[700],
-//                            borderWidth: 2.0,
-//                            color: Colors.white,
-//                            elevation: 0.0,
-//                            leading: Row(
-//                              children: [
-//                                SvgPicture.asset(
-//                                    'assets/drawables/facebook.svg'),
-//                              ],
-//                            ),
-//                          ),
-//                        ),
-//                      ],
-//                    ),
-//                  ),
                   SizedBox(height: 20),
                   GestureDetector(
                     onTap: () => Navigator.pushReplacementNamed(

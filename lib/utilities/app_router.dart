@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:signtracker/api/model/sign.dart';
-import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/feature/check_signs/check_signs_page.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
 import 'package:signtracker/feature/help/help_page.dart';
@@ -11,30 +9,31 @@ import 'package:signtracker/feature/project/adjust_settings/adjust_settings_page
 import 'package:signtracker/feature/project/create/choose_template2_page.dart';
 import 'package:signtracker/feature/project/create/choose_template_page.dart';
 import 'package:signtracker/feature/project/create/create_project_page.dart';
+import 'package:signtracker/feature/project/create/initialize_project_page.dart';
 import 'package:signtracker/feature/project/create/new_project_page.dart';
-import 'package:signtracker/feature/register/register_page.dart';
-import 'package:signtracker/feature/sign_library/sign_library_template_page.dart';
-import 'package:signtracker/feature/template/template_parameters_page.dart';
+import 'package:signtracker/feature/project/create/template_page.dart';
 import 'package:signtracker/feature/project/email_recipients/email_recipient_views.dart';
 import 'package:signtracker/feature/project/list/project_list_page.dart';
 import 'package:signtracker/feature/project/logs/project_logs_page.dart';
+import 'package:signtracker/feature/project/maps/project_map_page.dart';
 import 'package:signtracker/feature/project/save/save_project_page.dart';
+import 'package:signtracker/feature/project/signs/add_signs_page.dart';
+import 'package:signtracker/feature/project/signs/sign_list_page.dart';
 import 'package:signtracker/feature/project/signs/sign_traffic_page.dart';
 import 'package:signtracker/feature/project/signs/update_signs_dialog.dart';
 import 'package:signtracker/feature/project/update/open_project_page.dart';
+import 'package:signtracker/feature/project/upload/upload_project_page.dart';
+import 'package:signtracker/feature/register/register_page.dart';
+import 'package:signtracker/feature/reset_password/reset_password.dart';
 import 'package:signtracker/feature/sign_library/add_sign_library_page.dart';
 import 'package:signtracker/feature/sign_library/sign_library_page.dart';
-import 'package:signtracker/feature/project/create/initialize_project_page.dart';
-import 'package:signtracker/feature/project/maps/project_map_page.dart';
-import 'package:signtracker/feature/project/signs/add_signs_page.dart';
-import 'package:signtracker/feature/project/signs/sign_list_page.dart';
-import 'package:signtracker/feature/project/create/template_page.dart';
-import 'package:signtracker/feature/project/upload/upload_project_page.dart';
+import 'package:signtracker/feature/sign_library/sign_library_template_page.dart';
 import 'package:signtracker/feature/splash/splash_page.dart';
 import 'package:signtracker/feature/sub_project/create_sub_project.dart';
 import 'package:signtracker/feature/sub_project/create_sub_project_confirmation.dart';
 import 'package:signtracker/feature/template/template_list_item_page.dart';
 import 'package:signtracker/feature/template/template_list_page.dart';
+import 'package:signtracker/feature/template/template_parameters_page.dart';
 import 'package:signtracker/feature/template/template_plan_view.dart';
 
 class AppRouter {
@@ -53,6 +52,10 @@ class AppRouter {
         return MaterialPageRoute(
             settings: RouteSettings(name: LoginPage.route),
             builder: (_) => RegisterPage());
+      case ResetPasswordPage.route:
+        return MaterialPageRoute(
+            settings: RouteSettings(name: LoginPage.route),
+            builder: (_) => ResetPasswordPage());
       case DashboardPage.route:
         return MaterialPageRoute(
             settings: RouteSettings(name: DashboardPage.route),

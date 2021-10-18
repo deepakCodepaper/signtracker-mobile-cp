@@ -53,3 +53,12 @@ class RegisterButtonPressed extends LoginEvent {
   String toString() =>
       'RegisterButtonPressed { username: $username, password: $password }';
 }
+
+class ResetPasswordButtonPressed extends LoginEvent {
+  final String email;
+
+  ResetPasswordButtonPressed({@required this.email}) : super([email]);
+
+  @override
+  String toString() => 'ResetPasswordButtonPressed { email: $email }';
+}

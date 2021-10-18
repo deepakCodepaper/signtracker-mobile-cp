@@ -50,6 +50,15 @@ class UserRepository {
     return false;
   }
 
+  Future<bool> resetPassword({@required String email}) async {
+    final api = authClient.getAuthApi();
+    final result = await api.resetPassword(email);
+    if (result == true) {
+      return true;
+    }
+    return false;
+  }
+
   Future<void> deleteToken() async {
     await tokenHelper.deleteToken();
   }

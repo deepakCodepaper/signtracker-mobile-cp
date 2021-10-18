@@ -44,6 +44,10 @@ class AuthenticationBloc
     );
   }
 
+  Future<bool> resetPassword(String email) async {
+    return await userRepository.resetPassword(email: email);
+  }
+
   Future<bool> isLoggedIn() async {
     return await userRepository.hasToken();
   }

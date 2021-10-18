@@ -1,6 +1,5 @@
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:signtracker/api/model/login.dart';
+import 'package:meta/meta.dart';
 
 abstract class LoginState extends Equatable {
   LoginState([List props = const []]) : super(props);
@@ -37,4 +36,13 @@ class ValidationFailure extends LoginState {
 
   @override
   String toString() => 'ValidationFailure { error : $error }';
+}
+
+class LoginInfo extends LoginState {
+  LoginInfo({@required this.info}) : super([info]);
+
+  final String info;
+
+  @override
+  String toString() => 'LoginInfo { info: $info }';
 }

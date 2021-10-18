@@ -83,8 +83,30 @@ class AuthApi {
     } on Exception catch (e) {
       print(e.toString());
     }
-
     return null;
+  }
+
+  Future<bool> resetPassword(String email) async {
+    final requestBody = <String, dynamic>{'email': email};
+
+    if (email == null) throw Exception('Email is required');
+
+    final path = '/reset_password';
+
+    try {
+      final response = await apiClient.dio.post(path,
+          data: jsonEncode(requestBody),
+          options: buildCacheOptions(Duration(hours: 1)));
+
+      if (response.data['success'] ?? false) {
+        return true;
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+    return false;
   }
 }
 
