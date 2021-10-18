@@ -15,15 +15,15 @@ class AuthApi {
 
   final String apiPath = 'auth';
 
-  Future<Login> login(String email, String password) async {
+  Future<dynamic> login(String email, String password) async {
     final requestBody = <String, dynamic>{
       'email': email,
       'password': password,
     };
 
-    if (email == null) throw Exception('Email is required');
+    if (email == null) return 'Email is required';
 
-    if (password == null) throw Exception('Password is required');
+    if (password == null) return 'Password is required';
 
     final path = '$apiPath/login';
 
@@ -33,6 +33,10 @@ class AuthApi {
           options: buildCacheOptions(Duration(hours: 1)));
 
       if (response.data != null) {
+        var message = (response.data['message'] ?? "").toString().toLowerCase();
+        if (message == "unverified") {
+          return "Your account hasn't been verified. Please check your Email";
+        }
         return deserializeOf<Login>(response.data['data']);
       }
     } on DioError catch (e) {
@@ -40,7 +44,6 @@ class AuthApi {
     } on Exception catch (e) {
       print(e.toString());
     }
-
     return null;
   }
 
@@ -53,7 +56,6 @@ class AuthApi {
       String countryCode,
       String stateName,
       String stateCode) async {
-
     final requestBody = <String, dynamic>{
       'email': email,
       'password': password,

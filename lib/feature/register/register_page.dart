@@ -108,7 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
         color: Colors.red,
         size: 20.0,
       ),
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 3),
     ).show(context);
   }
 

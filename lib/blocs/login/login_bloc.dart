@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:signtracker/api/model/login.dart';
 import 'package:signtracker/blocs/auth/authentication_bloc.dart';
 import 'package:signtracker/repository/user_repository.dart';
 
@@ -69,9 +70,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield ValidationFailure(error: validationMessage);
       } else {
         yield LoginLoading();
-        final login = await authenticationBloc.authenticate(
+        final loginResult = await authenticationBloc.authenticate(
             event.username, event.password);
-        if (login) {
+        if (loginResult is Login) {
           final status =
               await OneSignal.shared.getPermissionSubscriptionState();
           final test = await userRepository
@@ -79,7 +80,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           print(test);
           yield LoginSuccess();
         } else
-          yield LoginFailure(error: 'Login Failed');
+          yield LoginFailure(error: loginResult ?? 'Login Failed');
       }
     }
 

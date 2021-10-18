@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:signtracker/api/model/login.dart';
 import 'package:signtracker/api/model/user.dart';
 import 'package:signtracker/api/model/user_device.dart';
 import 'package:signtracker/network/auth_client.dart';
@@ -12,20 +13,22 @@ class UserRepository {
 
   final signTrackerClient = SignTrackerClient();
 
-  Future<bool> authenticate({
+  Future<dynamic> authenticate({
     @required String username,
     @required String password,
   }) async {
     final api = authClient.getAuthApi();
-    final login = await api.login(username, password);
-    if (login?.success == true) {
-      tokenHelper.persistName(login.user.name);
-      tokenHelper.persistToken(login.accessToken);
-      tokenHelper.persistCountryCode(login.user.countryCode);
-      tokenHelper.persistStateCode(login.user.stateCode);
-      return true;
+    final result = await api.login(username, password);
+    if (result is Login &&
+        result?.success == true &&
+        result?.accessToken != null &&
+        result?.user != null) {
+      tokenHelper.persistName(result.user.name);
+      tokenHelper.persistToken(result.accessToken);
+      tokenHelper.persistCountryCode(result.user.countryCode);
+      tokenHelper.persistStateCode(result.user.stateCode);
     }
-    return false;
+    return result;
   }
 
   Future<bool> register({

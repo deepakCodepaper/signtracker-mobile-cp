@@ -16,7 +16,7 @@ class AuthenticationBloc
   @override
   AuthenticationState get initialState => AuthenticationUninitialized();
 
-  Future<bool> authenticate(String username, String password) async {
+  Future<dynamic> authenticate(String username, String password) async {
     return await userRepository.authenticate(
       username: username,
       password: password,
@@ -32,7 +32,6 @@ class AuthenticationBloc
       String countryCode,
       String stateName,
       String stateCode) async {
-
     return await userRepository.register(
       username: username,
       password: password,
@@ -63,8 +62,8 @@ class AuthenticationBloc
 
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-      final sucess = await authenticate(event.username, event.password);
-      if (sucess) {
+      final success = await authenticate(event.username, event.password);
+      if (success.item1) {
         yield AuthenticationAuthenticated();
       } else {
         yield AuthenticationUnauthenticated();
