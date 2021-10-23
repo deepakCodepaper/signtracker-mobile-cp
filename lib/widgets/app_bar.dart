@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:signtracker/feature/login/login_page.dart';
+import 'package:signtracker/feature/landing/landing_page.dart';
 import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/utilities/token_helper.dart';
 
@@ -44,7 +43,8 @@ class SignTrackerAppBar {
               onPressed: () {
                 final tokenHelper = TokenHelper();
                 tokenHelper.deleteToken();
-                Navigator.pushReplacementNamed(context, LoginPage.route);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    LandingPage.route, (Route<dynamic> route) => false);
               },
             ),
           ],
