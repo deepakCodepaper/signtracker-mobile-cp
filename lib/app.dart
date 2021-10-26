@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +79,7 @@ class _StatefulAppState extends State<StatefulApp> {
 
   @override
   void initState() {
+    print("yow.Platform.packageConfig: ${Platform.packageConfig}");
     checkIfFirstRun();
     initDynamicLinks(context);
     initRepositories();
