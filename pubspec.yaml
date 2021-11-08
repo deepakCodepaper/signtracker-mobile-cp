@@ -55,6 +55,7 @@ dependencies:
   filesize: ^1.0.4
   responsive_framework: ^0.0.7
   cupertino_icons: ^1.0.0
+  package_info_plus: ^0.5.0
 
 dev_dependencies:
   flutter_test:
