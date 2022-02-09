@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -19,22 +19,18 @@ import 'package:signtracker/blocs/adjust_settings/adjust_settings_states.dart';
 import 'package:signtracker/feature/check_signs/check_signs_page.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
 import 'package:signtracker/feature/project/adjust_settings/adjust_settings_page.dart';
-import 'package:signtracker/feature/project/create/create_project_page.dart';
 import 'package:signtracker/feature/project/create/initialize_project_page.dart';
 import 'package:signtracker/feature/project/list/project_list_page.dart';
 import 'package:signtracker/feature/project/logs/project_logs_page.dart';
 import 'package:signtracker/feature/project/maps/project_map_page.dart';
 import 'package:signtracker/feature/project/save/save_project_page.dart';
 import 'package:signtracker/feature/sign_library/sign_library_template_page.dart';
-import 'package:signtracker/feature/template/template_list_page.dart';
 import 'package:signtracker/feature/template/template_parameters_page.dart';
 import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/card.dart';
-import 'package:smart_select/smart_select.dart';
-import 'package:path/path.dart' as p;
 
 class OpenProjectPageArgs {
   OpenProjectPageArgs(this.project, this.fromAddingSign);
@@ -102,8 +98,11 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
   }
 
   Future getImage() async {
-    image = await FilePicker.getFile(
-        allowedExtensions: ['jpg', 'pdf', 'png'], type: FileType.custom);
+    image = (await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'png'],
+      allowMultiple: false,
+    )) as File;
     imagepath = image.path;
 
     Navigator.pop(context);
@@ -248,7 +247,7 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
               Icons.add_circle_outline,
               color: Colors.black,
             ),
-            title: Text('New'),
+            label: 'New',
           ),
           new BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -256,21 +255,21 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
               fit: BoxFit.fill,
               color: Colors.black,
             ),
-            title: Text('Open'),
+            label: 'Open',
           ),
           new BottomNavigationBarItem(
             icon: Icon(
               Icons.flag,
               color: Colors.black,
             ),
-            title: Text('Check'),
+            label: 'Check',
           ),
           new BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
               color: Colors.black,
             ),
-            title: Text('Home'),
+            label: 'Home',
           )
         ],
       ),

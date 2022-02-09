@@ -293,23 +293,27 @@ class _DashboardPageState extends State<DashboardPage> {
           // new
           items: [
             new BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.add_circle_outline,
-                  color: Colors.black,
-                ),
-                title: Text('New')),
+              icon: Icon(
+                Icons.add_circle_outline,
+                color: Colors.black,
+              ),
+              label: 'New',
+            ),
             new BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/drawables/open-project.svg',
-                  fit: BoxFit.fill,
-                ),
-                title: Text('Open')),
+              icon: SvgPicture.asset(
+                'assets/drawables/open-project.svg',
+                fit: BoxFit.fill,
+              ),
+              label: 'Open',
+            ),
             new BottomNavigationBarItem(
-                icon: Icon(Icons.flag, color: Colors.black),
-                title: Text('Check')),
+              icon: Icon(Icons.flag, color: Colors.black),
+              label: 'Check',
+            ),
             new BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.black),
-                title: Text('Home'))
+              icon: Icon(Icons.home, color: Colors.black),
+              label: 'Home',
+            )
           ],
         ),
       ),

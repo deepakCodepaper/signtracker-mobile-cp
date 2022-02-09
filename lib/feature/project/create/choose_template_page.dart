@@ -80,13 +80,21 @@ class _ChooseTemplatePageState extends State<ChooseTemplatePage> {
         // new
         items: [
           new BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle_outline), title: Text('Add')),
+            icon: Icon(Icons.add_circle_outline),
+            label: 'Add',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.settings), title: Text('Open')),
+            icon: Icon(Icons.settings),
+            label: 'Open',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.flag), title: Text('Create')),
+            icon: Icon(Icons.flag),
+            label: 'Create',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.home), title: Text('Home'))
+            icon: Icon(Icons.home),
+            label: 'Home',
+          )
         ],
       ),
     );

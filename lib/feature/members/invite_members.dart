@@ -1,5 +1,4 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -197,12 +196,17 @@ class _InviteMembersPageState extends State<InviteMembersPage> {
         // new
         items: [
           new BottomNavigationBarItem(
-              icon: Icon(Icons.group_add),
-              title: Text(isMembers ? 'Invite Company' : 'Invite Members')),
+            icon: Icon(Icons.group_add),
+            label: isMembers ? 'Invite Company' : 'Invite Members',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.close), title: Text('Cancel')),
+            icon: Icon(Icons.close),
+            label: 'Cancel',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.insert_invitation), title: Text('Invite')),
+            icon: Icon(Icons.insert_invitation),
+            label: 'Invite',
+          ),
         ],
       ),
     );

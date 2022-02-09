@@ -9,7 +9,6 @@ import 'package:signtracker/blocs/login/login_bloc.dart';
 import 'package:signtracker/blocs/login/login_state.dart';
 import 'package:signtracker/feature/login/login_page.dart';
 import 'package:signtracker/repository/user_repository.dart';
-import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/utilities/color_helper.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
 
@@ -28,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController companyNameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
 
   // Initially password is obscure
   bool _obscureText = true;
@@ -40,13 +39,16 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
+  String companyCode = "";
+  List companies = List.empty(growable: true);
+
   String stateCode = "";
   List states = List.empty(growable: true);
 
   String countryCode = "";
   List countries = List.empty(growable: true);
 
-  loadJson() async {
+  loadCountries() async {
     String data = await DefaultAssetBundle.of(context)
         .loadString('assets/countries_regions.json');
     setState(() {
@@ -54,14 +56,25 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
+  loadCompanies() async {
+    String data = await DefaultAssetBundle.of(context)
+        .loadString('assets/companies.json');
+    setState(() {
+      companies = json.decode(data);
+    });
+  }
+
   @override
   void initState() {
     bloc = LoginBloc(
-        RepositoryProvider.of<AuthenticationBloc>(context), UserRepository());
+      RepositoryProvider.of<AuthenticationBloc>(context),
+      UserRepository(),
+    );
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await loadJson();
+      await loadCountries();
+      await loadCompanies();
     });
   }
 
@@ -71,7 +84,10 @@ class _RegisterPageState extends State<RegisterPage> {
     final username = usernameController.text;
     final password = passwordController.text;
     final name = nameController.text;
-    final companyName = companyNameController.text;
+    final mobile = mobileController.text;
+    final companyIndex =
+        companies.indexWhere((element) => element['code'] == companyCode);
+    final companyName = companyIndex > 0 ? companies[companyIndex]['name'] : "";
     final countryIndex =
         countries.indexWhere((element) => element['iso3'] == countryCode);
     final countryName = countryIndex > 0 ? countries[countryIndex]['name'] : "";
@@ -85,8 +101,10 @@ class _RegisterPageState extends State<RegisterPage> {
       showSnackBar('Password is required.');
     } else if (name.isEmpty) {
       showSnackBar('Name is required.');
-    } else if (companyName.isEmpty) {
-      showSnackBar('Company Name is required.');
+    } else if (mobile.isEmpty) {
+      showSnackBar('Mobile is required.');
+    } else if (companyCode.isEmpty) {
+      showSnackBar('Company is required.');
     } else if (countryCode.isEmpty) {
       showSnackBar('Country is required.');
     } else if (states.length > 0 && stateCode.isEmpty) {
@@ -163,24 +181,29 @@ class _RegisterPageState extends State<RegisterPage> {
                             Text(
                               'You have successfully created an account! \nPlease check the email you registered and verify your account before logging in.',
                               style: GoogleFonts.karla(
-                                  fontSize: 16, fontStyle: FontStyle.normal),
+                                fontSize: 16,
+                                fontStyle: FontStyle.normal,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(height: 25),
                             Container(
                               height: 48,
                               width: 140,
-                              child: FlatButton(
-                                color: AppColors.blueDialogButton,
+                              child: TextButton(
+                                // color: AppColors.blueDialogButton,
                                 child: new Text(
                                   'OK',
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                                 onPressed: () {
                                   Navigator.pushReplacementNamed(
-                                      context, LoginPage.route);
+                                    context,
+                                    LoginPage.route,
+                                  );
                                 },
                               ),
                             ),
@@ -299,7 +322,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      controller: companyNameController,
+                      controller: mobileController,
                       enabled: !(state is LoginLoading),
                       style: textTheme.bodyText2.copyWith(
                         color: Colors.yellow[700],
@@ -317,11 +340,64 @@ class _RegisterPageState extends State<RegisterPage> {
                             width: 2,
                           ),
                         ),
-                        hintText: 'Company Name',
+                        hintText: 'Mobile Number',
                         hintStyle: textTheme.bodyText2.copyWith(
                           color: Colors.black38,
                         ),
                       ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[200],
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.yellow[700],
+                            width: 2,
+                          ),
+                        ),
+                        hintText: 'Select Company',
+                        hintStyle: textTheme.bodyText2.copyWith(
+                          color: Colors.black38,
+                        ),
+                      ),
+                      value: companyCode == '' ? null : companyCode,
+                      onChanged: (newValue) {
+                        setState(() {
+                          companyCode = newValue;
+                        });
+                      },
+                      items: companies.map((item) {
+                        return DropdownMenuItem(
+                          value: item['code'],
+                          /*child: RoundedButton(
+                            onPressed: () => print('hey'),
+                            text: 'Add Company',
+                            textColor: Colors.black,
+                            radius: 2.0,
+                            textSize: 16.0,
+                            textAlign: TextAlign.center,
+                            fontWeight: FontWeight.bold,
+                            borderColor: Colors.yellow[700],
+                            borderWidth: 2.0,
+                            color: Colors.yellow[700],
+                            elevation: 0.0,
+                          ),
+                          */
+                          child: Text(
+                            item['name'],
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -409,7 +485,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   SizedBox(height: 50),
                   RoundedButton(
-                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
                     height: 50.0,
                     radius: 5.0,
                     onPressed:

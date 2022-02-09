@@ -205,7 +205,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
               Icons.add_circle_outline,
               color: Colors.black,
             ),
-            title: Text('New'),
+            label: 'New',
           ),
           new BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -213,21 +213,21 @@ class _ProjectListPageState extends State<ProjectListPage> {
               fit: BoxFit.fill,
               color: Colors.black,
             ),
-            title: Text('Open'),
+            label: 'Open',
           ),
           new BottomNavigationBarItem(
             icon: Icon(
               Icons.flag,
               color: Colors.black,
             ),
-            title: Text('Check'),
+            label: 'Check',
           ),
           new BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
               color: Colors.black,
             ),
-            title: Text('Home'),
+            label: 'Home',
           )
         ],
       ),

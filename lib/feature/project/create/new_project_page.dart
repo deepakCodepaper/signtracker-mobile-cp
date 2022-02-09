@@ -3,8 +3,6 @@ import 'package:signtracker/feature/check_signs/check_signs_page.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
 import 'package:signtracker/feature/project/create/choose_template_page.dart';
 import 'package:signtracker/feature/project/list/project_list_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
-import 'package:signtracker/feature/sub_project/create_sub_project.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/menu_button.dart';
 
@@ -67,13 +65,21 @@ class _NewProjectPageState extends State<NewProjectPage> {
         // new
         items: [
           new BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle_outline), title: Text('Add')),
+            icon: Icon(Icons.add_circle_outline),
+            label: 'Add',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.settings), title: Text('Open')),
+            icon: Icon(Icons.settings),
+            label: 'Open',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.flag), title: Text('Create')),
+            icon: Icon(Icons.flag),
+            label: 'Create',
+          ),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.home), title: Text('Home'))
+            icon: Icon(Icons.home),
+            label: 'Home',
+          )
         ],
       ),
     );

@@ -1,10 +1,12 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 
 class Calculator {
-  static double calculateDistanceBetweenTwoPoints(maps.LatLng first, maps.LatLng second) {
+  static double calculateDistanceBetweenTwoPoints(
+      maps.LatLng first, maps.LatLng second) {
     final Distance distance = Distance();
-    return distance.distance(LatLng(first.latitude, first.longitude), LatLng(second.latitude, second.longitude));
+    return distance.distance(LatLng(first.latitude, first.longitude),
+        LatLng(second.latitude, second.longitude));
   }
 
   static bool isTwoPointsEqual(maps.LatLng first, maps.LatLng second) {

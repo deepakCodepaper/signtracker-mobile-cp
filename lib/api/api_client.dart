@@ -5,7 +5,7 @@ class ApiClient {
   ApiClient({String basePath, this.token}) {
     dio.options.baseUrl = basePath;
     dio.interceptors
-      ..add(InterceptorsWrapper(
+      /*..add(InterceptorsWrapper(
         onRequest: (options) {
           var opt = options
             ..headers[Headers.acceptHeader] = 'application/json'
@@ -16,6 +16,20 @@ class ApiClient {
           return opt;
         },
         onError: (error) => error,
+      ))*/
+      ..add(InterceptorsWrapper(
+        onRequest: (options, handler) {
+          var opt = options
+            ..headers[Headers.acceptHeader] = 'application/json'
+            ..headers[Headers.contentTypeHeader] = 'application/json';
+          if (token != null) {
+            opt = opt..headers['Authorization'] = 'Bearer $token';
+          }
+          return opt;
+        },
+        onError: (error, handler) {
+          return error;
+        },
       ))
       ..add(LogInterceptor(
         responseHeader: true,

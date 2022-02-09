@@ -10,8 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
-import 'package:keyboard_actions/keyboard_actions_config.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
@@ -20,20 +21,15 @@ import 'package:signtracker/feature/check_signs/check_signs_page.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
 import 'package:signtracker/feature/members/invite_members.dart';
 import 'package:signtracker/feature/project/adjust_settings/adjust_settings_page.dart';
-import 'package:signtracker/feature/template/template_parameters_page.dart';
 import 'package:signtracker/feature/project/list/project_list_page.dart';
 import 'package:signtracker/feature/project/save/save_project_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
-import 'package:signtracker/feature/template/template_list_page.dart';
+import 'package:signtracker/feature/template/template_parameters_page.dart';
 import 'package:signtracker/repository/invitation_repository.dart';
 import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:progress_dialog/progress_dialog.dart';
-import 'package:path/path.dart' as p;
 import 'package:signtracker/widgets/timer.dart';
 
 class InitializeProjectArgs {
@@ -65,7 +61,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
   final intersectionNumber2 = TextEditingController();
 
   final FocusNode nodeProjectNumber = FocusNode();
-  final FocusNode nodeComissionedBy = FocusNode();
+  final FocusNode nodeCommissionedBy = FocusNode();
   final FocusNode nodeIntersectionNumber1 = FocusNode();
   final FocusNode nodeIntersectionNumber2 = FocusNode();
   List<int> selectedMembers = new List<int>();
@@ -101,7 +97,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
           displayArrows: true,
         ),
         KeyboardActionsItem(
-          focusNode: nodeComissionedBy,
+          focusNode: nodeCommissionedBy,
           displayDoneButton: true,
           displayArrows: true,
         ),
@@ -231,8 +227,11 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
   }
 
   Future getImage() async {
-    image = await FilePicker.getFile(
-        allowedExtensions: ['jpg', 'pdf', 'png'], type: FileType.custom);
+    image = (await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'png'],
+      allowMultiple: false,
+    )) as File;
     Navigator.pop(context);
     if (!allowedFileSize(image)) {
       showSnackBar('File exceeds limit of 1 MB', Colors.redAccent);
@@ -488,7 +487,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.text,
                           inputFormatters: [
-                            BlacklistingTextInputFormatter(new RegExp('[ ]'))
+                            FilteringTextInputFormatter(new RegExp('[ ]'))
                           ],
                         ),
                       ),
@@ -506,7 +505,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
                       child: SizedBox(
                         width: 220,
                         child: TextField(
-                          focusNode: nodeComissionedBy,
+                          focusNode: nodeCommissionedBy,
                           controller: commissionedBy,
                           decoration: InputDecoration(
                             hintText: 'Commissioned By',
@@ -731,7 +730,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
               Icons.add_circle_outline,
               color: Colors.black,
             ),
-            title: Text('New'),
+            label: 'New',
           ),
           new BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -739,21 +738,21 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
               fit: BoxFit.fill,
               color: Colors.black,
             ),
-            title: Text('Open'),
+            label: 'Open',
           ),
           new BottomNavigationBarItem(
             icon: Icon(
               Icons.flag,
               color: Colors.black,
             ),
-            title: Text('Check'),
+            label: 'Check',
           ),
           new BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
               color: Colors.black,
             ),
-            title: Text('Home'),
+            label: 'Home',
           )
         ],
       ),

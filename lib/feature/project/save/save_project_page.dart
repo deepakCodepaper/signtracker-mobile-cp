@@ -394,8 +394,11 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
   }
 
   Future getImage() async {
-    image = await FilePicker.getFile(
-        allowedExtensions: ['jpg', 'pdf', 'png'], type: FileType.custom);
+    image = (await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'png'],
+      allowMultiple: false,
+    )) as File;
     imagepath = image.path;
 
     Navigator.pop(context);
