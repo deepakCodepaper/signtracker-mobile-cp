@@ -29,7 +29,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       String username,
       String password,
       String name,
-      String companyName,
+      String mobile,
+      String companyCode,
       String countryName,
       String countryCode,
       String stateName,
@@ -38,7 +39,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         username: username,
         password: password,
         name: name,
-        companyName: companyName,
+        mobile: mobile,
+        companyCode: companyCode,
         countryName: countryName,
         countryCode: countryCode,
         stateName: stateName,
@@ -55,12 +57,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     return null;
   }
 
-  String validateRegister(String username, String password, String name,
-      String companyName, String countryCode, String stateCode) {
+  String validateRegister(
+    String username,
+    String password,
+    String name,
+    String mobile,
+    String companyCode,
+    String countryCode,
+    String stateCode,
+  ) {
     if (username.isEmpty) return 'Username is required!';
     if (password.isEmpty) return 'Password is required!';
     if (name.isEmpty) return 'Name is required!';
-    if (companyName.isEmpty) return 'Company Name is required!';
+    if (mobile.isEmpty) return 'Mobile number is required!';
+    if (companyCode.isEmpty) return 'Company code is required!';
     if (countryCode.isEmpty) return 'Country is required!';
     if (stateCode.isEmpty) return 'State is required!';
     return null;
@@ -94,8 +104,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     if (event is RegisterButtonPressed) {
-      final validationMessage = validateRegister(event.username, event.password,
-          event.name, event.companyName, event.countryCode, event.stateCode);
+      final validationMessage = validateRegister(
+          event.username,
+          event.password,
+          event.name,
+          event.mobile,
+          event.companyCode,
+          event.countryCode,
+          event.stateCode);
       if (validationMessage?.isNotEmpty == true) {
         yield ValidationFailure(error: validationMessage);
       } else {
@@ -104,7 +120,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             event.username,
             event.password,
             event.name,
-            event.companyName,
+            event.mobile,
+            event.companyCode,
             event.countryName,
             event.countryCode,
             event.stateName,

@@ -28,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
+  TextEditingController companyController = TextEditingController();
 
   // Initially password is obscure
   bool _obscureText = true;
@@ -38,9 +39,6 @@ class _RegisterPageState extends State<RegisterPage> {
       _obscureText = !_obscureText;
     });
   }
-
-  String companyCode = "";
-  List companies = List.empty(growable: true);
 
   String stateCode = "";
   List states = List.empty(growable: true);
@@ -56,14 +54,6 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  loadCompanies() async {
-    String data = await DefaultAssetBundle.of(context)
-        .loadString('assets/companies.json');
-    setState(() {
-      companies = json.decode(data);
-    });
-  }
-
   @override
   void initState() {
     bloc = LoginBloc(
@@ -74,7 +64,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await loadCountries();
-      await loadCompanies();
     });
   }
 
@@ -85,9 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final password = passwordController.text;
     final name = nameController.text;
     final mobile = mobileController.text;
-    final companyIndex =
-        companies.indexWhere((element) => element['code'] == companyCode);
-    final companyName = companyIndex > 0 ? companies[companyIndex]['name'] : "";
+    final companyCode = companyController.text;
     final countryIndex =
         countries.indexWhere((element) => element['iso3'] == countryCode);
     final countryName = countryIndex > 0 ? countries[countryIndex]['name'] : "";
@@ -104,13 +91,13 @@ class _RegisterPageState extends State<RegisterPage> {
     } else if (mobile.isEmpty) {
       showSnackBar('Mobile is required.');
     } else if (companyCode.isEmpty) {
-      showSnackBar('Company is required.');
+      showSnackBar('Company code is required.');
     } else if (countryCode.isEmpty) {
       showSnackBar('Country is required.');
     } else if (states.length > 0 && stateCode.isEmpty) {
       showSnackBar('State is required.');
     } else {
-      bloc.registerButtonPressed(username, password, name, companyName,
+      bloc.registerButtonPressed(username, password, name, mobile, companyCode,
           countryName, countryCode, stateName, stateCode);
     }
   }
@@ -147,72 +134,73 @@ class _RegisterPageState extends State<RegisterPage> {
             showSnackBar(state.error);
           } else if (state is LoginSuccess) {
             showDialog<dynamic>(
-                context: context,
-                barrierDismissible: true,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    title: Center(
+              context: context,
+              barrierDismissible: true,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  title: Center(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: HexColor("#4CAF50"),
+                          size: 75,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Account Created!',
+                          style: GoogleFonts.karla(
+                              color: HexColor("#4CAF50"),
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                  content: Container(
+                    height: 200,
+                    child: Center(
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.check_circle_outline,
-                            color: HexColor("#4CAF50"),
-                            size: 75,
-                          ),
-                          SizedBox(height: 20),
                           Text(
-                            'Account Created!',
+                            'You have successfully created an account! \nPlease check the email you registered and verify your account before logging in.',
                             style: GoogleFonts.karla(
-                                color: HexColor("#4CAF50"),
-                                fontSize: 25,
-                                fontWeight: FontWeight.w700,
-                                fontStyle: FontStyle.normal),
+                              fontSize: 16,
+                              fontStyle: FontStyle.normal,
+                            ),
                             textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 25),
+                          Container(
+                            height: 48,
+                            width: 140,
+                            child: TextButton(
+                              // color: AppColors.blueDialogButton,
+                              child: new Text(
+                                'OK',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  LoginPage.route,
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    content: Container(
-                      height: 200,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Text(
-                              'You have successfully created an account! \nPlease check the email you registered and verify your account before logging in.',
-                              style: GoogleFonts.karla(
-                                fontSize: 16,
-                                fontStyle: FontStyle.normal,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 25),
-                            Container(
-                              height: 48,
-                              width: 140,
-                              child: TextButton(
-                                // color: AppColors.blueDialogButton,
-                                child: new Text(
-                                  'OK',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    LoginPage.route,
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                });
+                  ),
+                );
+              },
+            );
           }
         },
         builder: (context, state) {
@@ -350,7 +338,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: DropdownButtonFormField(
+                    child: TextField(
+                      controller: companyController,
+                      enabled: !(state is LoginLoading),
+                      style: textTheme.bodyText2.copyWith(
+                        color: Colors.yellow[700],
+                      ),
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -364,40 +357,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             width: 2,
                           ),
                         ),
-                        hintText: 'Select Company',
+                        hintText: 'Company code',
                         hintStyle: textTheme.bodyText2.copyWith(
                           color: Colors.black38,
                         ),
                       ),
-                      value: companyCode == '' ? null : companyCode,
-                      onChanged: (newValue) {
-                        setState(() {
-                          companyCode = newValue;
-                        });
-                      },
-                      items: companies.map((item) {
-                        return DropdownMenuItem(
-                          value: item['code'],
-                          /*child: RoundedButton(
-                            onPressed: () => print('hey'),
-                            text: 'Add Company',
-                            textColor: Colors.black,
-                            radius: 2.0,
-                            textSize: 16.0,
-                            textAlign: TextAlign.center,
-                            fontWeight: FontWeight.bold,
-                            borderColor: Colors.yellow[700],
-                            borderWidth: 2.0,
-                            color: Colors.yellow[700],
-                            elevation: 0.0,
-                          ),
-                          */
-                          child: Text(
-                            item['name'],
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                        );
-                      }).toList(),
                     ),
                   ),
                   SizedBox(height: 20),

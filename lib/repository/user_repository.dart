@@ -35,15 +35,16 @@ class UserRepository {
     @required String username,
     @required String password,
     @required String name,
-    @required String companyName,
+    @required String mobile,
+    @required String companyCode,
     String countryName,
     String countryCode,
     String stateName,
     String stateCode,
   }) async {
     final api = authClient.getAuthApi();
-    final register = await api.register(username, password, name, companyName,
-        countryName, countryCode, stateName, stateCode);
+    final register = await api.register(username, password, name, mobile,
+        companyCode, countryName, countryCode, stateName, stateCode);
     if (register == true) {
       return true;
     }

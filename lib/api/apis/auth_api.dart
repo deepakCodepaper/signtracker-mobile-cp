@@ -28,9 +28,13 @@ class AuthApi {
     final path = '$apiPath/login';
 
     try {
-      final response = await apiClient.dio.post(path,
-          data: jsonEncode(requestBody),
-          options: buildCacheOptions(Duration(hours: 1)));
+      Response<dynamic> response = await apiClient.dio.post(
+        path,
+        data: jsonEncode(requestBody),
+        options: buildCacheOptions(
+          Duration(hours: 1),
+        ),
+      );
 
       if (response.data != null) {
         var message = (response.data['message'] ?? "").toString().toLowerCase();
@@ -51,7 +55,8 @@ class AuthApi {
       String email,
       String password,
       String name,
-      String companyName,
+      String mobile,
+      String companyCode,
       String countryName,
       String countryCode,
       String stateName,
@@ -60,7 +65,8 @@ class AuthApi {
       'email': email,
       'password': password,
       'name': name,
-      'company_name': companyName,
+      'mobile': mobile,
+      'company_code': companyCode,
       'country_name': countryName,
       'country_code': countryCode,
       'state_name': stateName,

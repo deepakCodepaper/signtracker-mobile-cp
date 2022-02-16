@@ -5,37 +5,29 @@ class ApiClient {
   ApiClient({String basePath, this.token}) {
     dio.options.baseUrl = basePath;
     dio.interceptors
-      /*..add(InterceptorsWrapper(
-        onRequest: (options) {
-          var opt = options
-            ..headers[Headers.acceptHeader] = 'application/json'
-            ..headers[Headers.contentTypeHeader] = 'application/json';
-          if (token != null) {
-            opt = opt..headers['Authorization'] = 'Bearer $token';
-          }
-          return opt;
-        },
-        onError: (error) => error,
-      ))*/
-      ..add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-          var opt = options
-            ..headers[Headers.acceptHeader] = 'application/json'
-            ..headers[Headers.contentTypeHeader] = 'application/json';
-          if (token != null) {
-            opt = opt..headers['Authorization'] = 'Bearer $token';
-          }
-          return opt;
-        },
-        onError: (error, handler) {
-          return error;
-        },
-      ))
-      ..add(LogInterceptor(
-        responseHeader: true,
-        requestBody: true,
-        responseBody: true,
-      ))
+      ..add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            var opt = options
+              ..headers[Headers.acceptHeader] = 'application/json'
+              ..headers[Headers.contentTypeHeader] = 'application/json';
+            if (token != null) {
+              opt = opt..headers['Authorization'] = 'Bearer $token';
+            }
+            return handler.next(options);
+          },
+          onError: (error, handler) {
+            return handler.next(error);
+          },
+        ),
+      )
+      ..add(
+        LogInterceptor(
+          responseHeader: true,
+          requestBody: true,
+          responseBody: true,
+        ),
+      )
       ..add((DioCacheManager(CacheConfig(baseUrl: basePath)).interceptor));
   }
 

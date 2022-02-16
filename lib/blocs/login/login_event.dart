@@ -23,7 +23,8 @@ class RegisterButtonPressed extends LoginEvent {
   final String username;
   final String password;
   final String name;
-  final String companyName;
+  final String mobile;
+  final String companyCode;
   final String countryName;
   final String countryCode;
   final String stateName;
@@ -33,7 +34,8 @@ class RegisterButtonPressed extends LoginEvent {
     @required this.username,
     @required this.password,
     @required this.name,
-    @required this.companyName,
+    @required this.mobile,
+    @required this.companyCode,
     @required this.countryName,
     @required this.countryCode,
     @required this.stateName,
@@ -42,7 +44,8 @@ class RegisterButtonPressed extends LoginEvent {
           username,
           password,
           name,
-          companyName,
+          mobile,
+          companyCode,
           countryName,
           countryCode,
           stateName,
