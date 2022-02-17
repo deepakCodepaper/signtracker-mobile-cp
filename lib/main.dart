@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:signtracker/app.dart';
+import 'package:signtracker/utilities/app_flavors.dart';
+import 'package:signtracker/utilities/constants.dart';
 
 class AppBlocDelegate extends BlocDelegate {
   @override
@@ -23,7 +26,7 @@ class AppBlocDelegate extends BlocDelegate {
   }
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   BlocSupervisor.delegate = AppBlocDelegate();
@@ -32,5 +35,27 @@ void main() {
   OneSignal.shared
       .setInFocusDisplayType(OSNotificationDisplayType.notification);
 
+  final settings = await _getFlavorSettings();
+  apiUrl = settings.apiUrl;
+  storageUrl = settings.storageUrl;
+  portalImagesUrl = settings.portalImagesUrl;
+
+  debugPrint('yow.apiUrl: $apiUrl');
+  debugPrint('yow.storageUrl: $storageUrl');
+  debugPrint('yow.portalImagesUrl: $portalImagesUrl');
   runApp(App());
+}
+
+Future<AppFlavors> _getFlavorSettings() async {
+  String flavor =
+      await const MethodChannel('flavor').invokeMethod<String>('getFlavor');
+  switch (flavor) {
+    case 'dev':
+    case 'stg':
+      return AppFlavors.stg();
+    case 'prod':
+      return AppFlavors.prod();
+    default:
+      throw Exception("Unknown flavor: $flavor");
+  }
 }

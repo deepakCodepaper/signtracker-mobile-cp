@@ -14,7 +14,6 @@ import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/repository/sign_repository.dart';
 import 'package:signtracker/utilities/app_router.dart';
 import 'package:signtracker/utilities/app_theme.dart';
-import 'package:signtracker/utilities/constants.dart';
 import 'package:signtracker/utilities/notif_helper.dart';
 
 import 'feature/check_signs/check_signs_page.dart';
@@ -43,8 +42,6 @@ class _StatefulAppState extends State<StatefulApp> {
   NotifHelper notifHelper;
 
   final navigatorKey = GlobalKey<NavigatorState>();
-
-//  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   void checkAuth() async {
     final userLoggedIn = await authenticationBloc.isLoggedIn();
@@ -78,8 +75,6 @@ class _StatefulAppState extends State<StatefulApp> {
 
   @override
   void initState() {
-    print("yow.baseUrl: ${Constants.getBaseUrl()}");
-
     checkIfFirstRun();
     initDynamicLinks(context);
     initRepositories();
