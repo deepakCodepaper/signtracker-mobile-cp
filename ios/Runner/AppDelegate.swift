@@ -23,7 +23,6 @@ import GoogleMaps
             result(flavor)
         })
         GMSServices.provideAPIKey("AIzaSyAMrpgVNPl5zF7DkFxeWZaD_Bh08eQKMyE")
-        GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 }
