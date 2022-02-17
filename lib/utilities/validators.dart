@@ -1,3 +1,5 @@
+import 'constants.dart';
+
 class Validators {
   static final RegExp _emailRegExp = RegExp(
     r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
@@ -17,7 +19,7 @@ class Validators {
 
   static getSignImageLink(String imageUrl) {
     if (imageUrl == null) {
-      return "https://portal.thesigntracker.com/images/signs/no-sign.png";
+      return "$portalImagesUrl/images/signs/no-sign.png";
     } else {
       return imageUrl.startsWith("http://")
           ? imageUrl.replaceAll("http://", "https://")

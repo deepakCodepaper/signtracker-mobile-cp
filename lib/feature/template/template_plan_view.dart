@@ -1,33 +1,26 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:signtracker/api/model/invitation.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/blocs/check_signs/check_signs_bloc.dart';
-import 'package:signtracker/blocs/check_signs/check_signs_states.dart';
-import 'package:signtracker/feature/dashboard/dashboard_page.dart';
 import 'package:signtracker/feature/project/create/initialize_project_page.dart';
 import 'package:signtracker/feature/project/maps/project_map_page.dart';
-import 'package:signtracker/feature/project/save/save_project_page.dart';
-import 'package:signtracker/feature/project/update/open_project_page.dart';
-import 'package:signtracker/feature/template/template_list_page.dart';
 import 'package:signtracker/repository/invitation_repository.dart';
 import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/repository/user_repository.dart';
-import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
-import 'package:path/path.dart' as p;
-import 'package:http/http.dart' as http;
+
+import '../../utilities/constants.dart';
 
 class TemplatePlanListItemViewPage extends StatefulWidget {
   const TemplatePlanListItemViewPage(
@@ -110,7 +103,7 @@ class _TemplatePlanListItemViewPageState
                   color: Colors.white,
                   child: PhotoView(
                     imageProvider: NetworkImage(
-                        'https://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg'),
+                        '$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg'),
                   ),
                 ),
                 Positioned(
@@ -160,7 +153,7 @@ class _TemplatePlanListItemViewPageState
       SignProject signProject = widget.signProject;
       signProject = signProject.rebuild((b) => b
         ..plan =
-            'https://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg'
+            '$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg'
         ..type = '${widget.selectedTemplate.name}');
 
       String identifier = '';
@@ -208,7 +201,7 @@ class _TemplatePlanListItemViewPageState
     }
 
     File imageTest = await _downloadFile(
-        'https://portal.thesigntracker.com/images/plans/${widget.selectedTemplate.drawingNumber}.jpg',
+        '$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg',
         '$identifier',
         appDocPath);
 

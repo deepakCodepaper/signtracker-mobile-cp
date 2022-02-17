@@ -32,6 +32,8 @@ import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/card.dart';
 
+import '../../../utilities/constants.dart';
+
 class OpenProjectPageArgs {
   OpenProjectPageArgs(this.project, this.fromAddingSign);
 
@@ -493,7 +495,7 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
 
   viewPlan() async {
     var isChangePlan;
-    if (project.plan != 'https://api.thesigntracker.com/storage') {
+    if (project.plan != storageUrl) {
       print(project.plan);
       isChangePlan = await viewPlanOnline(context, project.plan);
       print(isChangePlan);

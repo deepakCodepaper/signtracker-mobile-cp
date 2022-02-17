@@ -7,26 +7,23 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:signtracker/api/model/sign.dart';
-import 'package:signtracker/api/model/sign_masters.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/blocs/project/project_bloc.dart';
 import 'package:signtracker/blocs/project/project_states.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
-import 'package:signtracker/feature/project/save/save_project_page.dart';
 import 'package:signtracker/feature/project/signs/sign_list_page.dart';
-import 'package:signtracker/feature/project/signs/sign_traffic_page.dart';
-import 'package:signtracker/feature/project/signs/update_signs_dialog.dart';
 import 'package:signtracker/feature/project/update/open_project_page.dart';
 import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/repository/sign_repository.dart';
@@ -36,9 +33,8 @@ import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/maps.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
-import 'package:smart_select/smart_select.dart';
-import 'package:path/path.dart' as p;
-import 'package:http/http.dart' as http;
+
+import '../../../utilities/constants.dart';
 
 enum ProjectMapStatus { Initial, ToStart, Started, Stopped }
 enum SignStatus { active, inactive, covered, uncovered, fixed }
@@ -1484,12 +1480,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     bool isExist = File(file).existsSync();
     if (!isExist) {
       print('================download====================$folder');
-      print('https://portal.thesigntracker.com/images/$folder/$fileName.png');
+      print('$portalImagesUrl/$folder/$fileName.png');
       print('$fileName$status');
-      await _downloadFile(
-          'https://portal.thesigntracker.com/images/$folder/$fileName.png',
-          '$fileName$status',
-          appDirectory.path);
+      await _downloadFile('$portalImagesUrl/$folder/$fileName.png',
+          '$fileName$status', appDirectory.path);
     } else {
       print('no need to download');
     }

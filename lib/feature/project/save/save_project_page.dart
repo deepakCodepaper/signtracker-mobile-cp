@@ -30,6 +30,8 @@ import 'package:signtracker/utilities/pop_result.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
 
+import '../../../utilities/constants.dart';
+
 class SaveProjectPageArgs {
   const SaveProjectPageArgs(this.project, this.returnToDashboard);
 
@@ -630,7 +632,7 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
 
   viewPlan() async {
     var isChangePlan;
-    if (project.plan != 'https://api.thesigntracker.com/storage') {
+    if (project.plan != storageUrl) {
       isChangePlan = await viewPlanOnline(context, project.plan);
       print(isChangePlan);
     } else if (imagepath != null) {

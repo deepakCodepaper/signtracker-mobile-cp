@@ -24,6 +24,8 @@ import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/rounded_button.dart';
 import 'package:signtracker/widgets/success_box.dart';
 
+import '../../../utilities/constants.dart';
+
 class AddSignsPageArgs {
   const AddSignsPageArgs(
       this.projectId,
@@ -431,28 +433,20 @@ class _AddSignsPageState extends State<AddSignsPage> {
     print('downloaded sign-normal');
 
     if (fileName != 'existing-sign') {
-      await _downloadFile(
-          'https://portal.thesigntracker.com/images/signs-check/$fileName.png',
-          '${fileName}check',
-          widget.directory);
+      await _downloadFile('$portalImagesUrl/signs-check/$fileName.png',
+          '${fileName}check', widget.directory);
       print('downloaded sign-check');
-      await _downloadFile(
-          'https://portal.thesigntracker.com/images/signs-check-against/$fileName.png',
-          '${fileName}checkagainst',
-          widget.directory);
+      await _downloadFile('$portalImagesUrl/signs-check-against/$fileName.png',
+          '${fileName}checkagainst', widget.directory);
       print('downloaded check-against');
-      await _downloadFile(
-          'https://portal.thesigntracker.com/images/signs-shaded/$fileName.png',
-          '${fileName}shaded',
-          widget.directory);
+      await _downloadFile('$portalImagesUrl/signs-shaded/$fileName.png',
+          '${fileName}shaded', widget.directory);
       print('downloaded shaded');
-      await _downloadFile(
-          'https://portal.thesigntracker.com/images/signs-shaded-check/$fileName.png',
-          '${fileName}shadedcheck',
-          widget.directory);
+      await _downloadFile('$portalImagesUrl/signs-shaded-check/$fileName.png',
+          '${fileName}shadedcheck', widget.directory);
       print('downloaded shaded-check');
       await _downloadFile(
-          'https://portal.thesigntracker.com/images/signs-shaded-check-against/$fileName.png',
+          '$portalImagesUrl/signs-shaded-check-against/$fileName.png',
           '${fileName}shadedcheckagainst',
           widget.directory);
       print('downloaded shadedcheckagainst');
