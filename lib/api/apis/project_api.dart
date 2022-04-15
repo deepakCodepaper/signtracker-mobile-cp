@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:dio/dio.dart';
@@ -20,20 +21,36 @@ class ProjectApi {
 
   final ApiClient apiClient;
 
-  final String apiPath = 'projects';
+  final String apiPath = 'admin/projects';
+  final String apiPath2 = 'projects';
 
   Future<List<SignProject>> getProjects({int parentId = 0}) async {
+    print("here");
     var path = apiPath;
     if (parentId != 0) {
       path = '$apiPath?parent=$parentId';
     }
 
     try {
+      print("DATA_JSON10");
+      print(path.toString());
       final response = await apiClient.dio.get(path,
           options: buildCacheOptions(Duration(hours: 1), forceRefresh: true));
-
+      print("DATA_JSON11");
       if (response.data != null) {
+        /*List<dynamic> ab = response.data['data'];
+        print(ab.length.toString());
+        String data = jsonEncode(ab[1]);
+        print(ab[1].toString());*/
+       /* final history = response.data['data'];
+        final data_limit = <SignProject>[];
+        for (var item in history) {
+          data_limit.add(SignProject.fromJson(item));
+        }
+        print(data_limit.length);
+        print(data_limit[0].toString());*/
         return deserializeListOf<SignProject>(response.data['data']).toList();
+        //return SignProject.fromJSON(response.data['data']);
       }
     } on DioError catch (e) {
       print(e.message);
@@ -271,7 +288,7 @@ class ProjectApi {
   }
 
   Future<Emails> fetchEmailRecipients(int projectId) async {
-    final path = '$apiPath/$projectId/email_recipients';
+    final path = '$apiPath2/$projectId/email_recipients';
 
     try {
       final response = await apiClient.dio.get(path);
@@ -289,7 +306,7 @@ class ProjectApi {
 
   Future<Emails> updateEmailRecipients(
       EmailsRequest emailsrequest, int projectId) async {
-    final path = '$apiPath/$projectId/email_recipients';
+    final path = '$apiPath2/$projectId/email_recipients';
 
     final body = standardSerializers.serialize(emailsrequest);
 
@@ -311,7 +328,7 @@ class ProjectApi {
   }
 
   Future<Schedule> getScheduleReport(int projectId) async {
-    final path = '$apiPath/$projectId/report_schedule';
+    final path = '$apiPath2/$projectId/report_schedule';
 
     try {
       final response = await apiClient.dio.get(path);
@@ -336,7 +353,7 @@ class ProjectApi {
       String hour,
       String minute,
       String meridian) async {
-    final path = '$apiPath/$projectId/report_schedule';
+    final path = '$apiPath2/$projectId/report_schedule';
 
     FormData formData = new FormData.fromMap({
       "every_n_days": int.parse(daily),
@@ -363,12 +380,20 @@ class ProjectApi {
   }
 
   Future<bool> sendReportNow(int projectId) async {
-    final path = '$apiPath/$projectId/send_now';
+    final path = '$apiPath2/$projectId/send_now';
 
-    FormData formData = new FormData.fromMap({});
+    final email = await fetchEmailRecipients(projectId);
+
+    FormData formData = new FormData.fromMap({
+      'from': null,
+      'to': null,
+      //'emails':[{'email':'deepak.codepaper@gmail.com'}]
+      'emails':[{'email': email.emails.toList()}]
+    });
 
     try {
       final response = await apiClient.dio.post(path, data: formData);
+      print(response.data.toString());
       if (response.data != null) {
         return true;
       }

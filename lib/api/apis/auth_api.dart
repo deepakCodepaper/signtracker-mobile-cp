@@ -13,11 +13,11 @@ class AuthApi {
 
   final ApiClient apiClient;
 
-  final String apiPath = 'auth';
+  final String apiPath = 'admin/auth';
 
   Future<dynamic> login(String email, String password) async {
     final requestBody = <String, dynamic>{
-      'email': email,
+      'username': email,
       'password': password,
     };
 
@@ -37,15 +37,18 @@ class AuthApi {
       );
 
       if (response.data != null) {
+        print("yes");
         var message = (response.data['message'] ?? "").toString().toLowerCase();
-        if (message == "unverified") {
+       /* if (message == "unverified") {
           return "Your account hasn't been verified. Please check your Email";
-        }
+        }*/
         return deserializeOf<Login>(response.data['data']);
       }
     } on DioError catch (e) {
+      print("e");
       print(e.message);
     } on Exception catch (e) {
+      print("exce");
       print(e.toString());
     }
     return null;

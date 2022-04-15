@@ -24,11 +24,13 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool rememberMe = true;
   LoginBloc bloc;
+  TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController companyController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
   // Initially password is obscure
   bool _obscureText = true;
@@ -211,6 +213,35 @@ class _RegisterPageState extends State<RegisterPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
+                      controller: nameController,
+                      enabled: !(state is LoginLoading),
+                      style: textTheme.bodyText2.copyWith(
+                        color: Colors.yellow[700],
+                      ),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[200],
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.yellow[700],
+                            width: 2,
+                          ),
+                        ),
+                        hintText: 'Name',
+                        hintStyle: textTheme.bodyText2.copyWith(
+                          color: Colors.black38,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: TextField(
                       controller: usernameController,
                       enabled: !(state is LoginLoading),
                       style: textTheme.bodyText2.copyWith(
@@ -271,35 +302,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         hintText: 'Password',
-                        hintStyle: textTheme.bodyText2.copyWith(
-                          color: Colors.black38,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: TextField(
-                      controller: nameController,
-                      enabled: !(state is LoginLoading),
-                      style: textTheme.bodyText2.copyWith(
-                        color: Colors.yellow[700],
-                      ),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey[200],
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.yellow[700],
-                            width: 2,
-                          ),
-                        ),
-                        hintText: 'Name',
                         hintStyle: textTheme.bodyText2.copyWith(
                           color: Colors.black38,
                         ),
@@ -425,7 +427,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             width: 2,
                           ),
                         ),
-                        hintText: 'Select State',
+                        hintText: 'State/Province',
                         hintStyle: textTheme.bodyText2.copyWith(
                           color: Colors.black38,
                         ),
@@ -445,6 +447,64 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         );
                       }).toList(),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: TextField(
+                      controller: cityController,
+                      enabled: !(state is LoginLoading),
+                      style: textTheme.bodyText2.copyWith(
+                        color: Colors.yellow[700],
+                      ),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[200],
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.yellow[700],
+                            width: 2,
+                          ),
+                        ),
+                        hintText: 'City',
+                        hintStyle: textTheme.bodyText2.copyWith(
+                          color: Colors.black38,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: TextField(
+                      controller: addressController,
+                      enabled: !(state is LoginLoading),
+                      style: textTheme.bodyText2.copyWith(
+                        color: Colors.yellow[700],
+                      ),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[200],
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.yellow[700],
+                            width: 2,
+                          ),
+                        ),
+                        hintText: 'Address',
+                        hintStyle: textTheme.bodyText2.copyWith(
+                          color: Colors.black38,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(height: 50),
@@ -494,6 +554,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 40),
                 ],
               ),
             ),

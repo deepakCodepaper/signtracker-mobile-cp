@@ -66,9 +66,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     String countryCode,
     String stateCode,
   ) {
+    if (name.isEmpty) return 'Name is required!';
     if (username.isEmpty) return 'Username is required!';
     if (password.isEmpty) return 'Password is required!';
-    if (name.isEmpty) return 'Name is required!';
     if (mobile.isEmpty) return 'Mobile number is required!';
     if (companyCode.isEmpty) return 'Company code is required!';
     if (countryCode.isEmpty) return 'Country is required!';

@@ -658,7 +658,8 @@ class _$SignProject extends SignProject {
   }
 }
 
-class SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
+class
+SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
   _$SignProject _$v;
 
   int _id;

@@ -161,7 +161,7 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
         onPressed: () => navigateToProjectMapPage(),
       ),
       CardButtons(
-          text: 'Check Sign',
+          text: 'Check Signs',
           imagePath: 'assets/drawables/check_signs.svg',
           onPressed: () {
             Navigator.pushNamed(

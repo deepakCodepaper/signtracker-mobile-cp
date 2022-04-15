@@ -19,15 +19,18 @@ class UserRepository {
   }) async {
     final api = authClient.getAuthApi();
     final result = await api.login(username, password);
+    print(result.toString());
     if (result is Login &&
         result?.success == true &&
         result?.accessToken != null &&
         result?.user != null) {
+      print("success");
       tokenHelper.persistName(result.user.name);
       tokenHelper.persistToken(result.accessToken);
       tokenHelper.persistCountryCode(result.user.countryCode);
       tokenHelper.persistStateCode(result.user.stateCode);
     }
+    print("fail");
     return result;
   }
 

@@ -487,7 +487,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.text,
                           inputFormatters: [
-                            FilteringTextInputFormatter(new RegExp('[ ]'))
+                            FilteringTextInputFormatter.allow(new RegExp('[ ]'))
                           ],
                         ),
                       ),
