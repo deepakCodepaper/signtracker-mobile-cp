@@ -92,10 +92,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final loginResult = await authenticationBloc.authenticate(
             event.username, event.password);
         if (loginResult is Login) {
-          final status =
-              await OneSignal.shared.getPermissionSubscriptionState();
-          final test = await userRepository
-              .registerDevice(status.subscriptionStatus.userId);
+          //final status = await OneSignal.shared.getPermissionSubscriptionState();
+          final status = await OneSignal.shared.getDeviceState();
+          //final test = await userRepository.registerDevice(status.subscriptionStatus.userId);
+          final test = await userRepository.registerDevice(status.userId);
           print(test);
           yield LoginSuccess();
         } else

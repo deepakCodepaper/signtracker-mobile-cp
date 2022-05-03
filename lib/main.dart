@@ -30,10 +30,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   BlocSupervisor.delegate = AppBlocDelegate();
-  OneSignal.shared.init("23fb4990-dac7-459e-8b80-d88fcbb2b565",
-      iOSSettings: {OSiOSSettings.autoPrompt: false});
-  OneSignal.shared
-      .setInFocusDisplayType(OSNotificationDisplayType.notification);
+  //OneSignal.shared.init("23fb4990-dac7-459e-8b80-d88fcbb2b565", iOSSettings: {OSiOSSettings.autoPrompt: false});
+  OneSignal.shared.setAppId("23fb4990-dac7-459e-8b80-d88fcbb2b565");
+  //OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
+  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+    print("Accepted permission: $accepted");
+  });
 
   final settings = await _getFlavorSettings();
   apiUrl = settings.apiUrl;

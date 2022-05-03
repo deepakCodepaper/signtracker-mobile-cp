@@ -65,7 +65,8 @@ class _StatefulAppState extends State<StatefulApp> {
   }
 
   void _handleNotificationReceived(OSNotification notification) async {
-    notification.payload.jsonRepresentation();
+    //notification.payload.jsonRepresentation();
+    notification.jsonRepresentation();
     print(notification.jsonRepresentation());
 
     notifHelper.getNotifNumber().then((value) {
@@ -82,8 +83,11 @@ class _StatefulAppState extends State<StatefulApp> {
     notifHelper = NotifHelper();
     super.initState();
 
-    OneSignal.shared
-      ..setNotificationReceivedHandler(_handleNotificationReceived);
+    //OneSignal.shared..setNotificationReceivedHandler(_handleNotificationReceived);
+    OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
+      /// Display Notification, send null to not display, send notification to display
+      event.complete(event.notification);
+    });
 
     OneSignal.shared
         .setNotificationOpenedHandler((OSNotificationOpenedResult result) {

@@ -381,22 +381,23 @@ class _DashboardPageState extends State<DashboardPage> {
       bool result =
           await OneSignal.shared.promptUserForPushNotificationPermission();
       if (result ?? true) {
-        OneSignal.shared.setSubscription(true);
+        OneSignal.shared.disablePush(true);
         print('subscription true');
       } else {
         print('subscription false');
-        OneSignal.shared.setSubscription(false);
+        OneSignal.shared.disablePush(false);
       }
     } else {
       print('subscription false');
-      OneSignal.shared.setSubscription(false);
+      OneSignal.shared.disablePush(false);
     }
   }
 
   void loadNotificationState() {
-    OneSignal.shared.getPermissionSubscriptionState().then((onValue) {
+    OneSignal.shared.getDeviceState().then((onValue) {
       setState(() {
-        isNotificationON = onValue.subscriptionStatus.userSubscriptionSetting;
+        //isNotificationON = onValue.subscriptionStatus.userSubscriptionSetting;
+        isNotificationON = onValue.hasNotificationPermission;
       });
     });
   }
