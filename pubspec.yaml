@@ -2,7 +2,7 @@ name: signtracker
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.3.5+1
+version: 1.3.5+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -16,7 +16,7 @@ dependencies:
   bloc: ^3.0.0
   flutter_bloc: ^3.1.0
   meta: ^1.7.0
-  equatable: ^0.2.0
+  equatable: ^0.2.6
   google_maps_flutter: ^2.1.3
   location: 4.3.0
   dio: ^4.0.6
@@ -27,13 +27,14 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   image_picker: ^0.8.5
   progress_dialog: ^1.2.3
-  flutter_slidable: ^0.5.4
+  flutter_slidable: ^1.2.0
   jiffy: ^5.0.0
   keyboard_actions: ^3.2.1
   smart_select: ^4.3.2
   flutter_svg: ^1.0.0
   rflutter_alert: ^2.0.4
-  flushbar: ^1.10.4
+  #flushbar: ^1.10.4
+  another_flushbar: ^1.10.28
   rounded_loading_button: ^1.0.4
   google_fonts: ^2.3.1
   onesignal_flutter: ^3.3.0
@@ -46,11 +47,12 @@ dependencies:
   badges: ^2.0.2
   uuid: ^3.0.6
   dropdown_formfield: ^0.1.2
-  cached_network_image: ^2.1.0+1
+  cached_network_image: ^2.5.1
   shared_preferences: ^2.0.6
   flutter_ringtone_player: ^3.0.0
   uni_links: ^0.5.1
-  firebase_dynamic_links: ^0.5.0+11
+  #firebase_dynamic_links: ^0.5.0+11
+  firebase_dynamic_links: ^2.0.8
   file_picker: ^4.5.1
   filesize: ^2.0.1
   responsive_framework: ^0.1.7
@@ -62,7 +64,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   built_value_generator: any
-  build_runner: any
+  build_runner: ^2.1.10
   flutter_launcher_icons: ^0.9.2
 
 flutter:

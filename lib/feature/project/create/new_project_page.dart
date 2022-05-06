@@ -35,7 +35,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: SignTrackerAppBar.createAppBar(context, 'New Project'),
+      appBar: SignTrackerAppBar.createAppBar(context, 'New11 Project'),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(

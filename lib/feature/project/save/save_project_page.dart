@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -107,7 +107,7 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
     Flushbar(
       flushbarStyle: FlushbarStyle.FLOATING,
       margin: EdgeInsets.all(8),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       message: message,
       icon: Icon(
         Icons.info,
@@ -123,7 +123,7 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
       flushbarStyle: FlushbarStyle.GROUNDED,
       backgroundColor: Colors.green,
       margin: EdgeInsets.all(5),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       message: message,
       icon: Icon(
         Icons.check_circle_outline,

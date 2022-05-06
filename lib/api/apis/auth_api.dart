@@ -79,7 +79,7 @@ class AuthApi {
     if (email == null) throw Exception('Email is required');
     if (password == null) throw Exception('Password is required');
 
-    final path = 'admin/$apiPath/register';
+    final path = '$apiPath/register';
 
     try {
       final _ = await apiClient.dio.post(path,

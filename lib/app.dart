@@ -1,5 +1,5 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -114,7 +114,7 @@ class _StatefulAppState extends State<StatefulApp> {
     Flushbar(
       flushbarStyle: FlushbarStyle.FLOATING,
       margin: EdgeInsets.all(8),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       message: message,
       icon: Icon(
         Icons.info,
@@ -130,6 +130,7 @@ class _StatefulAppState extends State<StatefulApp> {
     var data = await FirebaseDynamicLinks.instance.getInitialLink();
     var deepLink = data?.link;
     final queryParams = deepLink.queryParameters;
+    print("LNK 111 -- " + deepLink.toString());
     debugPrint('test');
     showSuccessSnackBar('test');
 
@@ -148,6 +149,7 @@ class _StatefulAppState extends State<StatefulApp> {
     }
     FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamicLink) async {
       var deepLink = dynamicLink?.link;
+      print("LNK 11111 -- " + deepLink.toString());
       debugPrint('test2');
       debugPrint('DynamicLinks onLink $deepLink');
     }, onError: (e) async {
@@ -157,6 +159,7 @@ class _StatefulAppState extends State<StatefulApp> {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData dynamicLink) async {
       final Uri deepLink = dynamicLink?.link;
+      print("LNK 1111100 -- " + deepLink.toString());
       if (deepLink != null) {
         print(deepLink.queryParameters['id']); // <- prints 'abc'
       }

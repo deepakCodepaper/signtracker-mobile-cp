@@ -419,6 +419,7 @@ class _DashboardPageState extends State<DashboardPage> {
     await Future.delayed(Duration(seconds: 3));
     var data = await FirebaseDynamicLinks.instance.getInitialLink();
     var deepLink = data?.link;
+    print("LNK 000 -- " + deepLink.toString());
     final queryParams = deepLink.queryParameters;
     debugPrint('test');
 
@@ -434,6 +435,7 @@ class _DashboardPageState extends State<DashboardPage> {
     }
     FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamicLink) async {
       var deepLink = dynamicLink?.link;
+      print("LNK 00000 -- " + deepLink.toString());
       debugPrint('test2');
       debugPrint('DynamicLinks onLink $deepLink');
       Navigator.pushNamed(context, ProjectListPage.route,
@@ -445,6 +447,7 @@ class _DashboardPageState extends State<DashboardPage> {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData dynamicLink) async {
       final Uri deepLink = dynamicLink?.link;
+      print("LNK 0000011 -- " + deepLink.toString());
       if (deepLink != null) {
         print(deepLink.queryParameters['id']); // <- prints 'abc'
         Navigator.pushNamed(context, ProjectListPage.route,

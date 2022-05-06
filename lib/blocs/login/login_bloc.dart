@@ -95,6 +95,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           //final status = await OneSignal.shared.getPermissionSubscriptionState();
           final status = await OneSignal.shared.getDeviceState();
           //final test = await userRepository.registerDevice(status.subscriptionStatus.userId);
+          print("Notification ID - " + status.userId);
           final test = await userRepository.registerDevice(status.userId);
           print(test);
           yield LoginSuccess();

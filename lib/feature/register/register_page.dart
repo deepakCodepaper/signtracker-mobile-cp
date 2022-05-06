@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -72,9 +72,9 @@ class _RegisterPageState extends State<RegisterPage> {
   void onRegisterButtonPressed() {
     FocusScope.of(context).requestFocus(FocusNode());
 
+    final name = nameController.text;
     final username = usernameController.text;
     final password = passwordController.text;
-    final name = nameController.text;
     final mobile = mobileController.text;
     final companyCode = companyController.text;
     final countryIndex =
@@ -83,8 +83,10 @@ class _RegisterPageState extends State<RegisterPage> {
     final stateIndex =
         states.indexWhere((element) => element['state_code'] == stateCode);
     final stateName = stateIndex > 0 ? states[stateIndex]['name'] : "";
+    final city = cityController.text;
+    final address = addressController.text;
 
-    if (username.isEmpty) {
+    /*if (username.isEmpty) {
       showSnackBar('Username is required.');
     } else if (password.isEmpty) {
       showSnackBar('Password is required.');
@@ -101,6 +103,29 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       bloc.registerButtonPressed(username, password, name, mobile, companyCode,
           countryName, countryCode, stateName, stateCode);
+    }*/
+
+    if (name.isEmpty) {
+      showSnackBar('Name is required.');
+    }else if (username.isEmpty) {
+      showSnackBar('Email is required.');
+    } else if (password.isEmpty) {
+      showSnackBar('Password is required.');
+    } else if (mobile.isEmpty) {
+      showSnackBar('Mobile is required.');
+    } else if (companyCode.isEmpty) {
+      showSnackBar('Company code is required.');
+    } else if (countryCode.isEmpty) {
+      showSnackBar('Country is required.');
+    } else if (states.length > 0 && stateCode.isEmpty) {
+      showSnackBar('State is required.');
+    } else if (city.isEmpty) {
+      showSnackBar('City is required.');
+    } else if (address.isEmpty) {
+      showSnackBar('Address is required.');
+    } else {
+      bloc.registerButtonPressed(username, password, name, mobile, companyCode,
+          countryName, countryCode, stateName, stateCode);
     }
   }
 
@@ -108,7 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
     Flushbar(
       flushbarStyle: FlushbarStyle.FLOATING,
       margin: EdgeInsets.all(8),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       message: message,
       icon: Icon(
         Icons.warning,

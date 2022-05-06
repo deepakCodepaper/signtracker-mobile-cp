@@ -19,7 +19,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/LaunchTheme"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize">
@@ -49,8 +49,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
                 <data
-                    android:scheme="http"
-                    android:host="thesigntracker.online" />
+                    android:scheme="https"
+                    android:host="thesigntracker.page.link" />
+
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

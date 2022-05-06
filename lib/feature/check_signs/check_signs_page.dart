@@ -297,9 +297,97 @@ class _CheckSignsPageState extends State<CheckSignsPage> {
                 } else {
                   final item = list[index] as _CheckSignsItem2;
                   return Slidable(
-                    actionPane: SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
-                    child: InkWell(
+                    startActionPane: ActionPane(
+                        motion: DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        InkWell(
+                          onTap: () => {
+                            selectedIndex = index,
+                            selectedProjectToStart = item.project,
+                            bloc.startCheck(item.project.id),
+                          },
+                          child: Container(
+                            height: 90,
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(top: 5),
+                                  height: 12,
+                                  width: 12,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            '${item.project.project.identifier ?? '${item.project.project.contractNumber}'}',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.0,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          '${item.project.project.highway}:${item.project.project.intersection}',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(width: 20),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Schedule:',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 12.0,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            dateFormat
+                                                .format(item.project.schedule),
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 12.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    //actionPane: SlidableDrawerActionPane(),
+                    //actionExtentRatio: 0.25,
+                    /*child: InkWell(
                       onTap: () => {
                         selectedIndex = index,
                         selectedProjectToStart = item.project,
@@ -380,7 +468,7 @@ class _CheckSignsPageState extends State<CheckSignsPage> {
                           ],
                         ),
                       ),
-                    ),
+                    ),*/
 //                    secondaryActions: [
 //                      SlideAction(
 //                        onTap: () => {

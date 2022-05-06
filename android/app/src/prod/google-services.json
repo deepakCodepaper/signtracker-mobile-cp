@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "581385481417",
-    "project_id": "thesigntracker-f865a",
-    "storage_bucket": "thesigntracker-f865a.appspot.com"
+    "project_number": "437218980617",
+    "project_id": "signtracker-cfe9c",
+    "storage_bucket": "signtracker-cfe9c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:581385481417:android:7d75545a82c4d79743f118",
+        "mobilesdk_app_id": "1:437218980617:android:3a47fbc9a744d644c799d8",
         "android_client_info": {
           "package_name": "com.cardanmarketing.signtrackerapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "581385481417-drh8j67mg0e42a1fi7b94jqrg81un3j9.apps.googleusercontent.com",
+          "client_id": "437218980617-41kr2lfm905asshltvqo4o408mshclb5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVSg0J7ujhbn-JYtVitEGBCOJjAn1HehU"
+          "current_key": "AIzaSyDLrL3GaLuX37CnBnbdoG2ygGEj1McptXA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "581385481417-drh8j67mg0e42a1fi7b94jqrg81un3j9.apps.googleusercontent.com",
+              "client_id": "437218980617-41kr2lfm905asshltvqo4o408mshclb5.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "581385481417-dmcl78v8kklriv0qbokfkasjodsqgkjo.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.cardanmarketing.signtracker",
-                "app_store_id": "1493004386"
-              }
             }
           ]
         }

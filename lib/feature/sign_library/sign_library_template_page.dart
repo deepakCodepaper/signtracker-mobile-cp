@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,7 +77,7 @@ class _SignLibraryTemplatePageState extends State<SignLibraryTemplatePage> {
     Flushbar(
       flushbarStyle: FlushbarStyle.FLOATING,
       margin: EdgeInsets.all(8),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       message: message,
       icon: Icon(
         Icons.error,
@@ -92,7 +92,7 @@ class _SignLibraryTemplatePageState extends State<SignLibraryTemplatePage> {
     Flushbar(
       flushbarStyle: FlushbarStyle.FLOATING,
       margin: EdgeInsets.all(8),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       message: message,
       icon: Icon(
         Icons.info,

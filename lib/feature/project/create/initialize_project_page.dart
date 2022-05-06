@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:filesize/filesize.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,7 +120,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
       flushbarStyle: FlushbarStyle.FLOATING,
       flushbarPosition: FlushbarPosition.TOP,
       margin: EdgeInsets.all(8),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       message: message,
       icon: Icon(
         Icons.info,
@@ -486,9 +486,9 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
                           ),
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.text,
-                          inputFormatters: [
+                          /*inputFormatters: [
                             FilteringTextInputFormatter.allow(new RegExp('[ ]'))
-                          ],
+                          ],*/
                         ),
                       ),
                     ),
