@@ -32,7 +32,7 @@ class AuthenticationBloc
       String countryName,
       String countryCode,
       String stateName,
-      String stateCode) async {
+      String stateCode, String city,String street_address) async {
     return await userRepository.register(
       username: username,
       password: password,
@@ -43,6 +43,8 @@ class AuthenticationBloc
       countryCode: countryCode,
       stateName: stateName,
       stateCode: stateCode,
+      city: city,
+      street_address: street_address,
     );
   }
 

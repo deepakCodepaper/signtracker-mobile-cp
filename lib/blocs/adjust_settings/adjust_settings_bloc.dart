@@ -31,6 +31,7 @@ class AdjustSettingsBloc
   }
 
   void uploadImage(SignProject project, String image) {
+    print("Image DATA11=== " +image.toString());
     add(ImageReceivedFromGallery(project.rebuild((b) => b
       ..method = 'PUT'
       ..plan = image
@@ -39,6 +40,7 @@ class AdjustSettingsBloc
   }
 
   void changePlanUrl(SignProject project, String image) {
+    print("CHANGE PLAN");
     add(ImageFromTemplate(project.rebuild((b) => b
       ..method = 'PUT'
       ..plan = image)));

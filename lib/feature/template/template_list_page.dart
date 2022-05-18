@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/blocs/template/template_list_bloc.dart';
@@ -219,6 +219,7 @@ class _TemplatePlanListPageState extends State<TemplatePlanListPage> {
   }
 
   goToTemplateListItems(element) {
+    print("HERERERERERERE" + element.toString());
     Navigator.of(context)
         .pushNamed(TemplatePlanListItemViewPage.route,
             arguments: TemplateListArgs(widget.project, element, widget.page))

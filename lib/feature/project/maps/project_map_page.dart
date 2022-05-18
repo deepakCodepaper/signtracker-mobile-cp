@@ -15,7 +15,7 @@ import 'package:location/location.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:signtracker/api/model/sign.dart';
@@ -201,6 +201,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             reloadPins();
 
             if (signs?.isNotEmpty == true) {
+              print("SIGNS LENGTH====" + signs.length.toString());
+              print("SIGNS LAT====" + signs.last.lat.toString());
+              print("SIGNS LONG====" + signs.last.lng.toString());
               recalculateDistance(
                   latlngLocation, LatLng(signs.last.lat, signs.last.lng));
             }
@@ -519,6 +522,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   void observerLocationChanges() {
+    print("observe Location Changed");
     location.onLocationChanged().listen((data) {
       loadUserLocation(data);
     });
@@ -616,13 +620,17 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     currentLat = currentLocation.latitude;
     currentLng = currentLocation.longitude;
 
+    print("HERE=====");
+
     if (isFirstLoad) {
       await new Future.delayed(const Duration(seconds: 3));
+      print("HERE1=====");
 
       double lat;
       double lng;
 
       if (widget.checkSigns) {
+        print("HERE2====");
         if (signs.length > 2) {
           int middle = (signs.length ~/ 2);
           lat = signs[middle].lat;
@@ -728,17 +736,21 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   void markStartingPoint() async {
-//    pr.style(message: 'Loading accurate location...');
-//    await pr.show();
-////    final currentLocation = await Location().getLocation();
-//    final currentLocation = latlngLocation;
-//    await pr.hide();
+    pr.style(message: 'Loading accurate location...');
+    await pr.show();
+    final currentLocation = await Location().getLocation();
+    //final currentLocation = latlngLocation;
+    await pr.hide();
     setStarted();
     setState(() {
+      print("CUrrent LAT=====" + currentLat.toString());
+      print("CUrrent LANG=====" + currentLng.toString());
+      print("CUrrent LAT11=====" + currentLocation.latitude.toString());
+      print("CUrrent LANG11=====" + currentLocation.longitude.toString());
       markers.add(Marker(
         draggable: true,
         markerId: MarkerId(DateTime.now().millisecondsSinceEpoch.toString()),
-        position: LatLng(currentLat, currentLng),
+        position: LatLng(currentLocation.latitude, currentLocation.latitude),
       ));
     });
   }

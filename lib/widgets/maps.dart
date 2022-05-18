@@ -94,7 +94,8 @@ class _MapState extends State<Maps> {
 
   @override
   void dispose() {
-    _mapController = null;
+    //_mapController = null;
+    _mapController.dispose();
     super.dispose();
   }
 }

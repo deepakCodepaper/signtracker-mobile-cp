@@ -24,6 +24,10 @@ abstract class Template implements Built<Template, TemplateBuilder> {
   @nullable
   String get name;
 
+  @BuiltValueField(wireName: "image_url")
+  @nullable
+  String get imageUrl;
+
   @BuiltValueField(wireName: "created_at")
   @nullable
   DateTime get createdAt;

@@ -53,7 +53,9 @@ class SignApi {
   }
 
   Future<List<Sign>> fetchAllSignsByProjectId(int projectId) async {
+    print("PROJECT ID====== " + projectId.toString());
     final path = '$_apiPath?pid=$projectId';
+    //final path = '$_apiPath?pid=545';
 
     try {
       final response = await apiClient.dio.get(path);
@@ -193,7 +195,6 @@ class SignApi {
     } on Exception catch (e) {
       print(e.toString());
     }
-
     return null;
   }
 }

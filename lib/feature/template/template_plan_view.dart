@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/blocs/check_signs/check_signs_bloc.dart';
@@ -102,8 +102,7 @@ class _TemplatePlanListItemViewPageState
                 Container(
                   color: Colors.white,
                   child: PhotoView(
-                    imageProvider: NetworkImage(
-                        '$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg'),
+                    imageProvider: NetworkImage(widget.selectedTemplate.imageUrl),
                   ),
                 ),
                 Positioned(
@@ -150,22 +149,26 @@ class _TemplatePlanListItemViewPageState
 
   goBackToOpenProjectPage() {
     if (imageSaved) {
+      print("IMAGE SAVE CODE ===" + widget.selectedTemplate.id.toString());
       SignProject signProject = widget.signProject;
       signProject = signProject.rebuild((b) => b
-        ..plan =
-            '$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg'
+        //..plan = '$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg'
+        ..plan = widget.selectedTemplate.imageUrl
+        ..templateId = widget.selectedTemplate.id
         ..type = '${widget.selectedTemplate.name}');
 
       String identifier = '';
       if (widget.page == InitializeProjectPage.route) {
         identifier = 'initialProject';
       } else {
+        print("else" );
         identifier = widget.signProject.identifier != null
             ? widget.signProject.identifier
             : widget.signProject.contractNumber;
       }
 
       Future.delayed(Duration.zero, () {
+        print("future" );
         Navigator.pop(
           context,
           PopWithResults(
@@ -187,10 +190,12 @@ class _TemplatePlanListItemViewPageState
   void showActualControl() {}
 
   Future<Directory> getAppDirectory() async {
+    print("123" );
     return await getApplicationDocumentsDirectory();
   }
 
   void downloadImageToFile() async {
+    print("246" );
     String identifier = '';
     if (widget.page == InitializeProjectPage.route) {
       identifier = 'initialProject';
@@ -201,9 +206,14 @@ class _TemplatePlanListItemViewPageState
     }
 
     File imageTest = await _downloadFile(
-        '$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg',
+        /*'$portalImagesUrl/plans/${widget.selectedTemplate.drawingNumber}.jpg',*/
+        widget.selectedTemplate.imageUrl,
         '$identifier',
         appDocPath);
+
+    print("IMAGE TEST===" + imageTest.toString());
+    print("IMAGE TEST===" + imageTest.toString());
+    print("IMAGE TEST===" + imageTest.toString());
 
     if (imageTest != null) {
       setState(() {

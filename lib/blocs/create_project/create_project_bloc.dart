@@ -34,6 +34,7 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
   }
 
   void uploadImage(SignProject project, String image) {
+    print("Image DATA=== " +image.toString());
     add(ImageReceivedFromGallery(project.rebuild((b) => b
       ..method = 'PUT'
       ..plan = image
@@ -146,6 +147,7 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
     if (event is CreateCreateProjectEvent) {
       yield CreateProjectUploadingState();
       final project = await projectRepository.createProject(event.project);
+      print("Project Data ===== " + project.toString());
       if (project == null) {
         yield CreateProjectNotUploadedState('Unable to create project');
       } else {

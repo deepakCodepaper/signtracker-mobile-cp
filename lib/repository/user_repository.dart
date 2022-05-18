@@ -44,10 +44,12 @@ class UserRepository {
     String countryCode,
     String stateName,
     String stateCode,
+    String city,
+    String street_address,
   }) async {
     final api = authClient.getAuthApi();
     final register = await api.register(username, password, name, mobile,
-        companyCode, countryName, countryCode, stateName, stateCode);
+        companyCode, countryName, countryCode, stateName, stateCode,city,street_address);
     if (register == true) {
       return true;
     }

@@ -13,11 +13,11 @@ class AuthApi {
 
   final ApiClient apiClient;
 
-  final String apiPath = 'admin/auth';
+  final String apiPath = 'auth';
 
   Future<dynamic> login(String email, String password) async {
     final requestBody = <String, dynamic>{
-      'username': email,
+      'email': email,
       'password': password,
     };
 
@@ -39,9 +39,10 @@ class AuthApi {
       if (response.data != null) {
         print("yes");
         var message = (response.data['message'] ?? "").toString().toLowerCase();
-       /* if (message == "unverified") {
+        print("MESSAGE====" + message);
+        if (message == "unverified") {
           return "Your account hasn't been verified. Please check your Email";
-        }*/
+        }
         return deserializeOf<Login>(response.data['data']);
       }
     } on DioError catch (e) {
@@ -63,23 +64,27 @@ class AuthApi {
       String countryName,
       String countryCode,
       String stateName,
-      String stateCode) async {
+      String stateCode,
+      String city,
+      String street_address) async {
     final requestBody = <String, dynamic>{
       'email': email,
       'password': password,
       'name': name,
       'mobile': mobile,
-      'company_code': companyCode,
+      'company_name': companyCode,
       'country_name': countryName,
       'country_code': countryCode,
       'state_name': stateName,
       'state_code': stateCode,
+      'city': city,
+      'street_address': street_address,
     };
 
     if (email == null) throw Exception('Email is required');
     if (password == null) throw Exception('Password is required');
 
-    final path = '$apiPath/register';
+    final path = 'admin/$apiPath/register';
 
     try {
       final _ = await apiClient.dio.post(path,

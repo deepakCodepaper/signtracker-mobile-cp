@@ -42,6 +42,12 @@ class _$TemplateSerializer implements StructuredSerializer<Template> {
         ..add(serializers.serialize(object.name,
             specifiedType: const FullType(String)));
     }
+    if (object.imageUrl != null) {
+      result
+        ..add('image_url')
+        ..add(serializers.serialize(object.imageUrl,
+            specifiedType: const FullType(String)));
+    }
     if (object.createdAt != null) {
       result
         ..add('created_at')
@@ -102,6 +108,10 @@ class _$TemplateSerializer implements StructuredSerializer<Template> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'image_url':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'created_at':
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
@@ -139,6 +149,8 @@ class _$Template extends Template {
   @override
   final String name;
   @override
+  final String imageUrl;
+  @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
@@ -157,6 +169,7 @@ class _$Template extends Template {
       this.companyId,
       this.drawingNumber,
       this.name,
+      this.imageUrl,
       this.createdAt,
       this.updatedAt,
       this.sortIndex,
@@ -179,6 +192,7 @@ class _$Template extends Template {
         companyId == other.companyId &&
         drawingNumber == other.drawingNumber &&
         name == other.name &&
+        imageUrl == other.imageUrl &&
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
         sortIndex == other.sortIndex &&
@@ -211,6 +225,7 @@ class _$Template extends Template {
           ..add('companyId', companyId)
           ..add('drawingNumber', drawingNumber)
           ..add('name', name)
+          ..add('imageUrl', imageUrl)
           ..add('createdAt', createdAt)
           ..add('updatedAt', updatedAt)
           ..add('sortIndex', sortIndex)
@@ -240,6 +255,11 @@ class TemplateBuilder implements Builder<Template, TemplateBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
+  String _imageUrl;
+  String get imageUrl => _$this._imageUrl;
+  set imageUrl(String imageUrl) =>
+      _$this._imageUrl = imageUrl;
+
   DateTime _createdAt;
   DateTime get createdAt => _$this._createdAt;
   set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
@@ -268,6 +288,7 @@ class TemplateBuilder implements Builder<Template, TemplateBuilder> {
       _companyId = _$v.companyId;
       _drawingNumber = _$v.drawingNumber;
       _name = _$v.name;
+      _imageUrl = _$v.imageUrl;
       _createdAt = _$v.createdAt;
       _updatedAt = _$v.updatedAt;
       _sortIndex = _$v.sortIndex;
@@ -301,6 +322,7 @@ class TemplateBuilder implements Builder<Template, TemplateBuilder> {
               companyId: companyId,
               drawingNumber: drawingNumber,
               name: name,
+              imageUrl: imageUrl,
               createdAt: createdAt,
               updatedAt: updatedAt,
               sortIndex: sortIndex,

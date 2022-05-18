@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:signtracker/api/model/sign_masters.dart';
 import 'package:signtracker/api/model/sign_project.dart';
@@ -65,7 +65,10 @@ class _SignLibraryTemplatePageState extends State<SignLibraryTemplatePage> {
 
     searchController = TextEditingController();
     searchController.addListener(() {
-      setState(() => queryText = searchController.text);
+      setState(() {
+        queryText = searchController.text;
+      });
+
     });
     pr = new ProgressDialog(context);
     pr.style(message: 'Loading...');
@@ -284,7 +287,7 @@ class _SignLibraryTemplatePageState extends State<SignLibraryTemplatePage> {
                         children: [
                           ...finalListOfSigns
                               .where((sign) =>
-                                  sign.name.startsWith(queryText.toLowerCase()))
+                                  sign.name.toLowerCase().startsWith(queryText.toLowerCase()))
                               .map(
                                 (sign) => GestureDetector(
                                   child: Stack(

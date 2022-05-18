@@ -29,6 +29,8 @@ class RegisterButtonPressed extends LoginEvent {
   final String countryCode;
   final String stateName;
   final String stateCode;
+  final String city;
+  final String street_address;
 
   RegisterButtonPressed({
     @required this.username,
@@ -40,6 +42,8 @@ class RegisterButtonPressed extends LoginEvent {
     @required this.countryCode,
     @required this.stateName,
     @required this.stateCode,
+    @required this.city,
+    @required this.street_address,
   }) : super([
           username,
           password,
@@ -49,7 +53,9 @@ class RegisterButtonPressed extends LoginEvent {
           countryName,
           countryCode,
           stateName,
-          stateCode
+          stateCode,
+          city,
+          street_address
         ]);
 
   @override

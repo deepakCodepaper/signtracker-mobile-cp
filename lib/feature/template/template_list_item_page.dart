@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:signtracker/api/model/invitation.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
@@ -25,7 +25,7 @@ class TemplateListArgs {
   final String page;
 }
 
-@Deprecated('no longer used')
+//@Deprecated('no longer used')
 class TemplatePlanListItemPage extends StatefulWidget {
   const TemplatePlanListItemPage(
       {this.signProject, this.selectedTemplate, this.page});
@@ -152,6 +152,7 @@ class _TemplatePlanListItemPageState extends State<TemplatePlanListItemPage> {
   }
 
   goToTemplateListItems(element) {
+    print("HERERERERE ===" + element.toString());
     Navigator.of(context)
         .pushNamed(TemplatePlanListItemViewPage.route,
             arguments:

@@ -3,7 +3,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:signtracker/blocs/invite/invite_list_bloc.dart';
 import 'package:signtracker/blocs/invite/invite_list_states.dart';
 import 'package:signtracker/repository/invitation_repository.dart';

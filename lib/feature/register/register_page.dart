@@ -125,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
       showSnackBar('Address is required.');
     } else {
       bloc.registerButtonPressed(username, password, name, mobile, companyCode,
-          countryName, countryCode, stateName, stateCode);
+          countryName, countryCode, stateName, stateCode,city,address);
     }
   }
 
@@ -384,7 +384,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             width: 2,
                           ),
                         ),
-                        hintText: 'Company code',
+                        hintText: 'Company Name',
                         hintStyle: textTheme.bodyText2.copyWith(
                           color: Colors.black38,
                         ),

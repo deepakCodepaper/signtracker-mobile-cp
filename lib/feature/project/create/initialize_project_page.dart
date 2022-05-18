@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
@@ -227,13 +227,17 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
   }
 
   Future getImage() async {
-    image = (await FilePicker.platform.pickFiles(
+    FilePickerResult imageResult = (await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'png'],
       allowMultiple: false,
-    )) as File;
+    ));
     Navigator.pop(context);
-    if (!allowedFileSize(image)) {
+    image = File(imageResult.paths.first);
+    print(image.toString());
+    print(imageResult.files.first.size.toString());
+
+    if (!allowedFileSize2(imageResult.files.first.size)) {
       showSnackBar('File exceeds limit of 1 MB', Colors.redAccent);
     } else {
       imagepath = image.path;
@@ -902,6 +906,17 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
 
   bool allowedFileSize(File file) {
     String size = filesize(file.length);
+    if (size.contains('KB')) {
+      return true;
+    } else if (size == '1 MB') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool allowedFileSize2(int fileSize) {
+    String size = filesize(fileSize);
     if (size.contains('KB')) {
       return true;
     } else if (size == '1 MB') {

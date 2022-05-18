@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
@@ -675,6 +675,7 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
 
     if (imageExist != null && imageExist.existsSync()) {
       print('Exist');
+      print(imageExist.path.toString());
       imagepath = imageExist.path;
       bloc.uploadImage(project, imageExist.path);
     } else {

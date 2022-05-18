@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
@@ -57,7 +57,7 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
 
   ProgressDialog pr;
   AdjustSettingsBloc bloc;
-  File image;
+  FilePickerResult image;
   String imagepath;
   Directory _appDocsDir;
   String appDocPath = '';
@@ -104,11 +104,11 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'png'],
       allowMultiple: false,
-    )) as File;
-    imagepath = image.path;
+    ));
+    imagepath = image.paths.first;
 
     Navigator.pop(context);
-    print(imagepath);
+    print("IMAGE PATH====" + imagepath);
     bloc.uploadImage(project, imagepath);
   }
 
@@ -314,10 +314,13 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
         ? updatedSignProject.identifier
         : updatedSignProject.contractNumber);
 
+    print("UPDATED SIGN PROJECT === " + updatedSignProject.toString());
+
     if (imageExist != null && imageExist.existsSync()) {
       print('Exist');
+      print('Exist====' + imageExist.path);
       imagepath = imageExist.path;
-      bloc.uploadImage(project, imageExist.path);
+      bloc.uploadImage(updatedSignProject, imageExist.path);
     } else {
       print('Template not downloaded');
     }
@@ -494,15 +497,19 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
   }
 
   viewPlan() async {
+    print("HERE+++++++++");
     var isChangePlan;
     if (project.plan != storageUrl) {
+      print("HERE+++++++1");
       print(project.plan);
       isChangePlan = await viewPlanOnline(context, project.plan);
       print(isChangePlan);
     } else if (imagepath != null) {
+      print("HERE+++++++2");
       isChangePlan = await viewPlanOffline(context, imagepath);
       print(isChangePlan);
     } else {
+      print("HERE+++++++3");
       showErrorMessage(context);
     }
 

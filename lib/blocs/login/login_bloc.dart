@@ -34,7 +34,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       String countryName,
       String countryCode,
       String stateName,
-      String stateCode) {
+      String stateCode,
+      String city,
+      String street_address) {
     add(RegisterButtonPressed(
         username: username,
         password: password,
@@ -44,7 +46,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         countryName: countryName,
         countryCode: countryCode,
         stateName: stateName,
-        stateCode: stateCode));
+        stateCode: stateCode,
+        city: city,
+        street_address: street_address));
   }
 
   void resetPasswordButtonPressed(String email) {
@@ -65,6 +69,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     String companyCode,
     String countryCode,
     String stateCode,
+    String city,
+    String street_address,
   ) {
     if (name.isEmpty) return 'Name is required!';
     if (username.isEmpty) return 'Username is required!';
@@ -73,6 +79,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (companyCode.isEmpty) return 'Company code is required!';
     if (countryCode.isEmpty) return 'Country is required!';
     if (stateCode.isEmpty) return 'State is required!';
+    if (city.isEmpty) return 'City is required!';
+    if (street_address.isEmpty) return 'street_address is required!';
     return null;
   }
 
@@ -112,7 +120,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           event.mobile,
           event.companyCode,
           event.countryCode,
-          event.stateCode);
+          event.stateCode,
+          event.city,
+          event.street_address);
       if (validationMessage?.isNotEmpty == true) {
         yield ValidationFailure(error: validationMessage);
       } else {
@@ -126,7 +136,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             event.countryName,
             event.countryCode,
             event.stateName,
-            event.stateCode);
+            event.stateCode,
+            event.city,
+            event.street_address);
         if (login) {
           yield LoginSuccess();
         } else
