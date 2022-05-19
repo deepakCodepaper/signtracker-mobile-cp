@@ -50,7 +50,7 @@ class _MapState extends State<Maps> {
     return Stack(
       children: [
         GoogleMap(
-          onMapCreated: (controller) {
+          onMapCreated: (GoogleMapController controller) {
             _onMapCreated(controller);
             widget.onMapLoaded(controller);
           },
@@ -94,8 +94,7 @@ class _MapState extends State<Maps> {
 
   @override
   void dispose() {
-    //_mapController = null;
-    _mapController.dispose();
+    _mapController = null;
     super.dispose();
   }
 }
