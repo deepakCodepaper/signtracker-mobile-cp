@@ -36,6 +36,9 @@ abstract class SignProject implements Built<SignProject, SignProjectBuilder> {
   String get commissionedBy;
 
   @nullable
+  String get description;
+
+  @nullable
   String get identifier;
 
   @nullable

@@ -50,13 +50,15 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
       String intersection,
       int templateId,
       double distance,
-      String commissionedBy) {
+      String commissionedBy,
+      String description) {
     if (projectId != null && projectId.isNotEmpty) {
       add(CreateCreateProjectEvent(signProject.rebuild((b) {
         b
           ..identifier = projectId
           ..contractNumber = projectId
           ..commissionedBy = commissionedBy
+          ..description = description
           ..type = type
           ..highway = highway
           ..intersection = intersection
@@ -71,6 +73,7 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
       add(CreateCreateProjectEvent(signProject.rebuild((b) {
         b
           ..commissionedBy = commissionedBy
+          ..description = description
           ..type = type
           ..highway = highway
           ..intersection = intersection
@@ -94,6 +97,7 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
     int templateId,
     double distance,
     String commissionedBy,
+    String description,
   ) {
     add(CreateCreateProjectWithImageEvent(
         ProjectCreateRequest().copyWithImage(signProject.rebuild((b) {
@@ -101,6 +105,7 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
         ..identifier = projectId
         ..contractNumber = projectId
         ..commissionedBy = commissionedBy
+        ..description = description
         ..plan = plan
         ..type = type
         ..highway = highway

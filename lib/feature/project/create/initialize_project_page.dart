@@ -59,6 +59,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
   final commissionedBy = TextEditingController();
   final intersectionNumber1 = TextEditingController();
   final intersectionNumber2 = TextEditingController();
+  final projectDescription = TextEditingController();
 
   final FocusNode nodeProjectNumber = FocusNode();
   final FocusNode nodeCommissionedBy = FocusNode();
@@ -183,15 +184,17 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
   void validateForm() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     final prNumber = projectNumber.text;
-    /*if (prNumber?.isEmpty == true) {
+    if (prNumber?.isEmpty == true) {
       showMessage('Enter Project Number.');
       return;
-    }*/
+    }
+
     final inNr1 = intersectionNumber1.text;
     if (inNr1?.isEmpty == true) {
       showMessage('Complete intersection number.');
       return;
     }
+
     final inNr2 = intersectionNumber2.text;
     if (inNr2?.isEmpty == true) {
       showMessage('Complete intersection number.');
@@ -201,6 +204,11 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
     String comissioned = commissionedBy.text;
     if (comissioned?.isEmpty == true) {
       comissioned = '';
+    }
+
+    String projectDesc = projectDescription.text;
+    if (projectDesc?.isEmpty == true) {
+      projectDesc = '';
     }
 
     if ((image == null || imagepath.isEmpty) && !isSkipTemplate) {
@@ -216,11 +224,13 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
     if (image == null) {
+      print("PROJECT DESC IF============" + projectDesc.toString());
       bloc.createProject(initialProject, prNumber, templateType, inNr1, inNr2,
-          templateId, distance, comissioned);
+          templateId, distance, comissioned, projectDesc);
     } else {
+      print("PROJECT DESC ElSE============" + projectDesc.toString());
       bloc.createProjectWithImage(initialProject, prNumber, imagepath,
-          templateType, inNr1, inNr2, templateId, distance, comissioned);
+          templateType, inNr1, inNr2, templateId, distance, comissioned, projectDesc);
     }
 
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -282,6 +292,55 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
           onPressed: () {
             Navigator.pop(context);
             showWhereToUse(context);
+          },
+          width: 150,
+        ),
+      ],
+    ).show();
+  }
+
+  showDescriptionDialog(BuildContext context) {
+    Alert(
+      context: context,
+      type: AlertType.none,
+      content: TextField(
+        controller: projectDescription,
+        maxLines: 5,
+        decoration: InputDecoration(
+          hintText: 'Project Description',
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(vertical: 10),
+        ),
+        textAlign: TextAlign.center,
+        keyboardType: TextInputType.text,
+          onChanged: (value) {
+
+          },
+      ),
+      buttons: [
+        DialogButton(
+          color: AppColors.blueDialogButton,
+          child: Text(
+            "Done",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            //validateForm();
+           //SystemChannels.textInput.invokeMethod('TextInput.hide');
+          },
+          width: 150,
+        ),
+        DialogButton(
+          color: AppColors.blueDialogButton,
+          child: Center(
+            child: Text(
+              "Cancel",
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
           },
           width: 150,
         ),
@@ -606,7 +665,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
 //                        ],
 //                      ),
 //                    ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -645,7 +704,45 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: Center(
+                              child: Text(
+                                "Add Description",
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.yellow[700],
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+//                            Column(
+//                              children: [
+//                                ListView.builder(
+//                                  scrollDirection: Axis.horizontal,
+//                                  itemCount: 3,
+//                                  itemBuilder: (context, index) => Icon(
+//                                    Icons.account_circle,
+//                                    size: 50,
+//                                    color: Colors.yellow[700],
+//                                  )
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => showDescriptionDialog(context),
+                          icon: Icon(
+                            Icons.add_circle,
+                            size: 45,
+                            color: Colors.grey,
+                          ),
+                          iconSize: 45,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
 //                      child: RoundedButton(
@@ -683,7 +780,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: RoundedButton(

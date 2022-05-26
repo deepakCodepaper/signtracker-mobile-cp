@@ -132,9 +132,8 @@ class _SignListPageState extends State<SignListPage> {
                         crossAxisCount: 2,
                         children: [
                           ...signs
-                              .where((sign) =>
-                                  sign.name.startsWith(queryText) &&
-                                  sign.idName != null)
+                              .where((sign){
+    return sign.name.toLowerCase().contains(queryText.toLowerCase()) || sign.idName.toLowerCase().contains(queryText.toLowerCase());})
                               .map(
                                 (sign) => GestureDetector(
                                   child: Stack(

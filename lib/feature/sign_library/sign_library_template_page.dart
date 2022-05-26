@@ -286,8 +286,8 @@ class _SignLibraryTemplatePageState extends State<SignLibraryTemplatePage> {
                         crossAxisCount: 2,
                         children: [
                           ...finalListOfSigns
-                              .where((sign) =>
-                                  sign.name.toLowerCase().startsWith(queryText.toLowerCase()))
+                              .where((sign){
+                       return sign.name.toLowerCase().contains(queryText.toLowerCase()) || sign.idName.toLowerCase().contains(queryText.toLowerCase());})
                               .map(
                                 (sign) => GestureDetector(
                                   child: Stack(

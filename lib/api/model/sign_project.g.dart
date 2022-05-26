@@ -54,6 +54,12 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
         ..add(serializers.serialize(object.commissionedBy,
             specifiedType: const FullType(String)));
     }
+    if (object.description != null) {
+      result
+        ..add('description')
+        ..add(serializers.serialize(object.description,
+            specifiedType: const FullType(String)));
+    }
     if (object.identifier != null) {
       result
         ..add('identifier')
@@ -275,6 +281,10 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
           result.commissionedBy = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'description':
+          result.description = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'identifier':
           result.identifier = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -422,6 +432,8 @@ class _$SignProject extends SignProject {
   @override
   final String commissionedBy;
   @override
+  final String description;
+  @override
   final String identifier;
   @override
   final String type;
@@ -492,6 +504,7 @@ class _$SignProject extends SignProject {
       this.parent,
       this.contractNumber,
       this.commissionedBy,
+      this.description,
       this.identifier,
       this.type,
       this.plan,
@@ -541,6 +554,7 @@ class _$SignProject extends SignProject {
         parent == other.parent &&
         contractNumber == other.contractNumber &&
         commissionedBy == other.commissionedBy &&
+        description == other.description &&
         identifier == other.identifier &&
         type == other.type &&
         plan == other.plan &&
@@ -624,6 +638,7 @@ class _$SignProject extends SignProject {
           ..add('parent', parent)
           ..add('contractNumber', contractNumber)
           ..add('commissionedBy', commissionedBy)
+          ..add('description', description)
           ..add('identifier', identifier)
           ..add('type', type)
           ..add('plan', plan)
@@ -687,6 +702,11 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
   String get commissionedBy => _$this._commissionedBy;
   set commissionedBy(String commissionedBy) =>
       _$this._commissionedBy = commissionedBy;
+
+  String _description;
+  String get description => _$this._description;
+  set description(String description) =>
+      _$this._description = description;
 
   String _identifier;
   String get identifier => _$this._identifier;
@@ -827,6 +847,7 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
       _parent = _$v.parent;
       _contractNumber = _$v.contractNumber;
       _commissionedBy = _$v.commissionedBy;
+      _description = _$v.description;
       _identifier = _$v.identifier;
       _type = _$v.type;
       _plan = _$v.plan;
@@ -887,6 +908,7 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
               parent: parent,
               contractNumber: contractNumber,
               commissionedBy: commissionedBy,
+              description: description,
               identifier: identifier,
               type: type,
               plan: plan,

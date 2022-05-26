@@ -71,6 +71,8 @@ class ProjectApi {
 
     final body = standardSerializers.serialize(signProject);
 
+    print("POST DATA IN PROJECT=============" + body.toString());
+
     try {
       final response = await apiClient.dio.post(
         path,
@@ -133,6 +135,7 @@ class ProjectApi {
       "identifier": signProject.identifier,
       "type": signProject.type,
       "commissioned_by": signProject.commissionedBy,
+      "description": signProject.description,
       "plan": await MultipartFile.fromFile(signProject.plan),
       "highway": signProject.highway,
       "intersection": signProject.intersection,

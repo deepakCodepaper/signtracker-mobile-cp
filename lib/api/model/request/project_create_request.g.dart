@@ -48,6 +48,14 @@ class _$ProjectCreateRequestSerializer
         ..add(serializers.serialize(object.commissionedBy,
             specifiedType: const FullType(String)));
     }
+
+    if (object.description != null) {
+      result
+        ..add('description')
+        ..add(serializers.serialize(object.description,
+            specifiedType: const FullType(String)));
+    }
+
     if (object.plan != null) {
       result
         ..add('plan')
@@ -139,6 +147,10 @@ class _$ProjectCreateRequestSerializer
           result.commissionedBy = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'description':
+          result.description = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'plan':
           result.plan = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -196,6 +208,8 @@ class _$ProjectCreateRequest extends ProjectCreateRequest {
   @override
   final String commissionedBy;
   @override
+  final String description;
+  @override
   final String plan;
   @override
   final String type;
@@ -225,6 +239,7 @@ class _$ProjectCreateRequest extends ProjectCreateRequest {
       this.identifier,
       this.templateId,
       this.commissionedBy,
+      this.description,
       this.plan,
       this.type,
       this.highway,
@@ -254,6 +269,7 @@ class _$ProjectCreateRequest extends ProjectCreateRequest {
         identifier == other.identifier &&
         templateId == other.templateId &&
         commissionedBy == other.commissionedBy &&
+        description == other.description &&
         plan == other.plan &&
         type == other.type &&
         highway == other.highway &&
@@ -280,10 +296,12 @@ class _$ProjectCreateRequest extends ProjectCreateRequest {
                                         $jc(
                                             $jc(
                                                 $jc(
-                                                    $jc($jc(0, parent.hashCode),
-                                                        identifier.hashCode),
-                                                    templateId.hashCode),
-                                                commissionedBy.hashCode),
+                                                    $jc(
+                                                        $jc($jc(0, parent.hashCode),
+                                                            identifier.hashCode),
+                                                        templateId.hashCode),
+                                                    commissionedBy.hashCode),
+                                                description.hashCode),
                                             plan.hashCode),
                                         type.hashCode),
                                     highway.hashCode),
@@ -303,6 +321,7 @@ class _$ProjectCreateRequest extends ProjectCreateRequest {
           ..add('identifier', identifier)
           ..add('templateId', templateId)
           ..add('commissionedBy', commissionedBy)
+          ..add('description', description)
           ..add('plan', plan)
           ..add('type', type)
           ..add('highway', highway)
@@ -337,6 +356,11 @@ class ProjectCreateRequestBuilder
   String get commissionedBy => _$this._commissionedBy;
   set commissionedBy(String commissionedBy) =>
       _$this._commissionedBy = commissionedBy;
+
+  String _description;
+  String get description => _$this._description;
+  set description(String description) =>
+      _$this._description = description;
 
   String _plan;
   String get plan => _$this._plan;
@@ -388,6 +412,7 @@ class ProjectCreateRequestBuilder
       _identifier = _$v.identifier;
       _templateId = _$v.templateId;
       _commissionedBy = _$v.commissionedBy;
+      _description = _$v.description;
       _plan = _$v.plan;
       _type = _$v.type;
       _highway = _$v.highway;
@@ -424,6 +449,7 @@ class ProjectCreateRequestBuilder
             identifier: identifier,
             templateId: templateId,
             commissionedBy: commissionedBy,
+            description: description,
             plan: plan,
             type: type,
             highway: highway,

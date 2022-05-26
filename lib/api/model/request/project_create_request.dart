@@ -20,6 +20,7 @@ abstract class ProjectCreateRequest
         type: project.type,
         highway: project.highway,
         commissionedBy: project.commissionedBy,
+        description: project.description,
         intersection: project.intersection,
         speed: project.speed,
         distance: project.distance,
@@ -35,6 +36,7 @@ abstract class ProjectCreateRequest
         parent: project.parent,
         identifier: project.identifier,
         commissionedBy: project.commissionedBy,
+        description: project.description,
         plan: project.plan,
         type: project.type,
         highway: project.highway,
@@ -53,6 +55,7 @@ abstract class ProjectCreateRequest
       parent: project.parent,
       identifier: project.identifier,
       commissionedBy: project.commissionedBy,
+      description: project.description,
       type: project.type,
       highway: project.highway,
       intersection: project.intersection,
@@ -75,6 +78,9 @@ abstract class ProjectCreateRequest
   @BuiltValueField(wireName: "commissioned_by")
   @nullable
   String get commissionedBy;
+
+  @nullable
+  String get description;
 
   @nullable
   String get plan;
