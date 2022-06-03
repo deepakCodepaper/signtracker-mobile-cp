@@ -58,6 +58,9 @@ abstract class Sign implements Built<Sign, SignBuilder> {
   @nullable
   bool get isChecked;
 
+  @nullable
+  String get notes;
+
   /// serializer
   static Serializer<Sign> get serializer => _$signSerializer;
 

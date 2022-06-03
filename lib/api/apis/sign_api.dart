@@ -104,6 +104,8 @@ class SignApi {
 
     final body = standardSerializers.serialize(sign);
 
+    print("sign Update Data===========" + body.toString());
+
     final response = await apiClient.dio.put(
       path,
       data: jsonEncode(body),

@@ -72,6 +72,12 @@ class _$SignRequestSerializer implements StructuredSerializer<SignRequest> {
         ..add(serializers.serialize(object.traffic,
             specifiedType: const FullType(int)));
     }
+    if (object.notes != null) {
+      result
+        ..add('notes')
+        ..add(serializers.serialize(object.notes,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -122,6 +128,10 @@ class _$SignRequestSerializer implements StructuredSerializer<SignRequest> {
           result.traffic = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'notes':
+          result.notes = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -148,6 +158,8 @@ class _$SignRequest extends SignRequest {
   final int signMasterId;
   @override
   final int traffic;
+  @override
+  final String notes;
 
   factory _$SignRequest([void Function(SignRequestBuilder) updates]) =>
       (new SignRequestBuilder()..update(updates)).build();
@@ -161,7 +173,8 @@ class _$SignRequest extends SignRequest {
       this.name,
       this.nameId,
       this.signMasterId,
-      this.traffic})
+      this.traffic,
+      this.notes})
       : super._();
 
   @override
@@ -183,7 +196,8 @@ class _$SignRequest extends SignRequest {
         name == other.name &&
         nameId == other.nameId &&
         signMasterId == other.signMasterId &&
-        traffic == other.traffic;
+        traffic == other.traffic &&
+        notes == other.notes;
   }
 
   @override
@@ -194,14 +208,16 @@ class _$SignRequest extends SignRequest {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, method.hashCode), status.hashCode),
-                                projectId.hashCode),
-                            lat.hashCode),
-                        lng.hashCode),
-                    name.hashCode),
-                nameId.hashCode),
-            signMasterId.hashCode),
-        traffic.hashCode));
+                            $jc(
+                                $jc($jc($jc(0, method.hashCode), status.hashCode),
+                                    projectId.hashCode),
+                                lat.hashCode),
+                            lng.hashCode),
+                        name.hashCode),
+                    nameId.hashCode),
+                signMasterId.hashCode),
+            traffic.hashCode),
+        notes.hashCode),);
   }
 
   @override
@@ -215,7 +231,8 @@ class _$SignRequest extends SignRequest {
           ..add('name', name)
           ..add('nameId', nameId)
           ..add('signMasterId', signMasterId)
-          ..add('traffic', traffic))
+          ..add('traffic', traffic)
+          ..add('notes', notes))
         .toString();
   }
 }
@@ -259,6 +276,10 @@ class SignRequestBuilder implements Builder<SignRequest, SignRequestBuilder> {
   int get traffic => _$this._traffic;
   set traffic(int traffic) => _$this._traffic = traffic;
 
+  String _notes;
+  String get notes => _$this._notes;
+  set notes(String notes) => _$this._notes = notes;
+
   SignRequestBuilder();
 
   SignRequestBuilder get _$this {
@@ -272,6 +293,7 @@ class SignRequestBuilder implements Builder<SignRequest, SignRequestBuilder> {
       _nameId = _$v.nameId;
       _signMasterId = _$v.signMasterId;
       _traffic = _$v.traffic;
+      _notes = _$v.notes;
       _$v = null;
     }
     return this;
@@ -302,7 +324,8 @@ class SignRequestBuilder implements Builder<SignRequest, SignRequestBuilder> {
             name: name,
             nameId: nameId,
             signMasterId: signMasterId,
-            traffic: traffic);
+            traffic: traffic,
+            notes: notes);
     replace(_$result);
     return _$result;
   }

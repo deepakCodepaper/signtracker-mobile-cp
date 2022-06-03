@@ -60,6 +60,12 @@ class _$ProjectLogsSerializer implements StructuredSerializer<ProjectLogs> {
         ..add(serializers.serialize(object.details,
             specifiedType: const FullType(Details)));
     }
+    if (object.notes != null) {
+      result
+        ..add('notes')
+        ..add(serializers.serialize(object.notes,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -102,6 +108,10 @@ class _$ProjectLogsSerializer implements StructuredSerializer<ProjectLogs> {
           result.details.replace(serializers.deserialize(value,
               specifiedType: const FullType(Details)) as Details);
           break;
+        case 'notes':
+          result.notes = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -124,6 +134,8 @@ class _$ProjectLogs extends ProjectLogs {
   final User updatedBy;
   @override
   final Details details;
+  @override
+  final String notes;
 
   factory _$ProjectLogs([void Function(ProjectLogsBuilder) updates]) =>
       (new ProjectLogsBuilder()..update(updates)).build();
@@ -135,7 +147,8 @@ class _$ProjectLogs extends ProjectLogs {
       this.createdAt,
       this.updatedAt,
       this.updatedBy,
-      this.details})
+      this.details,
+      this.notes})
       : super._();
 
   @override
@@ -155,7 +168,8 @@ class _$ProjectLogs extends ProjectLogs {
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
         updatedBy == other.updatedBy &&
-        details == other.details;
+        details == other.details &&
+        notes == other.notes;
   }
 
   @override
@@ -164,12 +178,14 @@ class _$ProjectLogs extends ProjectLogs {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, id.hashCode), message.hashCode),
-                        projectId.hashCode),
-                    createdAt.hashCode),
-                updatedAt.hashCode),
-            updatedBy.hashCode),
-        details.hashCode));
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), message.hashCode),
+                            projectId.hashCode),
+                       createdAt.hashCode),
+                   updatedAt.hashCode),
+                updatedBy.hashCode),
+            details.hashCode),
+        notes.hashCode));
   }
 
   @override
@@ -181,7 +197,8 @@ class _$ProjectLogs extends ProjectLogs {
           ..add('createdAt', createdAt)
           ..add('updatedAt', updatedAt)
           ..add('updatedBy', updatedBy)
-          ..add('details', details))
+          ..add('details', details)
+          ..add('notes', notes))
         .toString();
   }
 }
@@ -217,6 +234,10 @@ class ProjectLogsBuilder implements Builder<ProjectLogs, ProjectLogsBuilder> {
   DetailsBuilder get details => _$this._details ??= new DetailsBuilder();
   set details(DetailsBuilder details) => _$this._details = details;
 
+  String _notes;
+  String get notes => _$this._notes;
+  set notes(String message) => _$this._notes = message;
+
   ProjectLogsBuilder();
 
   ProjectLogsBuilder get _$this {
@@ -228,6 +249,7 @@ class ProjectLogsBuilder implements Builder<ProjectLogs, ProjectLogsBuilder> {
       _updatedAt = _$v.updatedAt;
       _updatedBy = _$v.updatedBy?.toBuilder();
       _details = _$v.details?.toBuilder();
+      _notes = _$v.notes;
       _$v = null;
     }
     return this;
@@ -258,7 +280,8 @@ class ProjectLogsBuilder implements Builder<ProjectLogs, ProjectLogsBuilder> {
               createdAt: createdAt,
               updatedAt: updatedAt,
               updatedBy: _updatedBy?.build(),
-              details: _details?.build());
+              details: _details?.build(),
+              notes: _notes);
     } catch (_) {
       String _$failedField;
       try {

@@ -83,6 +83,7 @@ class ProjectMapPage extends StatefulWidget {
 
 class _ProjectMapPageState extends State<ProjectMapPage> {
   ProjectMapStatus _projectMapStatus = ProjectMapStatus.Initial;
+  final signNotes = TextEditingController();
 
   Set<Marker> markers = <Marker>{};
   List<Sign> signs = List<Sign>();
@@ -205,7 +206,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
               print("SIGNS LENGTH====" + signs.length.toString());
               print("SIGNS LAT====" + signs.last.lat.toString());
               print("SIGNS LONG====" + signs.last.lng.toString());
-              //latlngLocation = LatLng(currentLat, currentLng);
+                  latlngLocation = LatLng(currentLat, currentLng);
               recalculateDistance(
                   latlngLocation, LatLng(signs.last.lat, signs.last.lng));
             }
@@ -236,15 +237,17 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             }
 
             if (widget.checkSigns) {
+              print("RINGTONE PLAY===================");
               FlutterRingtonePlayer.play(
                 android: AndroidSounds.notification,
-                ios: IosSounds.bell,
+                ios: IosSounds.glass,
                 looping: false,
                 // Android only - API >= 28
-                volume: 1,
+                volume: 1.0,
                 // Android only - API >= 28
                 asAlarm: false, // Android only - all APIs
               );
+              print("RINGTONE PLAY1===================");
               showSnackBar('Signs within a 50m radius checked');
             }
             reloadPins();
@@ -705,7 +708,8 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     recalculateDistance(latlngLocation, lastLatLng);
 
     //only perform check signs if under check signs
-    if (widget.checkSigns) checkSigns(currentLocation);
+
+    //if (widget.checkSigns) checkSigns(currentLocation);
   }
 
   void recalculateDistance(LatLng currentLocation, LatLng lastSignedLocation) {
@@ -734,6 +738,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   void checkSigns(LocationData currentLocation) {
+    print("CALL=======");
     signs.forEach((sign) {
       bool shouldUpdateSign = widget.checkSigns &&
           _projectMapStatus == ProjectMapStatus.Started &&
@@ -743,7 +748,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
               20.0;
 
       if (!isUpdatingSign && shouldUpdateSign && !isChecked(sign)) {
-        bloc.completeSign(sign);
+        bloc.completeSign(sign,signNotes.text);
         updateToComplete(sign);
       }
     });
@@ -767,6 +772,11 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
         position: LatLng(currentLocation.latitude, currentLocation.longitude),
       ));
     });
+  }
+
+  void checkSigntoMap() async{
+    final currentLocation = await Location().getLocation();
+    checkSigns(currentLocation);
   }
 
   void addSignMarkerToMap(Sign sign) async {
@@ -818,9 +828,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
           print("SIGN DATA==============" + sign.id.toString());
           print("SIGN DATA==============" + sign.lat.toString());
           print("SIGN DATA==============" + sign.lng.toString());
+          print("SIGN DATA==============" + widget.checkSigns.toString());
           markers.add(Marker(
             onTap: () =>
-            widget.checkSigns == false ? showSignOptionsDialog(sign) : {},
+            widget.checkSigns == false ? showSignOptionsDialog(sign) : !isChecked(sign) ? showSignUpdateDialog(sign) : '',
             icon: icon,
             draggable: true,
             markerId: MarkerId(sign.id.toString()),
@@ -829,9 +840,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             onDragEnd: ((value) {
               adjustSignLocation(value, sign);
             }),
-            /*infoWindow: widget.checkSigns && (isChecked(sign))
+            infoWindow: widget.checkSigns && (isChecked(sign))
                 ? InfoWindow(title: 'Checked')
-                : null,*/
+                : InfoWindow(title: ''),
           ));
         });
       });
@@ -1294,8 +1305,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   Future<void> setStarted() async {
+    print("==============Call Start Method============");
     setState(() => _projectMapStatus = ProjectMapStatus.Started);
     if (widget.checkSigns) {
+      print("==============Call Start Method1============");
       Future.delayed(const Duration(seconds: 1));
       await mapController?.animateCamera(
         CameraUpdate.newCameraPosition(
@@ -1399,7 +1412,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   void updateToComplete(sign) {
     signs.forEach((f) {
       if (sign.id == f.id) {
-        f = f.rebuild((b) => b..status = 'completed');
+        f = f.rebuild((b){
+          b..status = 'completed';
+        } );
       }
     });
 
@@ -1497,6 +1512,161 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             ),
           );
         });
+  }
+
+  showSignUpdateDialog(Sign sign) {
+    showDialog<dynamic>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 15),
+            title: Center(
+              child: Text(
+                'Check signs',
+                style: GoogleFonts.karla(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.normal),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            content: Container(
+              height: 130,
+              width: 250,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    height: 48,
+                    child: FlatButton(
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                           Row(
+                             children: [
+                               CircleAvatar(
+                                 backgroundColor: Colors.green,
+                                 child: Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 30.0,
+                          ),
+                               ),
+                               SizedBox(width: 20.0,),
+                               Text('Checked')
+                             ],
+                           ),
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        checkSigntoMap();
+                        //checkSigns(currentLocation);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 48,
+                    child: FlatButton(
+                      color: Colors.transparent,
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.red,
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                          ),
+                          SizedBox(width: 20.0,),
+                          Text('Report Issue')
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        showNotesDialog();
+                        //Navigator.pop(context);
+                        //checkSigntoMap();
+                        //checkSigns(currentLocation);
+                      },
+                    ),
+                  ),
+                  /*SizedBox(height: 15),
+                  Container(
+                    height: 48,
+                    child: FlatButton(
+                      color: Colors.blueAccent,
+                      child: new Text(
+                        'Add Note',
+                        style: GoogleFonts.karla(
+                            color: Colors.white, fontWeight: FontWeight.w700),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        showDeleteSignConfirmationDialog(sign);
+                      },
+                    ),
+                  )*/
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  showNotesDialog() {
+    Alert(
+      context: context,
+      type: AlertType.none,
+      content: TextField(
+        controller: signNotes,
+        maxLines: 5,
+        decoration: InputDecoration(
+          hintText: 'Sign Notes',
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(vertical: 10),
+        ),
+        textAlign: TextAlign.center,
+        keyboardType: TextInputType.text,
+        onChanged: (value) {
+
+        },
+      ),
+      buttons: [
+        DialogButton(
+          color: AppColors.blueDialogButton,
+          child: Text(
+            "Done",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            checkSigntoMap();
+            //validateForm();
+            //SystemChannels.textInput.invokeMethod('TextInput.hide');
+          },
+          width: 150,
+        ),
+        DialogButton(
+          color: AppColors.blueDialogButton,
+          child: Center(
+            child: Text(
+              "Cancel",
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          width: 150,
+        ),
+      ],
+    ).show();
   }
 
   downloadIfNotExist(Sign sign, String file, String status) async {

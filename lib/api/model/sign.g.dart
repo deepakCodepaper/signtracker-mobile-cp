@@ -102,6 +102,13 @@ class _$SignSerializer implements StructuredSerializer<Sign> {
         ..add(serializers.serialize(object.isChecked,
             specifiedType: const FullType(bool)));
     }
+
+    if (object.notes != null) {
+      result
+        ..add('isChecked')
+        ..add(serializers.serialize(object.notes,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -172,6 +179,10 @@ class _$SignSerializer implements StructuredSerializer<Sign> {
           result.isChecked = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
+        case 'notes':
+          result.notes = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -208,6 +219,8 @@ class _$Sign extends Sign {
   final int signMasterId;
   @override
   final bool isChecked;
+  @override
+  final String notes;
 
   factory _$Sign([void Function(SignBuilder) updates]) =>
       (new SignBuilder()..update(updates)).build();
@@ -226,7 +239,8 @@ class _$Sign extends Sign {
       this.updatedAt,
       this.nameId,
       this.signMasterId,
-      this.isChecked})
+      this.isChecked,
+      this.notes})
       : super._();
 
   @override
@@ -253,7 +267,8 @@ class _$Sign extends Sign {
         updatedAt == other.updatedAt &&
         nameId == other.nameId &&
         signMasterId == other.signMasterId &&
-        isChecked == other.isChecked;
+        isChecked == other.isChecked &&
+        notes == other.notes;
   }
 
   @override
@@ -302,7 +317,8 @@ class _$Sign extends Sign {
           ..add('updatedAt', updatedAt)
           ..add('nameId', nameId)
           ..add('signMasterId', signMasterId)
-          ..add('isChecked', isChecked))
+          ..add('isChecked', isChecked)
+          ..add('notes', notes))
         .toString();
   }
 }
@@ -366,6 +382,10 @@ class SignBuilder implements Builder<Sign, SignBuilder> {
   bool get isChecked => _$this._isChecked;
   set isChecked(bool isChecked) => _$this._isChecked = isChecked;
 
+  String _notes;
+  String get notes => _$this._notes;
+  set notes(String notes) => _$this._notes = notes;
+
   SignBuilder();
 
   SignBuilder get _$this {
@@ -384,6 +404,7 @@ class SignBuilder implements Builder<Sign, SignBuilder> {
       _nameId = _$v.nameId;
       _signMasterId = _$v.signMasterId;
       _isChecked = _$v.isChecked;
+      _notes = _$v.notes;
       _$v = null;
     }
     return this;
@@ -419,7 +440,8 @@ class SignBuilder implements Builder<Sign, SignBuilder> {
             updatedAt: updatedAt,
             nameId: nameId,
             signMasterId: signMasterId,
-            isChecked: isChecked);
+            isChecked: isChecked,
+            notes: notes);
     replace(_$result);
     return _$result;
   }

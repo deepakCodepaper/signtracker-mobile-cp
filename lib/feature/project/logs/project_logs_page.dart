@@ -446,6 +446,14 @@ class _ProjectLog extends StatelessWidget {
             SizedBox(height: 10),
             info('Project:', projectLogs.message, null),
           ],
+
+          SizedBox(height: 10),
+          info(
+              'notes:',
+              projectLogs.notes != null
+                  ? projectLogs.notes
+                  : '-',
+              null),
         ],
       ),
     );

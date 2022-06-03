@@ -41,6 +41,9 @@ abstract class ProjectLogs implements Built<ProjectLogs, ProjectLogsBuilder> {
   @nullable
   Details get details;
 
+  @nullable
+  String get notes;
+
   /// serializer
   static Serializer<ProjectLogs> get serializer => _$projectLogsSerializer;
 

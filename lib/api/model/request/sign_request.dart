@@ -23,6 +23,7 @@ abstract class SignRequest implements Built<SignRequest, SignRequestBuilder> {
       traffic: sign.traffic,
       lat: sign.lat,
       lng: sign.lng,
+      notes: sign.notes,
     );
   }
 
@@ -56,6 +57,9 @@ abstract class SignRequest implements Built<SignRequest, SignRequestBuilder> {
 
   @nullable
   int get traffic;
+
+  @nullable
+  String get notes;
 
   /// serializer
   static Serializer<SignRequest> get serializer => _$signRequestSerializer;

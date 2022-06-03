@@ -20,8 +20,11 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     add(LoadSigns(id));
   }
 
-  void completeSign(Sign sign) {
-    add(UpdateSign(sign.rebuild((b) => b..status = 'completed')));
+  void completeSign(Sign sign, String notes) {
+    add(UpdateSign(sign.rebuild((b) {
+      b..status = 'completed';
+      b..notes = notes;
+    })));
   }
 
   void deleteSign(int id) {
@@ -69,6 +72,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
 
   Stream<ProjectState> _mapUpdateSign(Sign sign) async* {
     final request = SignRequest().copy(sign);
+    print("REQUEST DATA============" + request.toString());
     final updatedSign = await signRepository.updateSign(request, sign.id);
     yield SignsUpdating();
     if (updatedSign != null) {
