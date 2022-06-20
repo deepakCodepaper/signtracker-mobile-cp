@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/blocs/project_list/project_list_bloc.dart';
+import 'package:signtracker/blocs/project_list/project_list_events.dart';
 import 'package:signtracker/blocs/project_list/project_list_states.dart';
 import 'package:signtracker/feature/check_signs/check_signs_page.dart';
 import 'package:signtracker/feature/dashboard/dashboard_page.dart';
@@ -43,6 +45,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
   String queryText = "";
   List<SignProject> projects;
   int projectId;
+  bool isFirstTime = true;
 
   var _currentIndex = 1;
 
@@ -66,9 +69,10 @@ class _ProjectListPageState extends State<ProjectListPage> {
     });
   }
 
-  void showMessage(String message) {
+  void showMessage(String message,[Color color]) {
     scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.red,
+      duration: Duration(milliseconds: 700),
+      backgroundColor: color ?? Colors.red,
       content: Text(message),
     ));
   }
@@ -87,103 +91,113 @@ class _ProjectListPageState extends State<ProjectListPage> {
           if (state is ProjectsError) {
             showMessage(state.error);
           } else if (state is ReloadingProjects) {
-            showMessage('Reloading Projects...');
+            showMessage('Reloading Projects...',Colors.green);
+          } else if (state is ProjectsListEmpty) {
+            showMessage(state.msg);
           } else if (state is ProjectsLoaded) {
+            showMessage('Fetch Projects...',Colors.green);
             setState(() => projects = state.projects);
           }
         },
         child: BlocBuilder<ProjectListBloc, ProjectListState>(
           bloc: bloc,
           builder: (context, state) {
-            if (state is ProjectsLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+            if(isFirstTime) {
+              if (state is ProjectsLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
             }
 
             if (projects?.isNotEmpty == true) {
-              var tempList = List<SignProject>();
-              projects.forEach((f) {
-                if (f.status == 'active') {
-                  tempList.add(f);
-                }
-              });
+                var tempList = List<SignProject>();
+                isFirstTime = false;
+                projects.forEach((f) {
+                  if (f.status == 'active') {
+                    tempList.add(f);
+                  }
+                });
 
-              projects = tempList;
-              projects.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-              final list = projects
-                  .map(
-                    (project) => ExpandableProjectItem(
-                      onPressed: () => routeOpenProject(project),
-                      project: project,
-                      children: <Widget>[
-                        ...project.subProjects.map(
-                          (subProject) => _SubProjectItem(
-                            onPressed: () => routeOpenProject(subProject),
-                            project: subProject,
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                  .toList();
+                projects = tempList;
+                projects.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+                final list = projects
+                    .map(
+                      (project) =>
+                      ExpandableProjectItem(
+                        onPressed: () => routeOpenProject(project),
+                        project: project,
+                        children: <Widget>[
+                          ...project.subProjects.map(
+                                (subProject) =>
+                                _SubProjectItem(
+                                  onPressed: () => routeOpenProject(subProject),
+                                  project: subProject,
+                                ),
+                          )
+                        ],
+                      ),
+                ).toList();
 
-              return Container(
-                padding: EdgeInsets.only(
-                  top: 10,
-                  left: 10,
-                  right: 10,
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      'Select a Project',
-                      style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      height: 45,
-                      child: TextField(
-                        controller: searchController,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            gapPadding: 0.0,
+                return Container(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Select a Project',
+                        style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                            gapPadding: 0.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      SizedBox(
+                        height: 45,
+                        child: TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                              gapPadding: 0.0,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              gapPadding: 0.0,
+                            ),
+                            hintText: 'Project Name',
                           ),
-                          hintText: 'Project Name',
-                        ),
-                        style: textTheme.bodyText1.copyWith(
-                          color: Colors.yellow[700],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ListView.separated(
-                          itemBuilder: (context, index) => list[index],
-                          separatorBuilder: (context, index) =>
-                              SizedBox(height: 10),
-                          itemCount: list.length,
+                          style: textTheme.bodyText1.copyWith(
+                            color: Colors.yellow[700],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }
+                      SizedBox(height: 10),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: LazyLoadScrollView(
+                            onEndOfPage: () => bloc.add(FetchNextPage()),
+                            child: ListView.separated(
+                              itemBuilder: (context, index) => list[index],
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(height: 10),
+                              itemCount: list.length,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
 
             return Center(
               child: Text('No Projects Found'),

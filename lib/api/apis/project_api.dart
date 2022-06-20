@@ -35,7 +35,27 @@ class ProjectApi {
           options: buildCacheOptions(Duration(hours: 1), forceRefresh: true));
 
       if (response.data != null) {
-        return deserializeListOf<SignProject>(response.data['data']).toList();
+        return deserializeListOf<SignProject>(response.data['data']['data']).toList();
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+
+    return null;
+  }
+
+  Future<List<SignProject>> getProjectList({int page = 1}) async {
+    //var path = 'admin/$apiPath';
+    var path = '$apiPath?page=$page';
+
+    try {
+      final response = await apiClient.dio.get(path,
+          options: buildCacheOptions(Duration(hours: 1), forceRefresh: true));
+
+      if (response.data != null) {
+        return deserializeListOf<SignProject>(response.data['data']['data']).toList();
       }
     } on DioError catch (e) {
       print(e.message);
@@ -101,6 +121,7 @@ class ProjectApi {
     final path = '$apiPath/$projectId';
 
     print(path);
+    print("Request Data====" + signProject.toString());
     print(signProject.startDate);
     print(signProject.endDate);
 
@@ -182,6 +203,7 @@ class ProjectApi {
       "intersection": signProject.intersection,
       "speed": signProject.speed,
       "distance": signProject.distance,
+      "template_id": signProject.templateId,
       "start_date": signProject.startDate,
       "end_date": signProject.endDate,
       "notify_frequency": signProject.notifyFrequency,

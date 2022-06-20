@@ -30,7 +30,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>thesigntracker.online</string>
+			<string>signtrackerapp.page.link</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>http</string>

@@ -33,13 +33,13 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
     )));
   }
 
-  void uploadImage(SignProject project, String image) {
+  void uploadImage(SignProject project, String image, bool fromTemplate) {
     print("Image DATA=== " +image.toString());
     add(ImageReceivedFromGallery(project.rebuild((b) => b
       ..method = 'PUT'
       ..plan = image
       ..type = 'Default'
-      ..templateId = 1)));
+      ..templateId = fromTemplate ? project.templateId : null)));
   }
 
   void createProject(

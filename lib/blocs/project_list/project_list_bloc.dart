@@ -16,32 +16,66 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
   final ProjectRepository projectRepository;
   final InvitationRepository invitationRepository;
   final UserRepository userRepository;
+  int page = 1;
+  List<SignProject> projectList = [];
+  List<SignProject> projects;
 
   @override
   ProjectListState get initialState => ProjectListInitial();
 
   void getProjects() {
+    print("========Call get pro======");
     add(LoadProjects());
   }
 
   void reloadProjects() {
+    print("========Call get REpro======");
     add(ReloadProjects());
   }
 
+  void fetchProjectList(){
+  print("========Call get Fetch======");
+  add(FetchNextPage());
+}
+
   @override
   Stream<ProjectListState> mapEventToState(ProjectListEvent event) async* {
-    if (event is LoadProjects || event is ReloadProjects) {
+    if (event is LoadProjects || event is ReloadProjects || event is FetchNextPage) {
+      print("========Call Method======");
       if (event is ReloadProjects) {
-        yield ReloadingProjects();
-      } else {
+        print("========Call RELoad Project======");
+        projectList = [];
+        page = 1;
+          yield ReloadingProjects();
+      } else if(event is FetchNextPage){
+        print("========Call Fetch Project======");
+        if(page!=0) {
+          page++;
+          yield ProjectsLoading();
+        }
+      }else{
+        print("========Call Load Project======");
+        print("Call Load Project=========" + page.toString());
         yield ProjectsLoading();
       }
 
-      final projects = await projectRepository.getProjects();
-      if (projects == null) {
-        yield ProjectsError('Unable to load projects');
-      } else {
-        yield ProjectsLoaded(projects);
+      //print("PAGE NO============ " + page.toString());
+      if(page!=0) {
+        projects = await projectRepository.getProjectList(page);
+        //print("PROJECT LENGHT============ " + projects.length.toString());
+        if (projects == null) {
+          //print("========Call IF Project======");
+          yield ProjectsError('Unable to load projects');
+        } else if (projects.length == 0) {
+          yield ProjectsListEmpty('No More Projects');
+          page = 0;
+        } else {
+          //print("========Call Else Project======");
+          projectList.addAll(projects);
+          //print("PROJECT LENGHT updated============ " +projectList.length.toString());
+          //print("PROJECT DATA+======" + projectList.toString());
+          yield ProjectsLoaded(projectList);
+        }
       }
 //      final invitations = await invitationRepository.getInvitations();
 //      if (invitations == null) {

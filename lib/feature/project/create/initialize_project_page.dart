@@ -81,7 +81,7 @@ class _InitializeProjectPageState extends State<InitializeProjectPage> {
 
   String drawingNumber = '';
   String templateType = 'Default';
-  int templateId = 1;
+  int templateId;
   bool isSkipTemplate = false;
   double distance = 100;
 

@@ -30,19 +30,20 @@ class AdjustSettingsBloc
       ..shortSummary = comment)));
   }
 
-  void uploadImage(SignProject project, String image) {
+  void uploadImage(SignProject project, String image, bool fromTemplate) {
     print("Image DATA11=== " +image.toString());
     add(ImageReceivedFromGallery(project.rebuild((b) => b
       ..method = 'PUT'
       ..plan = image
-      ..templateId = 1
+      ..templateId = fromTemplate ? project.templateId : null
       ..type = 'Default')));
   }
 
   void changePlanUrl(SignProject project, String image) {
-    print("CHANGE PLAN");
+    print("Image DATA11=== 222");
     add(ImageFromTemplate(project.rebuild((b) => b
       ..method = 'PUT'
+      ..templateId = project.templateId
       ..plan = image)));
   }
 

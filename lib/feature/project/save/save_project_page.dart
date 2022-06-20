@@ -396,16 +396,25 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
   }
 
   Future getImage() async {
-    image = (await FilePicker.platform.pickFiles(
+    /*image = (await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'png'],
       allowMultiple: false,
-    )) as File;
+    )) as File;*/
+
+    FilePickerResult imageResult = (await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'png'],
+      allowMultiple: false,
+    ));
+
+    image = File(imageResult.paths.first);
     imagepath = image.path;
 
+    var fromTemplate = false;
     Navigator.pop(context);
     print(imagepath);
-    bloc.uploadImage(project, imagepath);
+    bloc.uploadImage(project, imagepath, fromTemplate);
   }
 
   void sendMemberInvites(int projectId) {
@@ -677,7 +686,8 @@ class _SaveProjectPageState extends State<SaveProjectPage> {
       print('Exist');
       print(imageExist.path.toString());
       imagepath = imageExist.path;
-      bloc.uploadImage(project, imageExist.path);
+      var fromTemplate = true;
+      bloc.uploadImage(project, imageExist.path, fromTemplate);
     } else {
       print('Template not downloaded');
     }

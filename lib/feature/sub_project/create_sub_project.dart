@@ -52,8 +52,19 @@ class _CreateSubProjectPageState extends State<CreateSubProjectPage> {
   void showSuccessSnackBar(String message) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
+        duration: Duration(seconds: 1),
         content: Text(message),
         backgroundColor: Colors.green,
+      ),
+    );
+  }
+
+  void showFailureSnackBar(String message) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 1),
+        content: Text(message),
+        backgroundColor: Colors.red,
       ),
     );
   }
@@ -100,7 +111,7 @@ class _CreateSubProjectPageState extends State<CreateSubProjectPage> {
           if (state is CreateProjectNotUploadedState) {
             pr.hide().then((isHidden) {
               print(isHidden);
-              showSuccessSnackBar("Project creation failed.");
+              showFailureSnackBar("Project creation failed.");
             });
           }
           if (state is CreateProjectUploadedState) {

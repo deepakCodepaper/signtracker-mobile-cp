@@ -12,12 +12,12 @@ class TemplateApi {
       String templateName, String countryCode, String stateCode) async {
     var path = 'templates?template_name=$templateName';
 
-    if (countryCode != null && countryCode.isNotEmpty) {
+   /* if (countryCode != null && countryCode.isNotEmpty) {
       path = "$path&country_code=$countryCode";
     }
     if (stateCode != null && stateCode.isNotEmpty) {
       path = "$path&state_code=$stateCode";
-    }
+    }*/
     try {
       final response = await apiClient.dio.get(path);
 
@@ -38,12 +38,12 @@ class TemplateApi {
     var path =
         'templates?duration=$duration&number_of_lanes=$lanes&closure=$closure';
 
-    if (countryCode != null && countryCode.isNotEmpty) {
+   /* if (countryCode != null && countryCode.isNotEmpty) {
       path = "$path&country_code=$countryCode";
     }
     if (stateCode != null && stateCode.isNotEmpty) {
       path = "$path&state_code=$stateCode";
-    }
+    }*/
 
     try {
       final response = await apiClient.dio.get(path);
@@ -61,13 +61,14 @@ class TemplateApi {
 
   Future<List<Template>> filterByDrawingNumber(
       String drawingNumber, String countryCode, String stateCode) async {
-    var path = 'templates?drawing_number=$drawingNumber';
-    if (countryCode != null && countryCode.isNotEmpty) {
+    var path = 'templates?drawing_number=$drawingNumber&search_drawing_number=1';
+
+   /* if (countryCode != null && countryCode.isNotEmpty) {
       path = "$path&country_code=$countryCode";
     }
     if (stateCode != null && stateCode.isNotEmpty) {
       path = "$path&state_code=$stateCode";
-    }
+    }*/
     try {
       final response = await apiClient.dio.get(path);
 

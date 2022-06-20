@@ -21,10 +21,15 @@ class ProjectRepository {
     return await api.getProjects();
   }
 
-  Future<List<SignProject>> getSubProjects(int parentId) async {
+  Future<List<SignProject>> getProjectList(int page) async {
+    final api = await _signTrackerClient.getProjectAPI();
+    return await api.getProjectList(page: page);
+  }
+
+  /*Future<List<SignProject>> getSubProjects(int parentId) async {
     final api = await _signTrackerClient.getProjectAPI();
     return await api.getProjects(parentId: parentId);
-  }
+  }*/
 
   Future<SignProject> getProject(int id) async {
     final api = await _signTrackerClient.getProjectAPI();

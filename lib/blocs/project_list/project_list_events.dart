@@ -13,3 +13,8 @@ class ReloadProjects extends ProjectListEvent {
   @override
   String toString() => 'ReloadProjects';
 }
+
+class FetchNextPage extends ProjectListEvent {
+  @override
+  String toString() => 'FetchNextPage';
+}

@@ -325,6 +325,12 @@ class _SignLibraryTemplatePageState extends State<SignLibraryTemplatePage> {
                                                 child: Text(sign.name),
                                               ),
                                             ),
+                                            Center(
+                                              child: Container(
+                                                padding: EdgeInsets.all(10.0),
+                                                child: Text(sign.idName),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),

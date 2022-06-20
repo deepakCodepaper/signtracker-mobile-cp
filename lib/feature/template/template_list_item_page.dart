@@ -57,6 +57,8 @@ class _TemplatePlanListItemPageState extends State<TemplatePlanListItemPage> {
 
   @override
   void initState() {
+
+    print("HERE in template list");
     bloc = CheckSignsBloc(
         ProjectRepository(), InvitationRepository(), UserRepository());
     pr = ProgressDialog(context);
@@ -153,6 +155,7 @@ class _TemplatePlanListItemPageState extends State<TemplatePlanListItemPage> {
 
   goToTemplateListItems(element) {
     print("HERERERERE ===" + element.toString());
+    print("HERERERERE123456 ===" + element['name'].toString());
     Navigator.of(context)
         .pushNamed(TemplatePlanListItemViewPage.route,
             arguments:

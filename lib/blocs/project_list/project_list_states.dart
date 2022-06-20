@@ -28,9 +28,17 @@ class ProjectsError extends ProjectListState {
   String toString() => 'Projects Error $error';
 }
 class ProjectsLoaded extends ProjectListState {
-  ProjectsLoaded(this.projects);
   final List<SignProject> projects;
+  ProjectsLoaded(this.projects);
 
   @override
   String toString() => 'ProjectsLoaded';
+}
+
+class ProjectsListEmpty extends ProjectListState {
+  ProjectsListEmpty(this.msg);
+  final String msg;
+
+  @override
+  String toString() => 'Projects Error $msg';
 }

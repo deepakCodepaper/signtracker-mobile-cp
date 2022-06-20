@@ -156,22 +156,21 @@ class _StatefulAppState extends State<StatefulApp> {
       debugPrint('DynamicLinks onError $e');
     });*/
 
-    FirebaseDynamicLinks.instance.onLink.listen((dynamicLink) async {
+    FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamicLink) async {
       var deepLink = dynamicLink?.link;
-      print("LNK 11111 -- " + deepLink.toString());
       debugPrint('test2');
       debugPrint('DynamicLinks onLink $deepLink');
     }, onError: (e) async {
       debugPrint('DynamicLinks onError $e');
     });
 
-    FirebaseDynamicLinks.instance.onLink.listen((PendingDynamicLinkData dynamicLink) async {
-      final Uri deepLink = dynamicLink?.link;
-      print("LNK 1111100 -- " + deepLink.toString());
-      if (deepLink != null) {
-        print(deepLink.queryParameters['id']); // <- prints 'abc'
-      }
-    }, onError: (e) async {
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData dynamicLink) async {
+          final Uri deepLink = dynamicLink?.link;
+          if (deepLink != null) {
+            print(deepLink.queryParameters['id']); // <- prints 'abc'
+          }
+        }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
       print(e.message);
     });

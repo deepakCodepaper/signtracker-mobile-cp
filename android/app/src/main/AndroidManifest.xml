@@ -49,16 +49,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
+                &lt;!&ndash; Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST &ndash;&gt;
                 <data
                     android:scheme="https"
                     android:host="thesigntracker.page.link" />
 
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

@@ -118,7 +118,8 @@ class _AdjustSettingsPageState extends State<AdjustSettingsPage> {
   }
 
   DateTime stringToDateTime(String dateTime) {
-    final formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+    //final formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
+    final formatter = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     return formatter.parse(dateTime);
   }
 

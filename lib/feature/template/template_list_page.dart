@@ -220,6 +220,7 @@ class _TemplatePlanListPageState extends State<TemplatePlanListPage> {
 
   goToTemplateListItems(element) {
     print("HERERERERERERE" + element.toString());
+    print("PAGE " + widget.page.toString());
     Navigator.of(context)
         .pushNamed(TemplatePlanListItemViewPage.route,
             arguments: TemplateListArgs(widget.project, element, widget.page))

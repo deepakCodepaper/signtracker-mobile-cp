@@ -59,6 +59,10 @@ class _TemplatePlanListItemViewPageState
 
   @override
   void initState() {
+
+    print("PAGE LAST ======" + widget.page.toString());
+    print("Template LAST======" + widget.selectedTemplate.toString());
+
     bloc = CheckSignsBloc(
         ProjectRepository(), InvitationRepository(), UserRepository());
     pr = ProgressDialog(context);

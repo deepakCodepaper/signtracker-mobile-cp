@@ -107,6 +107,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   bool isUpdatingSign = false;
   bool isAdjustSign;
   bool isFirstLoad = true;
+  bool isClickOnStartButton = false;
   double screenHeight;
   double screenWidth;
   var location;
@@ -319,7 +320,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
                   left: 50,
                   right: 50,
                   child: RoundedButton(
-                    onPressed: () => setStarted(),
+                    onPressed: () {
+                      isClickOnStartButton = true;
+                      setStarted();
+                      },
                     text: 'Start'.toUpperCase(),
                     radius: 5.0,
                     color: AppColors.yellowPrimary,
@@ -737,9 +741,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     super.dispose();
   }
 
-  void checkSigns(LocationData currentLocation) {
+  void checkSigns(LocationData currentLocation,Sign sign) {
     print("CALL=======");
-    signs.forEach((sign) {
+    //signs.forEach((sign) {
       bool shouldUpdateSign = widget.checkSigns &&
           _projectMapStatus == ProjectMapStatus.Started &&
           Calculator.calculateDistanceBetweenTwoPoints(
@@ -751,7 +755,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
         bloc.completeSign(sign,signNotes.text);
         updateToComplete(sign);
       }
-    });
+   // });
   }
 
   void markStartingPoint() async {
@@ -774,9 +778,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     });
   }
 
-  void checkSigntoMap() async{
+  void checkSigntoMap(Sign sign) async{
     final currentLocation = await Location().getLocation();
-    checkSigns(currentLocation);
+    checkSigns(currentLocation,sign);
   }
 
   void addSignMarkerToMap(Sign sign) async {
@@ -831,7 +835,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
           print("SIGN DATA==============" + widget.checkSigns.toString());
           markers.add(Marker(
             onTap: () =>
-            widget.checkSigns == false ? showSignOptionsDialog(sign) : !isChecked(sign) ? showSignUpdateDialog(sign) : '',
+            widget.checkSigns == false ? showSignOptionsDialog(sign) : !isChecked(sign) && isClickOnStartButton ? showSignUpdateDialog(sign) : '',
             icon: icon,
             draggable: true,
             markerId: MarkerId(sign.id.toString()),
@@ -1563,7 +1567,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        checkSigntoMap();
+                        checkSigntoMap(sign);
                         //checkSigns(currentLocation);
                       },
                     ),
@@ -1589,7 +1593,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        showNotesDialog();
+                        showNotesDialog(sign);
                         //Navigator.pop(context);
                         //checkSigntoMap();
                         //checkSigns(currentLocation);
@@ -1619,7 +1623,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
         });
   }
 
-  showNotesDialog() {
+  showNotesDialog(Sign sign) {
     Alert(
       context: context,
       type: AlertType.none,
@@ -1646,7 +1650,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
           ),
           onPressed: () {
             Navigator.pop(context);
-            checkSigntoMap();
+            checkSigntoMap(sign);
             //validateForm();
             //SystemChannels.textInput.invokeMethod('TextInput.hide');
           },
@@ -1661,7 +1665,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             ),
           ),
           onPressed: () {
+            signNotes.text="";
             Navigator.pop(context);
+
           },
           width: 150,
         ),

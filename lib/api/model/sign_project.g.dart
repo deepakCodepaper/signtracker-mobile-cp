@@ -174,9 +174,15 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
         ..add(serializers.serialize(object.workArea,
             specifiedType: const FullType(String)));
     }
-    if (object.shortSummary != null) {
+    if (object.templateImageUrl != null) {
       result
         ..add('short_summary')
+        ..add(serializers.serialize(object.templateImageUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.shortSummary != null) {
+      result
+        ..add('template_image_url')
         ..add(serializers.serialize(object.shortSummary,
             specifiedType: const FullType(String)));
     }
@@ -185,6 +191,12 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
         ..add('project_company')
         ..add(serializers.serialize(object.projectCompany,
             specifiedType: const FullType(ProjectCompany)));
+    }
+    if (object.template != null) {
+      result
+        ..add('template')
+        ..add(serializers.serialize(object.template,
+            specifiedType: const FullType(Template)));
     }
     if (object.isSubProject != null) {
       result
@@ -365,9 +377,17 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
           result.shortSummary = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'template_image_url':
+          result.templateImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'project_company':
           result.projectCompany.replace(serializers.deserialize(value,
               specifiedType: const FullType(ProjectCompany)) as ProjectCompany);
+          break;
+        case 'template':
+          result.template.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Template)) as Template);
           break;
         case 'is_sub_project':
           result.isSubProject = serializers.deserialize(value,
@@ -474,7 +494,11 @@ class _$SignProject extends SignProject {
   @override
   final String shortSummary;
   @override
+  final String templateImageUrl;
+  @override
   final ProjectCompany projectCompany;
+  @override
+  final Template template;
   @override
   final bool isSubProject;
   @override
@@ -525,7 +549,9 @@ class _$SignProject extends SignProject {
       this.designation,
       this.workArea,
       this.shortSummary,
+      this.templateImageUrl,
       this.projectCompany,
+      this.template,
       this.isSubProject,
       this.userIds,
       this.startedBy,
@@ -575,7 +601,9 @@ class _$SignProject extends SignProject {
         designation == other.designation &&
         workArea == other.workArea &&
         shortSummary == other.shortSummary &&
+        templateImageUrl == other.templateImageUrl &&
         projectCompany == other.projectCompany &&
+        template == other.template &&
         isSubProject == other.isSubProject &&
         userIds == other.userIds &&
         startedBy == other.startedBy &&
@@ -599,7 +627,7 @@ class _$SignProject extends SignProject {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc(
+                                            $jc($jc(
                                                 $jc(
                                                     $jc(
                                                         $jc(
@@ -607,17 +635,20 @@ class _$SignProject extends SignProject {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, id.hashCode), companyId.hashCode), templateId.hashCode), parent.hashCode), contractNumber.hashCode), commissionedBy.hashCode), identifier.hashCode), type.hashCode), plan.hashCode), highway.hashCode), intersection.hashCode), speed.hashCode), distance.hashCode), createdAt.hashCode), updatedAt.hashCode), status.hashCode), notifyFrequency.hashCode),
-                                                                                inactiveNotifyFrequency.hashCode),
-                                                                            startDate.hashCode),
-                                                                        endDate.hashCode),
-                                                                    closedAt.hashCode),
-                                                                signPlacement.hashCode),
-                                                            location.hashCode),
-                                                        designation.hashCode),
-                                                    workArea.hashCode),
-                                                shortSummary.hashCode),
+                                                                            $jc(
+                                                                                $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, id.hashCode), companyId.hashCode), templateId.hashCode), parent.hashCode), contractNumber.hashCode), commissionedBy.hashCode), identifier.hashCode), type.hashCode), plan.hashCode), highway.hashCode), intersection.hashCode), speed.hashCode), distance.hashCode), createdAt.hashCode), updatedAt.hashCode), status.hashCode), notifyFrequency.hashCode),
+                                                                                    inactiveNotifyFrequency.hashCode),
+                                                                                startDate.hashCode),
+                                                                            endDate.hashCode),
+                                                                        closedAt.hashCode),
+                                                                    signPlacement.hashCode),
+                                                                location.hashCode),
+                                                            designation.hashCode),
+                                                        workArea.hashCode),
+                                                    shortSummary.hashCode),
+                                                templateImageUrl.hashCode),
                                             projectCompany.hashCode),
+                                            template.hashCode),
                                         isSubProject.hashCode),
                                     userIds.hashCode),
                                 startedBy.hashCode),
@@ -659,7 +690,9 @@ class _$SignProject extends SignProject {
           ..add('designation', designation)
           ..add('workArea', workArea)
           ..add('shortSummary', shortSummary)
+          ..add('templateImageUrl', templateImageUrl)
           ..add('projectCompany', projectCompany)
+          ..add('template', template)
           ..add('isSubProject', isSubProject)
           ..add('userIds', userIds)
           ..add('startedBy', startedBy)
@@ -791,11 +824,21 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
   String get shortSummary => _$this._shortSummary;
   set shortSummary(String shortSummary) => _$this._shortSummary = shortSummary;
 
+  String _templateImageUrl;
+  String get templateImageUrl => _$this._templateImageUrl;
+  set templateImageUrl(String templateImageUrl) => _$this._templateImageUrl = templateImageUrl;
+
   ProjectCompanyBuilder _projectCompany;
   ProjectCompanyBuilder get projectCompany =>
       _$this._projectCompany ??= new ProjectCompanyBuilder();
   set projectCompany(ProjectCompanyBuilder projectCompany) =>
       _$this._projectCompany = projectCompany;
+
+  TemplateBuilder _template;
+  TemplateBuilder get template =>
+      _$this._template ??= new TemplateBuilder();
+  set template(TemplateBuilder template) =>
+      _$this._template = template;
 
   bool _isSubProject;
   bool get isSubProject => _$this._isSubProject;
@@ -868,7 +911,9 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
       _designation = _$v.designation;
       _workArea = _$v.workArea;
       _shortSummary = _$v.shortSummary;
+      _templateImageUrl = _$v.templateImageUrl;
       _projectCompany = _$v.projectCompany?.toBuilder();
+      _template = _$v.template?.toBuilder();
       _isSubProject = _$v.isSubProject;
       _userIds = _$v.userIds?.toBuilder();
       _startedBy = _$v.startedBy;
@@ -929,7 +974,9 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
               designation: designation,
               workArea: workArea,
               shortSummary: shortSummary,
+              templateImageUrl: templateImageUrl,
               projectCompany: _projectCompany?.build(),
+              template: _template?.build(),
               isSubProject: isSubProject,
               userIds: _userIds?.build(),
               startedBy: startedBy,
@@ -944,6 +991,9 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
       try {
         _$failedField = 'projectCompany';
         _projectCompany?.build();
+
+        _$failedField = 'template';
+        _template?.build();
 
         _$failedField = 'userIds';
         _userIds?.build();

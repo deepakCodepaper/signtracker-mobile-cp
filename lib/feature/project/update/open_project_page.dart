@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:signtracker/api/model/sign.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/blocs/adjust_settings/adjust_settings_bloc.dart';
@@ -33,6 +34,8 @@ import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/card.dart';
 
 import '../../../utilities/constants.dart';
+import '../../template/template_list_item_page.dart';
+import '../../template/template_plan_view.dart';
 
 class OpenProjectPageArgs {
   OpenProjectPageArgs(this.project, this.fromAddingSign);
@@ -49,10 +52,10 @@ class OpenProjectPage extends StatefulWidget {
   final bool fromAddingSign;
 
   @override
-  State<StatefulWidget> createState() => _OpenProjectPageState();
+  State<StatefulWidget> createState() => OpenProjectPageState();
 }
 
-class _OpenProjectPageState extends State<OpenProjectPage> {
+class OpenProjectPageState extends State<OpenProjectPage> {
   SignProject project;
 
   ProgressDialog pr;
@@ -108,8 +111,9 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
     imagepath = image.paths.first;
 
     Navigator.pop(context);
+    var fromTemplate = false;
     print("IMAGE PATH====" + imagepath);
-    bloc.uploadImage(project, imagepath);
+    bloc.uploadImage(project, imagepath, fromTemplate);
   }
 
   void showSnackBar(String message) {
@@ -319,8 +323,9 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
     if (imageExist != null && imageExist.existsSync()) {
       print('Exist');
       print('Exist====' + imageExist.path);
+      var fromTemplate = true;
       imagepath = imageExist.path;
-      bloc.uploadImage(updatedSignProject, imageExist.path);
+      bloc.uploadImage(updatedSignProject, imageExist.path, fromTemplate);
     } else {
       print('Template not downloaded');
     }
@@ -335,6 +340,32 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
       print('$appDocPath/$filename');
       return File('$appDocPath/$filename');
     }
+  }
+
+  goToTemplateListItems(SignProject project) {
+    String page = "/open-project-info";
+    Navigator.of(context)
+        .pushNamed(TemplatePlanListItemViewPage.route,
+        arguments: TemplateListArgs(project, project.template, page))
+        .then((results) {
+      if (results is PopWithResults) {
+        PopWithResults popResult = results;
+        if (popResult.toPage == OpenProjectPage.route) {
+          SignProject updatedSignProject = popResult.results['pop_result'];
+
+          project = project.rebuild((b) =>
+          b..templateId = (popResult.results["template"] as Template).id);
+
+          print("call final method");
+
+          pr.style(message: 'Loading');
+          uploadTemplatePlan(updatedSignProject);
+        } else {
+          // pop to previous page
+          Navigator.of(context).pop(results);
+        }
+      }
+    });
   }
 
   showErrorMessage(BuildContext context) {
@@ -499,23 +530,39 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
   viewPlan() async {
     print("HERE+++++++++");
     var isChangePlan;
-    if (project.plan != storageUrl) {
-      print("HERE+++++++1");
-      print(project.plan);
-      isChangePlan = await viewPlanOnline(context, project.plan);
-      print(isChangePlan);
-    } else if (imagepath != null) {
-      print("HERE+++++++2");
-      isChangePlan = await viewPlanOffline(context, imagepath);
-      print(isChangePlan);
-    } else {
-      print("HERE+++++++3");
+    bool defaultPlan = false;
+    if(project.plan != null) {
+      print("HERE+++++++++00");
+      if(project.plan.toString() == project.templateImageUrl.toString()) {
+        print("HERE+++++++++001");
+        defaultPlan = true;
+      }
+      if (project.plan != storageUrl) {
+        print("HERE+++++++1");
+        print(project.plan);
+        print("DATA====" + project.templateImageUrl.toString());
+        print("DATA====1" + defaultPlan.toString());
+        isChangePlan = await viewPlanOnline(context, project.plan, defaultPlan, project);
+        print(isChangePlan);
+      } else if (imagepath != null) {
+        print("HERE+++++++2");
+        isChangePlan = await viewPlanOffline(context, imagepath);
+        print(isChangePlan);
+      } else {
+        print("HERE+++++++3");
+        showErrorMessage(context);
+      }
+    }else{
+      print("HERE+++++++4");
       showErrorMessage(context);
     }
-
     if (isChangePlan) {
+      print("helllo call this");
       showWhereToUse(context);
+    }else{
+      goToTemplateListItems(project);
     }
+
   }
 
   Future<bool> viewPlanOffline(BuildContext context, String projectPlan) async {
@@ -731,28 +778,55 @@ class _OpenProjectPageState extends State<OpenProjectPage> {
   }
 }
 
-Future<bool> viewPlanOnline(BuildContext context, String projectPlan) async {
+Future<bool> viewPlanOnline(BuildContext context, String projectPlan, bool defaultPlan, SignProject project) async {
   return await Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (_) => _ViewProjectPlanPageOnline(projectPlan),
+      builder: (_) => ViewProjectPlanPageOnline(projectPlan,defaultPlan, project),
     ),
   );
 }
 
-class _ViewProjectPlanPageOnline extends StatelessWidget {
-  const _ViewProjectPlanPageOnline(this.imagePlan);
+class ViewProjectPlanPageOnline extends StatefulWidget {
+  const ViewProjectPlanPageOnline(this.imagePlan,this.dPlan,this.project);
 
   final String imagePlan;
+  final bool dPlan;
+  final SignProject project;
+
+  @override
+  State<ViewProjectPlanPageOnline> createState() => ViewProjectPlanPageOnlineState();
+}
+
+class ViewProjectPlanPageOnlineState extends State<ViewProjectPlanPageOnline> {
+
+  bool defaultPlan = false;
+
+  @override
+  void initState(){
+    super.initState();
+    if(widget.dPlan){
+      setState((){
+        defaultPlan = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: SignTrackerAppBar.createAppBar(context, 'Project Template'),
       body: Stack(
         children: <Widget>[
-          Container(
-            child: PhotoView(imageProvider: NetworkImage(imagePlan)),
+          Positioned(
+            bottom: 130,
+            left: 0,
+            right: 0,
+            top: 30,
+            child: Container(
+              child: PhotoView(imageProvider: NetworkImage(widget.imagePlan)),
+            ),
           ),
           Positioned(
             bottom: 20,
@@ -772,7 +846,36 @@ class _ViewProjectPlanPageOnline extends StatelessWidget {
               ),
               onPressed: () => Navigator.pop(context, true),
             ),
-          )
+          ),
+          Positioned(
+            bottom: 80,
+            left: 20,
+            right: 20,
+            child: Row(
+              children: [
+                Checkbox(
+                  value: defaultPlan,
+                  activeColor: Colors.green,
+                  checkColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(2.0),
+                  ),
+                  side: MaterialStateBorderSide.resolveWith(
+                        (states) => BorderSide(width: 1.0, color: Colors.white),
+                  ),
+                  onChanged: (bool val){
+                    setState((){
+                      if(defaultPlan == false) {
+                        defaultPlan = val;
+                        Navigator.pop(context, false);
+                      }
+                    });
+                  },
+                ),
+                Text('Use for project plan', style: TextStyle(color: Colors.yellow,fontSize: 16.0),),
+              ],
+            ),
+          ),
         ],
       ),
     );
