@@ -18,240 +18,279 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
   Iterable<Object> serialize(Serializers serializers, SignProject object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.companyId != null) {
+    value = object.companyId;
+    if (value != null) {
       result
         ..add('company_id')
-        ..add(serializers.serialize(object.companyId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.templateId != null) {
+    value = object.templateId;
+    if (value != null) {
       result
         ..add('template_id')
-        ..add(serializers.serialize(object.templateId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.parent != null) {
+    value = object.parent;
+    if (value != null) {
       result
         ..add('parent')
-        ..add(serializers.serialize(object.parent,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.contractNumber != null) {
+    value = object.contractNumber;
+    if (value != null) {
       result
         ..add('contract_number')
-        ..add(serializers.serialize(object.contractNumber,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.commissionedBy != null) {
+    value = object.commissionedBy;
+    if (value != null) {
       result
         ..add('commissioned_by')
-        ..add(serializers.serialize(object.commissionedBy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.description != null) {
+    value = object.description;
+    if (value != null) {
       result
         ..add('description')
-        ..add(serializers.serialize(object.description,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.identifier != null) {
+    value = object.identifier;
+    if (value != null) {
       result
         ..add('identifier')
-        ..add(serializers.serialize(object.identifier,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.type != null) {
+    value = object.type;
+    if (value != null) {
       result
         ..add('type')
-        ..add(serializers.serialize(object.type,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.plan != null) {
+    value = object.plan;
+    if (value != null) {
       result
         ..add('plan')
-        ..add(serializers.serialize(object.plan,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.highway != null) {
+    value = object.highway;
+    if (value != null) {
       result
         ..add('highway')
-        ..add(serializers.serialize(object.highway,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.intersection != null) {
+    value = object.intersection;
+    if (value != null) {
       result
         ..add('intersection')
-        ..add(serializers.serialize(object.intersection,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.speed != null) {
+    value = object.speed;
+    if (value != null) {
       result
         ..add('speed')
-        ..add(serializers.serialize(object.speed,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.distance != null) {
+    value = object.distance;
+    if (value != null) {
       result
         ..add('distance')
-        ..add(serializers.serialize(object.distance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.notifyFrequency != null) {
+    value = object.notifyFrequency;
+    if (value != null) {
       result
         ..add('notify_frequency')
-        ..add(serializers.serialize(object.notifyFrequency,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.inactiveNotifyFrequency != null) {
+    value = object.inactiveNotifyFrequency;
+    if (value != null) {
       result
         ..add('inactive_notify_frequency')
-        ..add(serializers.serialize(object.inactiveNotifyFrequency,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.startDate != null) {
+    value = object.startDate;
+    if (value != null) {
       result
         ..add('start_date')
-        ..add(serializers.serialize(object.startDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.endDate != null) {
+    value = object.endDate;
+    if (value != null) {
       result
         ..add('end_date')
-        ..add(serializers.serialize(object.endDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.closedAt != null) {
+    value = object.closedAt;
+    if (value != null) {
       result
         ..add('closed_at')
-        ..add(serializers.serialize(object.closedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.signPlacement != null) {
+    value = object.signPlacement;
+    if (value != null) {
       result
         ..add('sign_placement')
-        ..add(serializers.serialize(object.signPlacement,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.location != null) {
+    value = object.location;
+    if (value != null) {
       result
         ..add('location')
-        ..add(serializers.serialize(object.location,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.designation != null) {
+    value = object.designation;
+    if (value != null) {
       result
         ..add('designation')
-        ..add(serializers.serialize(object.designation,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.workArea != null) {
+    value = object.workArea;
+    if (value != null) {
       result
         ..add('work_area')
-        ..add(serializers.serialize(object.workArea,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.templateImageUrl != null) {
+    value = object.shortSummary;
+    if (value != null) {
       result
         ..add('short_summary')
-        ..add(serializers.serialize(object.templateImageUrl,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.shortSummary != null) {
+    value = object.templateImageUrl;
+    if (value != null) {
       result
         ..add('template_image_url')
-        ..add(serializers.serialize(object.shortSummary,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.projectCompany != null) {
+    value = object.projectCompany;
+    if (value != null) {
       result
         ..add('project_company')
-        ..add(serializers.serialize(object.projectCompany,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(ProjectCompany)));
     }
-    if (object.template != null) {
+    value = object.template;
+    if (value != null) {
       result
         ..add('template')
-        ..add(serializers.serialize(object.template,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(Template)));
     }
-    if (object.isSubProject != null) {
+    value = object.isSubProject;
+    if (value != null) {
       result
         ..add('is_sub_project')
-        ..add(serializers.serialize(object.isSubProject,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.userIds != null) {
+    value = object.userIds;
+    if (value != null) {
       result
         ..add('user_ids')
-        ..add(serializers.serialize(object.userIds,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(int)])));
     }
-    if (object.startedBy != null) {
+    value = object.startedBy;
+    if (value != null) {
       result
         ..add('started_by')
-        ..add(serializers.serialize(object.startedBy,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.onTime != null) {
+    value = object.onTime;
+    if (value != null) {
       result
         ..add('on_time')
-        ..add(serializers.serialize(object.onTime,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.closedEndDiff != null) {
+    value = object.closedEndDiff;
+    if (value != null) {
       result
         ..add('closed_end_diff')
-        ..add(serializers.serialize(object.closedEndDiff,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.closedEndDiffHours != null) {
+    value = object.closedEndDiffHours;
+    if (value != null) {
       result
         ..add('closed_end_diff_hours')
-        ..add(serializers.serialize(object.closedEndDiffHours,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.method != null) {
+    value = object.method;
+    if (value != null) {
       result
         ..add('_method')
-        ..add(serializers.serialize(object.method,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.subProjects != null) {
+    value = object.projectNotifications;
+    if (value != null) {
+      result
+        ..add('project_notifications')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(ProjectNotification)])));
+    }
+    value = object.subProjects;
+    if (value != null) {
       result
         ..add('sub_projects')
-        ..add(serializers.serialize(object.subProjects,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(SignProject)])));
     }
-    if (object.members != null) {
+    value = object.members;
+    if (value != null) {
       result
         ..add('members')
-        ..add(serializers.serialize(object.members,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Members)])));
     }
@@ -267,7 +306,7 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -419,6 +458,12 @@ class _$SignProjectSerializer implements StructuredSerializer<SignProject> {
           result.method = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'project_notifications':
+          result.projectNotifications.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(ProjectNotification)]))
+              as BuiltList<Object>);
+          break;
         case 'sub_projects':
           result.subProjects.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -514,6 +559,8 @@ class _$SignProject extends SignProject {
   @override
   final String method;
   @override
+  final BuiltList<ProjectNotification> projectNotifications;
+  @override
   final BuiltList<SignProject> subProjects;
   @override
   final BuiltList<Members> members;
@@ -559,6 +606,7 @@ class _$SignProject extends SignProject {
       this.closedEndDiff,
       this.closedEndDiffHours,
       this.method,
+      this.projectNotifications,
       this.subProjects,
       this.members})
       : super._();
@@ -611,6 +659,7 @@ class _$SignProject extends SignProject {
         closedEndDiff == other.closedEndDiff &&
         closedEndDiffHours == other.closedEndDiffHours &&
         method == other.method &&
+        projectNotifications == other.projectNotifications &&
         subProjects == other.subProjects &&
         members == other.members;
   }
@@ -627,7 +676,7 @@ class _$SignProject extends SignProject {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(
+                                            $jc(
                                                 $jc(
                                                     $jc(
                                                         $jc(
@@ -635,27 +684,24 @@ class _$SignProject extends SignProject {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc(
-                                                                                $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, id.hashCode), companyId.hashCode), templateId.hashCode), parent.hashCode), contractNumber.hashCode), commissionedBy.hashCode), identifier.hashCode), type.hashCode), plan.hashCode), highway.hashCode), intersection.hashCode), speed.hashCode), distance.hashCode), createdAt.hashCode), updatedAt.hashCode), status.hashCode), notifyFrequency.hashCode),
-                                                                                    inactiveNotifyFrequency.hashCode),
-                                                                                startDate.hashCode),
-                                                                            endDate.hashCode),
-                                                                        closedAt.hashCode),
-                                                                    signPlacement.hashCode),
-                                                                location.hashCode),
-                                                            designation.hashCode),
-                                                        workArea.hashCode),
-                                                    shortSummary.hashCode),
-                                                templateImageUrl.hashCode),
-                                            projectCompany.hashCode),
-                                            template.hashCode),
-                                        isSubProject.hashCode),
-                                    userIds.hashCode),
-                                startedBy.hashCode),
-                            onTime.hashCode),
-                        closedEndDiff.hashCode),
-                    closedEndDiffHours.hashCode),
-                method.hashCode),
+                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, id.hashCode), companyId.hashCode), templateId.hashCode), parent.hashCode), contractNumber.hashCode), commissionedBy.hashCode), description.hashCode), identifier.hashCode), type.hashCode), plan.hashCode), highway.hashCode), intersection.hashCode), speed.hashCode), distance.hashCode), createdAt.hashCode), updatedAt.hashCode), status.hashCode), notifyFrequency.hashCode), inactiveNotifyFrequency.hashCode), startDate.hashCode), endDate.hashCode),
+                                                                                closedAt.hashCode),
+                                                                            signPlacement.hashCode),
+                                                                        location.hashCode),
+                                                                    designation.hashCode),
+                                                                workArea.hashCode),
+                                                            shortSummary.hashCode),
+                                                        templateImageUrl.hashCode),
+                                                    projectCompany.hashCode),
+                                                template.hashCode),
+                                            isSubProject.hashCode),
+                                        userIds.hashCode),
+                                    startedBy.hashCode),
+                                onTime.hashCode),
+                            closedEndDiff.hashCode),
+                        closedEndDiffHours.hashCode),
+                    method.hashCode),
+                projectNotifications.hashCode),
             subProjects.hashCode),
         members.hashCode));
   }
@@ -700,14 +746,14 @@ class _$SignProject extends SignProject {
           ..add('closedEndDiff', closedEndDiff)
           ..add('closedEndDiffHours', closedEndDiffHours)
           ..add('method', method)
+          ..add('projectNotifications', projectNotifications)
           ..add('subProjects', subProjects)
           ..add('members', members))
         .toString();
   }
 }
 
-class
-SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
+class SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
   _$SignProject _$v;
 
   int _id;
@@ -738,8 +784,7 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
 
   String _description;
   String get description => _$this._description;
-  set description(String description) =>
-      _$this._description = description;
+  set description(String description) => _$this._description = description;
 
   String _identifier;
   String get identifier => _$this._identifier;
@@ -826,7 +871,8 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
 
   String _templateImageUrl;
   String get templateImageUrl => _$this._templateImageUrl;
-  set templateImageUrl(String templateImageUrl) => _$this._templateImageUrl = templateImageUrl;
+  set templateImageUrl(String templateImageUrl) =>
+      _$this._templateImageUrl = templateImageUrl;
 
   ProjectCompanyBuilder _projectCompany;
   ProjectCompanyBuilder get projectCompany =>
@@ -835,10 +881,8 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
       _$this._projectCompany = projectCompany;
 
   TemplateBuilder _template;
-  TemplateBuilder get template =>
-      _$this._template ??= new TemplateBuilder();
-  set template(TemplateBuilder template) =>
-      _$this._template = template;
+  TemplateBuilder get template => _$this._template ??= new TemplateBuilder();
+  set template(TemplateBuilder template) => _$this._template = template;
 
   bool _isSubProject;
   bool get isSubProject => _$this._isSubProject;
@@ -869,6 +913,13 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
   String get method => _$this._method;
   set method(String method) => _$this._method = method;
 
+  ListBuilder<ProjectNotification> _projectNotifications;
+  ListBuilder<ProjectNotification> get projectNotifications =>
+      _$this._projectNotifications ??= new ListBuilder<ProjectNotification>();
+  set projectNotifications(
+          ListBuilder<ProjectNotification> projectNotifications) =>
+      _$this._projectNotifications = projectNotifications;
+
   ListBuilder<SignProject> _subProjects;
   ListBuilder<SignProject> get subProjects =>
       _$this._subProjects ??= new ListBuilder<SignProject>();
@@ -883,46 +934,48 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
   SignProjectBuilder();
 
   SignProjectBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _companyId = _$v.companyId;
-      _templateId = _$v.templateId;
-      _parent = _$v.parent;
-      _contractNumber = _$v.contractNumber;
-      _commissionedBy = _$v.commissionedBy;
-      _description = _$v.description;
-      _identifier = _$v.identifier;
-      _type = _$v.type;
-      _plan = _$v.plan;
-      _highway = _$v.highway;
-      _intersection = _$v.intersection;
-      _speed = _$v.speed;
-      _distance = _$v.distance;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _status = _$v.status;
-      _notifyFrequency = _$v.notifyFrequency;
-      _inactiveNotifyFrequency = _$v.inactiveNotifyFrequency;
-      _startDate = _$v.startDate;
-      _endDate = _$v.endDate;
-      _closedAt = _$v.closedAt;
-      _signPlacement = _$v.signPlacement;
-      _location = _$v.location;
-      _designation = _$v.designation;
-      _workArea = _$v.workArea;
-      _shortSummary = _$v.shortSummary;
-      _templateImageUrl = _$v.templateImageUrl;
-      _projectCompany = _$v.projectCompany?.toBuilder();
-      _template = _$v.template?.toBuilder();
-      _isSubProject = _$v.isSubProject;
-      _userIds = _$v.userIds?.toBuilder();
-      _startedBy = _$v.startedBy;
-      _onTime = _$v.onTime;
-      _closedEndDiff = _$v.closedEndDiff;
-      _closedEndDiffHours = _$v.closedEndDiffHours;
-      _method = _$v.method;
-      _subProjects = _$v.subProjects?.toBuilder();
-      _members = _$v.members?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _companyId = $v.companyId;
+      _templateId = $v.templateId;
+      _parent = $v.parent;
+      _contractNumber = $v.contractNumber;
+      _commissionedBy = $v.commissionedBy;
+      _description = $v.description;
+      _identifier = $v.identifier;
+      _type = $v.type;
+      _plan = $v.plan;
+      _highway = $v.highway;
+      _intersection = $v.intersection;
+      _speed = $v.speed;
+      _distance = $v.distance;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _status = $v.status;
+      _notifyFrequency = $v.notifyFrequency;
+      _inactiveNotifyFrequency = $v.inactiveNotifyFrequency;
+      _startDate = $v.startDate;
+      _endDate = $v.endDate;
+      _closedAt = $v.closedAt;
+      _signPlacement = $v.signPlacement;
+      _location = $v.location;
+      _designation = $v.designation;
+      _workArea = $v.workArea;
+      _shortSummary = $v.shortSummary;
+      _templateImageUrl = $v.templateImageUrl;
+      _projectCompany = $v.projectCompany?.toBuilder();
+      _template = $v.template?.toBuilder();
+      _isSubProject = $v.isSubProject;
+      _userIds = $v.userIds?.toBuilder();
+      _startedBy = $v.startedBy;
+      _onTime = $v.onTime;
+      _closedEndDiff = $v.closedEndDiff;
+      _closedEndDiffHours = $v.closedEndDiffHours;
+      _method = $v.method;
+      _projectNotifications = $v.projectNotifications?.toBuilder();
+      _subProjects = $v.subProjects?.toBuilder();
+      _members = $v.members?.toBuilder();
       _$v = null;
     }
     return this;
@@ -930,9 +983,7 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
 
   @override
   void replace(SignProject other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignProject;
   }
 
@@ -984,6 +1035,7 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
               closedEndDiff: closedEndDiff,
               closedEndDiffHours: closedEndDiffHours,
               method: method,
+              projectNotifications: _projectNotifications?.build(),
               subProjects: _subProjects?.build(),
               members: _members?.build());
     } catch (_) {
@@ -991,13 +1043,14 @@ SignProjectBuilder implements Builder<SignProject, SignProjectBuilder> {
       try {
         _$failedField = 'projectCompany';
         _projectCompany?.build();
-
         _$failedField = 'template';
         _template?.build();
 
         _$failedField = 'userIds';
         _userIds?.build();
 
+        _$failedField = 'projectNotifications';
+        _projectNotifications?.build();
         _$failedField = 'subProjects';
         _subProjects?.build();
         _$failedField = 'members';

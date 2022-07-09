@@ -24,17 +24,20 @@ class _$CloseProjectRequestSerializer
       Serializers serializers, CloseProjectRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.existingsSignsUncovered != null) {
+    Object value;
+    value = object.existingsSignsUncovered;
+    if (value != null) {
       result
         ..add('existingsSignsUncovered')
-        ..add(serializers.serialize(object.existingsSignsUncovered,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.signsRemoved != null) {
+    value = object.signsRemoved;
+    if (value != null) {
       result
         ..add('signsRemoved')
-        ..add(serializers.serialize(object.signsRemoved,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -49,7 +52,7 @@ class _$CloseProjectRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'existingsSignsUncovered':
           result.existingsSignsUncovered = serializers.deserialize(value,
@@ -127,9 +130,10 @@ class CloseProjectRequestBuilder
   CloseProjectRequestBuilder();
 
   CloseProjectRequestBuilder get _$this {
-    if (_$v != null) {
-      _existingsSignsUncovered = _$v.existingsSignsUncovered;
-      _signsRemoved = _$v.signsRemoved;
+    final $v = _$v;
+    if ($v != null) {
+      _existingsSignsUncovered = $v.existingsSignsUncovered;
+      _signsRemoved = $v.signsRemoved;
       _$v = null;
     }
     return this;
@@ -137,9 +141,7 @@ class CloseProjectRequestBuilder
 
   @override
   void replace(CloseProjectRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CloseProjectRequest;
   }
 

@@ -18,22 +18,24 @@ class _$InviteSerializer implements StructuredSerializer<Invite> {
   Iterable<Object> serialize(Serializers serializers, Invite object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.userId != null) {
+    Object value;
+    value = object.userId;
+    if (value != null) {
       result
         ..add('user_id')
-        ..add(serializers.serialize(object.userId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.projectId != null) {
+    value = object.projectId;
+    if (value != null) {
       result
         ..add('project_id')
-        ..add(serializers.serialize(object.projectId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.notes != null) {
+    value = object.notes;
+    if (value != null) {
       result
         ..add('notes')
-        ..add(serializers.serialize(object.notes,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -48,7 +50,7 @@ class _$InviteSerializer implements StructuredSerializer<Invite> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'user_id':
           result.userId = serializers.deserialize(value,
@@ -132,10 +134,11 @@ class InviteBuilder implements Builder<Invite, InviteBuilder> {
   InviteBuilder();
 
   InviteBuilder get _$this {
-    if (_$v != null) {
-      _userId = _$v.userId;
-      _projectId = _$v.projectId;
-      _notes = _$v.notes;
+    final $v = _$v;
+    if ($v != null) {
+      _userId = $v.userId;
+      _projectId = $v.projectId;
+      _notes = $v.notes;
       _$v = null;
     }
     return this;
@@ -143,9 +146,7 @@ class InviteBuilder implements Builder<Invite, InviteBuilder> {
 
   @override
   void replace(Invite other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Invite;
   }
 

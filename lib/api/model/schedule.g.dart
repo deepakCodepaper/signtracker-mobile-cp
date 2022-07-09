@@ -18,40 +18,43 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
   Iterable<Object> serialize(Serializers serializers, Schedule object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.projectId != null) {
+    value = object.projectId;
+    if (value != null) {
       result
         ..add('project_id')
-        ..add(serializers.serialize(object.projectId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.daily != null) {
+    value = object.daily;
+    if (value != null) {
       result
         ..add('every_n_days')
-        ..add(serializers.serialize(object.daily,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.weekly != null) {
+    value = object.weekly;
+    if (value != null) {
       result
         ..add('every_n_weeks')
-        ..add(serializers.serialize(object.weekly,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.day != null) {
+    value = object.day;
+    if (value != null) {
       result
         ..add('day')
-        ..add(serializers.serialize(object.day,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.time != null) {
+    value = object.time;
+    if (value != null) {
       result
         ..add('time')
-        ..add(serializers.serialize(object.time,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -66,7 +69,7 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -194,13 +197,14 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
   ScheduleBuilder();
 
   ScheduleBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _projectId = _$v.projectId;
-      _daily = _$v.daily;
-      _weekly = _$v.weekly;
-      _day = _$v.day;
-      _time = _$v.time;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _projectId = $v.projectId;
+      _daily = $v.daily;
+      _weekly = $v.weekly;
+      _day = $v.day;
+      _time = $v.time;
       _$v = null;
     }
     return this;
@@ -208,9 +212,7 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
 
   @override
   void replace(Schedule other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Schedule;
   }
 

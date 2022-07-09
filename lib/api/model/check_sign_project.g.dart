@@ -20,46 +20,52 @@ class _$CheckSignProjectSerializer
   Iterable<Object> serialize(Serializers serializers, CheckSignProject object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.projectId != null) {
+    value = object.projectId;
+    if (value != null) {
       result
         ..add('project_id')
-        ..add(serializers.serialize(object.projectId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.schedule != null) {
+    value = object.schedule;
+    if (value != null) {
       result
         ..add('schedule')
-        ..add(serializers.serialize(object.schedule,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.project != null) {
+    value = object.project;
+    if (value != null) {
       result
         ..add('project')
-        ..add(serializers.serialize(object.project,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(SignProject)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
     return result;
@@ -75,7 +81,7 @@ class _$CheckSignProjectSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -227,14 +233,15 @@ class CheckSignProjectBuilder
   CheckSignProjectBuilder();
 
   CheckSignProjectBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _projectId = _$v.projectId;
-      _schedule = _$v.schedule;
-      _status = _$v.status;
-      _project = _$v.project?.toBuilder();
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _projectId = $v.projectId;
+      _schedule = $v.schedule;
+      _status = $v.status;
+      _project = $v.project?.toBuilder();
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
       _$v = null;
     }
     return this;
@@ -242,9 +249,7 @@ class CheckSignProjectBuilder
 
   @override
   void replace(CheckSignProject other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CheckSignProject;
   }
 

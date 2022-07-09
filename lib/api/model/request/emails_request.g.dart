@@ -19,10 +19,12 @@ class _$EmailsRequestSerializer implements StructuredSerializer<EmailsRequest> {
   Iterable<Object> serialize(Serializers serializers, EmailsRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.emails != null) {
+    Object value;
+    value = object.emails;
+    if (value != null) {
       result
         ..add('emails')
-        ..add(serializers.serialize(object.emails,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
@@ -39,7 +41,7 @@ class _$EmailsRequestSerializer implements StructuredSerializer<EmailsRequest> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'emails':
           result.emails.replace(serializers.deserialize(value,
@@ -100,8 +102,9 @@ class EmailsRequestBuilder
   EmailsRequestBuilder();
 
   EmailsRequestBuilder get _$this {
-    if (_$v != null) {
-      _emails = _$v.emails?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _emails = $v.emails?.toBuilder();
       _$v = null;
     }
     return this;
@@ -109,9 +112,7 @@ class EmailsRequestBuilder
 
   @override
   void replace(EmailsRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EmailsRequest;
   }
 

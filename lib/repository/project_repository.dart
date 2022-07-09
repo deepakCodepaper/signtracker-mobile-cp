@@ -2,9 +2,11 @@ import 'package:built_collection/built_collection.dart';
 import 'package:signtracker/api/model/check_sign_project.dart';
 import 'package:signtracker/api/model/emails.dart';
 import 'package:signtracker/api/model/project_logs.dart';
+import 'package:signtracker/api/model/project_notification.dart';
 import 'package:signtracker/api/model/request/close_project_request.dart';
 import 'package:signtracker/api/model/request/emails_request.dart';
 import 'package:signtracker/api/model/request/project_create_request.dart';
+import 'package:signtracker/api/model/request/project_notification_request.dart';
 import 'package:signtracker/api/model/request/update_project_request.dart';
 import 'package:signtracker/api/model/schedule.dart';
 import 'package:signtracker/api/model/sign_project.dart';
@@ -49,6 +51,23 @@ class ProjectRepository {
     final api = await _signTrackerClient.getProjectAPI();
     return await api
         .createProject(ProjectCreateRequest().copySubProject(project));
+  }
+
+  Future<List<ProjectNotification>> addProjectNotification(ProjectNotificationRequest request) async {
+    if (request == null) throw Exception('Project is required.');
+
+    final api = await _signTrackerClient.getProjectAPI();
+    return await api.addProjectNotification(request);
+  }
+
+  Future<List<ProjectNotification>> getProjectNotificationList(int id) async {
+    final api = await _signTrackerClient.getProjectAPI();
+    return await api.getProjectNotificationList(id);
+  }
+
+  Future<List<ProjectNotification>> deleteNotificationTime(int id) async {
+    final api = await _signTrackerClient.getProjectAPI();
+    return await api.deleteNotificationTime(id);
   }
 
   Future<SignProject> updatePropject(SignProject project) async {

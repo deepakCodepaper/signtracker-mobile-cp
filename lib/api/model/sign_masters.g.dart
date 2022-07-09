@@ -18,65 +18,74 @@ class _$SignMastersSerializer implements StructuredSerializer<SignMasters> {
   Iterable<Object> serialize(Serializers serializers, SignMasters object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.idName != null) {
+    value = object.idName;
+    if (value != null) {
       result
         ..add('id_name')
-        ..add(serializers.serialize(object.idName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.image != null) {
+    value = object.image;
+    if (value != null) {
       result
         ..add('image')
-        ..add(serializers.serialize(object.image,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.approvedAt != null) {
+    value = object.approvedAt;
+    if (value != null) {
       result
         ..add('approved_at')
-        ..add(serializers.serialize(object.approvedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.imageUrl != null) {
+    value = object.imageUrl;
+    if (value != null) {
       result
         ..add('image_url')
-        ..add(serializers.serialize(object.imageUrl,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.isApproved != null) {
+    value = object.isApproved;
+    if (value != null) {
       result
         ..add('is_approved')
-        ..add(serializers.serialize(object.isApproved,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.isFavorite != null) {
+    value = object.isFavorite;
+    if (value != null) {
       result
         ..add('favourite_by_users_count')
-        ..add(serializers.serialize(object.isFavorite,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -90,7 +99,7 @@ class _$SignMastersSerializer implements StructuredSerializer<SignMasters> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -283,17 +292,18 @@ class SignMastersBuilder implements Builder<SignMasters, SignMastersBuilder> {
   SignMastersBuilder();
 
   SignMastersBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _idName = _$v.idName;
-      _image = _$v.image;
-      _approvedAt = _$v.approvedAt;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _imageUrl = _$v.imageUrl;
-      _isApproved = _$v.isApproved;
-      _isFavorite = _$v.isFavorite;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _idName = $v.idName;
+      _image = $v.image;
+      _approvedAt = $v.approvedAt;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _imageUrl = $v.imageUrl;
+      _isApproved = $v.isApproved;
+      _isFavorite = $v.isFavorite;
       _$v = null;
     }
     return this;
@@ -301,9 +311,7 @@ class SignMastersBuilder implements Builder<SignMasters, SignMastersBuilder> {
 
   @override
   void replace(SignMasters other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignMasters;
   }
 

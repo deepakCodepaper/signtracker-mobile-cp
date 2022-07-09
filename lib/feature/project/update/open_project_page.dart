@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -110,10 +111,28 @@ class OpenProjectPageState extends State<OpenProjectPage> {
     ));
     imagepath = image.paths.first;
 
-    Navigator.pop(context);
-    var fromTemplate = false;
-    print("IMAGE PATH====" + imagepath);
-    bloc.uploadImage(project, imagepath, fromTemplate);
+    PlatformFile file = image.files.first;
+    print("SIZE IN SIZE============" + file.size.toString());
+    //print("SIZE IN BYTES============" + file.bytes.toString());
+
+    var fileSize = (image.files.first.size) / 1024;
+
+
+    if(fileSize <= 1024){
+      print("IF");
+      print("SIZE IN SIZE============222----   " + file.size.toString());
+      Navigator.pop(context);
+      var fromTemplate = false;
+      print("IMAGE PATH====" + imagepath);
+      bloc.uploadImage(project, imagepath, fromTemplate);
+    }else{
+      print("ELSE");
+      print("SIZE IN SIZE============224----   " + file.size.toString());
+      Navigator.pop(context);
+      var fromTemplate = false;
+      print("IMAGE PATH====" + imagepath);
+      showSnackBar("File size limit exceeded.");
+    }
   }
 
   void showSnackBar(String message) {
@@ -178,7 +197,19 @@ class OpenProjectPageState extends State<OpenProjectPage> {
       CardButtons(
         text: 'Adjust Settings',
         imagePath: 'assets/drawables/adjust_settings.svg',
-        onPressed: () => proceedAdjustSettings(context, project),
+        //onPressed: () => proceedAdjustSettings(context, project),
+          onPressed: () async {
+            final result = await Navigator.pushNamed(
+              context,
+              AdjustSettingsPage.route,
+              arguments: AdjustSettingsPageArgs(project, false),
+            );
+            if (result != null) {
+              showSnackBar(
+                  'Settings saved successfully!');
+              project = result;
+            }
+          }
       ),
       CardButtons(
         text: 'Close Project',
@@ -825,7 +856,20 @@ class ViewProjectPlanPageOnlineState extends State<ViewProjectPlanPageOnline> {
             right: 0,
             top: 30,
             child: Container(
-              child: PhotoView(imageProvider: NetworkImage(widget.imagePlan)),
+              //child: PhotoView(imageProvider: NetworkImage(widget.imagePlan)),
+              child: Image.network(widget.imagePlan, frameBuilder: (context, child, frame, wasSynchronouslyLoaded){
+                return child;
+              },
+                loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                      } else {
+                      return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                },
+              ),
             ),
           ),
           Positioned(

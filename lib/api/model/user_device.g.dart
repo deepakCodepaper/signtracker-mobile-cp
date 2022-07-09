@@ -18,23 +18,25 @@ class _$UserDeviceSerializer implements StructuredSerializer<UserDevice> {
   Iterable<Object> serialize(Serializers serializers, UserDevice object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.playerId != null) {
+    value = object.playerId;
+    if (value != null) {
       result
         ..add('player_id')
-        ..add(serializers.serialize(object.playerId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.userId != null) {
+    value = object.userId;
+    if (value != null) {
       result
         ..add('user_id')
-        ..add(serializers.serialize(object.userId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -48,7 +50,7 @@ class _$UserDeviceSerializer implements StructuredSerializer<UserDevice> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -132,10 +134,11 @@ class UserDeviceBuilder implements Builder<UserDevice, UserDeviceBuilder> {
   UserDeviceBuilder();
 
   UserDeviceBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _playerId = _$v.playerId;
-      _userId = _$v.userId;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _playerId = $v.playerId;
+      _userId = $v.userId;
       _$v = null;
     }
     return this;
@@ -143,9 +146,7 @@ class UserDeviceBuilder implements Builder<UserDevice, UserDeviceBuilder> {
 
   @override
   void replace(UserDevice other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UserDevice;
   }
 

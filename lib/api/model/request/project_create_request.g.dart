@@ -24,97 +24,107 @@ class _$ProjectCreateRequestSerializer
       Serializers serializers, ProjectCreateRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.parent != null) {
+    Object value;
+    value = object.parent;
+    if (value != null) {
       result
         ..add('parent')
-        ..add(serializers.serialize(object.parent,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.identifier != null) {
+    value = object.identifier;
+    if (value != null) {
       result
         ..add('identifier')
-        ..add(serializers.serialize(object.identifier,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.templateId != null) {
+    value = object.templateId;
+    if (value != null) {
       result
         ..add('template_id')
-        ..add(serializers.serialize(object.templateId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.commissionedBy != null) {
+    value = object.commissionedBy;
+    if (value != null) {
       result
         ..add('commissioned_by')
-        ..add(serializers.serialize(object.commissionedBy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-
-    if (object.description != null) {
+    value = object.description;
+    if (value != null) {
       result
         ..add('description')
-        ..add(serializers.serialize(object.description,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-
-    if (object.plan != null) {
+    value = object.plan;
+    if (value != null) {
       result
         ..add('plan')
-        ..add(serializers.serialize(object.plan,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.type != null) {
+    value = object.type;
+    if (value != null) {
       result
         ..add('type')
-        ..add(serializers.serialize(object.type,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.highway != null) {
+    value = object.highway;
+    if (value != null) {
       result
         ..add('highway')
-        ..add(serializers.serialize(object.highway,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.intersection != null) {
+    value = object.intersection;
+    if (value != null) {
       result
         ..add('intersection')
-        ..add(serializers.serialize(object.intersection,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.speed != null) {
+    value = object.speed;
+    if (value != null) {
       result
         ..add('speed')
-        ..add(serializers.serialize(object.speed,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.distance != null) {
+    value = object.distance;
+    if (value != null) {
       result
         ..add('distance')
-        ..add(serializers.serialize(object.distance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.startDate != null) {
+    value = object.startDate;
+    if (value != null) {
       result
         ..add('start_date')
-        ..add(serializers.serialize(object.startDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.endDate != null) {
+    value = object.endDate;
+    if (value != null) {
       result
         ..add('end_date')
-        ..add(serializers.serialize(object.endDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.notifyFrequency != null) {
+    value = object.notifyFrequency;
+    if (value != null) {
       result
         ..add('notify_frequency')
-        ..add(serializers.serialize(object.notifyFrequency,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.inactiveNotifyFrequency != null) {
+    value = object.inactiveNotifyFrequency;
+    if (value != null) {
       result
         ..add('inactive_notify_frequency')
-        ..add(serializers.serialize(object.inactiveNotifyFrequency,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -129,7 +139,7 @@ class _$ProjectCreateRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'parent':
           result.parent = serializers.deserialize(value,
@@ -297,8 +307,13 @@ class _$ProjectCreateRequest extends ProjectCreateRequest {
                                             $jc(
                                                 $jc(
                                                     $jc(
-                                                        $jc($jc(0, parent.hashCode),
-                                                            identifier.hashCode),
+                                                        $jc(
+                                                            $jc(
+                                                                0,
+                                                                parent
+                                                                    .hashCode),
+                                                            identifier
+                                                                .hashCode),
                                                         templateId.hashCode),
                                                     commissionedBy.hashCode),
                                                 description.hashCode),
@@ -359,8 +374,7 @@ class ProjectCreateRequestBuilder
 
   String _description;
   String get description => _$this._description;
-  set description(String description) =>
-      _$this._description = description;
+  set description(String description) => _$this._description = description;
 
   String _plan;
   String get plan => _$this._plan;
@@ -407,22 +421,23 @@ class ProjectCreateRequestBuilder
   ProjectCreateRequestBuilder();
 
   ProjectCreateRequestBuilder get _$this {
-    if (_$v != null) {
-      _parent = _$v.parent;
-      _identifier = _$v.identifier;
-      _templateId = _$v.templateId;
-      _commissionedBy = _$v.commissionedBy;
-      _description = _$v.description;
-      _plan = _$v.plan;
-      _type = _$v.type;
-      _highway = _$v.highway;
-      _intersection = _$v.intersection;
-      _speed = _$v.speed;
-      _distance = _$v.distance;
-      _startDate = _$v.startDate;
-      _endDate = _$v.endDate;
-      _notifyFrequency = _$v.notifyFrequency;
-      _inactiveNotifyFrequency = _$v.inactiveNotifyFrequency;
+    final $v = _$v;
+    if ($v != null) {
+      _parent = $v.parent;
+      _identifier = $v.identifier;
+      _templateId = $v.templateId;
+      _commissionedBy = $v.commissionedBy;
+      _description = $v.description;
+      _plan = $v.plan;
+      _type = $v.type;
+      _highway = $v.highway;
+      _intersection = $v.intersection;
+      _speed = $v.speed;
+      _distance = $v.distance;
+      _startDate = $v.startDate;
+      _endDate = $v.endDate;
+      _notifyFrequency = $v.notifyFrequency;
+      _inactiveNotifyFrequency = $v.inactiveNotifyFrequency;
       _$v = null;
     }
     return this;
@@ -430,9 +445,7 @@ class ProjectCreateRequestBuilder
 
   @override
   void replace(ProjectCreateRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectCreateRequest;
   }
 

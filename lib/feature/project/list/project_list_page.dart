@@ -64,6 +64,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       bloc.getProjects();
       searchController.addListener(() {
+        print("Search Field================" + searchController.text);
         setState(() => queryText = searchController.text);
       });
     });
@@ -119,9 +120,13 @@ class _ProjectListPageState extends State<ProjectListPage> {
                   }
                 });
 
+                print("LST DATA=============================" + projects.toString());
+                print("LST DATA2=============================" + projects.first.projectNotifications.toString());
+                print("LST DATA2=============================" + projects.first.id.toString());
+
                 projects = tempList;
                 projects.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-                final list = projects
+                final list = projects.where((projects){ return projects.identifier.toLowerCase().contains(queryText.toLowerCase());})
                     .map(
                       (project) =>
                       ExpandableProjectItem(
@@ -159,7 +164,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                       ),
                       SizedBox(height: 10),
                       SizedBox(
-                        height: 45,
+                        height: 50.0,
                         child: TextField(
                           controller: searchController,
                           decoration: InputDecoration(

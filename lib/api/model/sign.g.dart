@@ -18,95 +18,106 @@ class _$SignSerializer implements StructuredSerializer<Sign> {
   Iterable<Object> serialize(Serializers serializers, Sign object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.projectId != null) {
+    value = object.projectId;
+    if (value != null) {
       result
         ..add('project_id')
-        ..add(serializers.serialize(object.projectId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.idName != null) {
+    value = object.idName;
+    if (value != null) {
       result
         ..add('id_name')
-        ..add(serializers.serialize(object.idName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.lat != null) {
+    value = object.lat;
+    if (value != null) {
       result
         ..add('lat')
-        ..add(serializers.serialize(object.lat,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.lng != null) {
+    value = object.lng;
+    if (value != null) {
       result
         ..add('lng')
-        ..add(serializers.serialize(object.lng,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.traffic != null) {
+    value = object.traffic;
+    if (value != null) {
       result
         ..add('traffic')
-        ..add(serializers.serialize(object.traffic,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.image != null) {
+    value = object.image;
+    if (value != null) {
       result
         ..add('image')
-        ..add(serializers.serialize(object.image,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.nameId != null) {
+    value = object.nameId;
+    if (value != null) {
       result
         ..add('id_name')
-        ..add(serializers.serialize(object.nameId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.signMasterId != null) {
+    value = object.signMasterId;
+    if (value != null) {
       result
         ..add('sign_master_id')
-        ..add(serializers.serialize(object.signMasterId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.isChecked != null) {
+    value = object.isChecked;
+    if (value != null) {
       result
         ..add('isChecked')
-        ..add(serializers.serialize(object.isChecked,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-
-    if (object.notes != null) {
+    value = object.notes;
+    if (value != null) {
       result
-        ..add('isChecked')
-        ..add(serializers.serialize(object.notes,
+        ..add('notes')
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -121,7 +132,7 @@ class _$SignSerializer implements StructuredSerializer<Sign> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -285,20 +296,22 @@ class _$Sign extends Sign {
                                         $jc(
                                             $jc(
                                                 $jc(
-                                                    $jc($jc(0, id.hashCode),
-                                                        status.hashCode),
-                                                    projectId.hashCode),
-                                                idName.hashCode),
-                                            lat.hashCode),
-                                        lng.hashCode),
-                                    name.hashCode),
-                                traffic.hashCode),
-                            image.hashCode),
-                        createdAt.hashCode),
-                    updatedAt.hashCode),
-                nameId.hashCode),
-            signMasterId.hashCode),
-        isChecked.hashCode));
+                                                    $jc(
+                                                        $jc($jc(0, id.hashCode),
+                                                            status.hashCode),
+                                                        projectId.hashCode),
+                                                    idName.hashCode),
+                                                lat.hashCode),
+                                            lng.hashCode),
+                                        name.hashCode),
+                                    traffic.hashCode),
+                                image.hashCode),
+                            createdAt.hashCode),
+                        updatedAt.hashCode),
+                    nameId.hashCode),
+                signMasterId.hashCode),
+            isChecked.hashCode),
+        notes.hashCode));
   }
 
   @override
@@ -389,22 +402,23 @@ class SignBuilder implements Builder<Sign, SignBuilder> {
   SignBuilder();
 
   SignBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _status = _$v.status;
-      _projectId = _$v.projectId;
-      _idName = _$v.idName;
-      _lat = _$v.lat;
-      _lng = _$v.lng;
-      _name = _$v.name;
-      _traffic = _$v.traffic;
-      _image = _$v.image;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _nameId = _$v.nameId;
-      _signMasterId = _$v.signMasterId;
-      _isChecked = _$v.isChecked;
-      _notes = _$v.notes;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _status = $v.status;
+      _projectId = $v.projectId;
+      _idName = $v.idName;
+      _lat = $v.lat;
+      _lng = $v.lng;
+      _name = $v.name;
+      _traffic = $v.traffic;
+      _image = $v.image;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _nameId = $v.nameId;
+      _signMasterId = $v.signMasterId;
+      _isChecked = $v.isChecked;
+      _notes = $v.notes;
       _$v = null;
     }
     return this;
@@ -412,9 +426,7 @@ class SignBuilder implements Builder<Sign, SignBuilder> {
 
   @override
   void replace(Sign other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Sign;
   }
 

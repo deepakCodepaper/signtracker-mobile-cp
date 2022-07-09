@@ -21,58 +21,68 @@ class _$UserSerializer implements StructuredSerializer<User> {
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(int)),
     ];
-    if (object.name != null) {
+    Object value;
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.email != null) {
+    value = object.email;
+    if (value != null) {
       result
         ..add('email')
-        ..add(serializers.serialize(object.email,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.username != null) {
+    value = object.username;
+    if (value != null) {
       result
         ..add('username')
-        ..add(serializers.serialize(object.username,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.phone != null) {
+    value = object.phone;
+    if (value != null) {
       result
         ..add('phone')
-        ..add(serializers.serialize(object.phone,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.avatar != null) {
+    value = object.avatar;
+    if (value != null) {
       result
         ..add('avatar')
-        ..add(serializers.serialize(object.avatar,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.countryCode != null) {
+    value = object.countryCode;
+    if (value != null) {
       result
         ..add('country_code')
-        ..add(serializers.serialize(object.countryCode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.stateCode != null) {
+    value = object.stateCode;
+    if (value != null) {
       result
         ..add('state_code')
-        ..add(serializers.serialize(object.stateCode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -87,7 +97,7 @@ class _$UserSerializer implements StructuredSerializer<User> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -173,9 +183,7 @@ class _$User extends User {
       this.countryCode,
       this.stateCode})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('User', 'id');
-    }
+    BuiltValueNullFieldError.checkNotNull(id, 'User', 'id');
   }
 
   @override
@@ -242,79 +250,60 @@ class UserBuilder implements Builder<User, UserBuilder> {
   _$User _$v;
 
   int _id;
-
   int get id => _$this._id;
-
   set id(int id) => _$this._id = id;
 
   String _name;
-
   String get name => _$this._name;
-
   set name(String name) => _$this._name = name;
 
   String _email;
-
   String get email => _$this._email;
-
   set email(String email) => _$this._email = email;
 
   DateTime _createdAt;
-
   DateTime get createdAt => _$this._createdAt;
-
   set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
 
   DateTime _updatedAt;
-
   DateTime get updatedAt => _$this._updatedAt;
-
   set updatedAt(DateTime updatedAt) => _$this._updatedAt = updatedAt;
 
   String _username;
-
   String get username => _$this._username;
-
   set username(String username) => _$this._username = username;
 
   String _phone;
-
   String get phone => _$this._phone;
-
   set phone(String phone) => _$this._phone = phone;
 
   String _avatar;
-
   String get avatar => _$this._avatar;
-
   set avatar(String avatar) => _$this._avatar = avatar;
 
   String _countryCode;
-
   String get countryCode => _$this._countryCode;
-
   set countryCode(String countryCode) => _$this._countryCode = countryCode;
 
   String _stateCode;
-
   String get stateCode => _$this._stateCode;
-
   set stateCode(String stateCode) => _$this._stateCode = stateCode;
 
   UserBuilder();
 
   UserBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _email = _$v.email;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _username = _$v.username;
-      _phone = _$v.phone;
-      _avatar = _$v.avatar;
-      _countryCode = _$v.countryCode;
-      _stateCode = _$v.stateCode;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _email = $v.email;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _username = $v.username;
+      _phone = $v.phone;
+      _avatar = $v.avatar;
+      _countryCode = $v.countryCode;
+      _stateCode = $v.stateCode;
       _$v = null;
     }
     return this;
@@ -322,9 +311,7 @@ class UserBuilder implements Builder<User, UserBuilder> {
 
   @override
   void replace(User other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$User;
   }
 
@@ -337,7 +324,7 @@ class UserBuilder implements Builder<User, UserBuilder> {
   _$User build() {
     final _$result = _$v ??
         new _$User._(
-            id: id,
+            id: BuiltValueNullFieldError.checkNotNull(id, 'User', 'id'),
             name: name,
             email: email,
             createdAt: createdAt,

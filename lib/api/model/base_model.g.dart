@@ -25,21 +25,25 @@ class _$BaseModelSerializer implements StructuredSerializer<BaseModel<Object>> {
         isUnderspecified ? FullType.object : specifiedType.parameters[0];
 
     final result = <Object>[];
-    if (object.success != null) {
+    Object value;
+    value = object.success;
+    if (value != null) {
       result
         ..add('success')
-        ..add(serializers.serialize(object.success,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.data != null) {
+    value = object.data;
+    if (value != null) {
       result
         ..add('data')
-        ..add(serializers.serialize(object.data, specifiedType: parameterT));
+        ..add(serializers.serialize(value, specifiedType: parameterT));
     }
-    if (object.message != null) {
+    value = object.message;
+    if (value != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(object.message,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -57,13 +61,13 @@ class _$BaseModelSerializer implements StructuredSerializer<BaseModel<Object>> {
 
     final result = isUnderspecified
         ? new BaseModelBuilder<Object>()
-        : serializers.newBuilder(specifiedType) as BaseModelBuilder;
+        : serializers.newBuilder(specifiedType) as BaseModelBuilder<Object>;
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'success':
           result.success = serializers.deserialize(value,
@@ -152,10 +156,11 @@ class BaseModelBuilder<T>
   BaseModelBuilder();
 
   BaseModelBuilder<T> get _$this {
-    if (_$v != null) {
-      _success = _$v.success;
-      _data = _$v.data;
-      _message = _$v.message;
+    final $v = _$v;
+    if ($v != null) {
+      _success = $v.success;
+      _data = $v.data;
+      _message = $v.message;
       _$v = null;
     }
     return this;
@@ -163,9 +168,7 @@ class BaseModelBuilder<T>
 
   @override
   void replace(BaseModel<T> other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BaseModel<T>;
   }
 

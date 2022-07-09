@@ -20,64 +20,73 @@ class _$ProjectCompanySerializer
   Iterable<Object> serialize(Serializers serializers, ProjectCompany object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.managerId != null) {
+    value = object.managerId;
+    if (value != null) {
       result
         ..add('manager_id')
-        ..add(serializers.serialize(object.managerId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.logo != null) {
+    value = object.logo;
+    if (value != null) {
       result
         ..add('logo')
-        ..add(serializers.serialize(object.logo,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.email != null) {
+    value = object.email;
+    if (value != null) {
       result
         ..add('email')
-        ..add(serializers.serialize(object.email,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.subStart != null) {
+    value = object.subStart;
+    if (value != null) {
       result
         ..add('sub_start')
-        ..add(serializers.serialize(object.subStart,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.subEnd != null) {
+    value = object.subEnd;
+    if (value != null) {
       result
         ..add('sub_end')
-        ..add(serializers.serialize(object.subEnd,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.paymentFee != null) {
+    value = object.paymentFee;
+    if (value != null) {
       result
         ..add('payment_fee')
-        ..add(serializers.serialize(object.paymentFee,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
     return result;
@@ -93,7 +102,7 @@ class _$ProjectCompanySerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -290,17 +299,18 @@ class ProjectCompanyBuilder
   ProjectCompanyBuilder();
 
   ProjectCompanyBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _managerId = _$v.managerId;
-      _logo = _$v.logo;
-      _name = _$v.name;
-      _email = _$v.email;
-      _subStart = _$v.subStart;
-      _subEnd = _$v.subEnd;
-      _paymentFee = _$v.paymentFee;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _managerId = $v.managerId;
+      _logo = $v.logo;
+      _name = $v.name;
+      _email = $v.email;
+      _subStart = $v.subStart;
+      _subEnd = $v.subEnd;
+      _paymentFee = $v.paymentFee;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
       _$v = null;
     }
     return this;
@@ -308,9 +318,7 @@ class ProjectCompanyBuilder
 
   @override
   void replace(ProjectCompany other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectCompany;
   }
 

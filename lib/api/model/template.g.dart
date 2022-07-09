@@ -18,64 +18,71 @@ class _$TemplateSerializer implements StructuredSerializer<Template> {
   Iterable<Object> serialize(Serializers serializers, Template object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.companyId != null) {
+    value = object.companyId;
+    if (value != null) {
       result
         ..add('company_id')
-        ..add(serializers.serialize(object.companyId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.drawingNumber != null) {
+    value = object.drawingNumber;
+    if (value != null) {
       result
         ..add('drawing_number')
-        ..add(serializers.serialize(object.drawingNumber,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.imageUrl != null) {
+    value = object.imageUrl;
+    if (value != null) {
       result
         ..add('image_url')
-        ..add(serializers.serialize(object.imageUrl,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.sortIndex != null) {
+    value = object.sortIndex;
+    if (value != null) {
       result
         ..add('sort_index')
-        ..add(serializers.serialize(object.sortIndex,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.rowNumber != null) {
+    value = object.rowNumber;
+    if (value != null) {
       result
         ..add('row_number')
-        ..add(serializers.serialize(object.rowNumber,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.template != null) {
+    value = object.template;
+    if (value != null) {
       result
         ..add('template')
-        ..add(serializers.serialize(object.template,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(Template)));
     }
     return result;
@@ -90,7 +97,7 @@ class _$TemplateSerializer implements StructuredSerializer<Template> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -208,9 +215,13 @@ class _$Template extends Template {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), companyId.hashCode),
-                                drawingNumber.hashCode),
-                            name.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, id.hashCode),
+                                        companyId.hashCode),
+                                    drawingNumber.hashCode),
+                                name.hashCode),
+                            imageUrl.hashCode),
                         createdAt.hashCode),
                     updatedAt.hashCode),
                 sortIndex.hashCode),
@@ -257,8 +268,7 @@ class TemplateBuilder implements Builder<Template, TemplateBuilder> {
 
   String _imageUrl;
   String get imageUrl => _$this._imageUrl;
-  set imageUrl(String imageUrl) =>
-      _$this._imageUrl = imageUrl;
+  set imageUrl(String imageUrl) => _$this._imageUrl = imageUrl;
 
   DateTime _createdAt;
   DateTime get createdAt => _$this._createdAt;
@@ -283,17 +293,18 @@ class TemplateBuilder implements Builder<Template, TemplateBuilder> {
   TemplateBuilder();
 
   TemplateBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _companyId = _$v.companyId;
-      _drawingNumber = _$v.drawingNumber;
-      _name = _$v.name;
-      _imageUrl = _$v.imageUrl;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _sortIndex = _$v.sortIndex;
-      _rowNumber = _$v.rowNumber;
-      _template = _$v.template?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _companyId = $v.companyId;
+      _drawingNumber = $v.drawingNumber;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _sortIndex = $v.sortIndex;
+      _rowNumber = $v.rowNumber;
+      _template = $v.template?.toBuilder();
       _$v = null;
     }
     return this;
@@ -301,9 +312,7 @@ class TemplateBuilder implements Builder<Template, TemplateBuilder> {
 
   @override
   void replace(Template other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Template;
   }
 

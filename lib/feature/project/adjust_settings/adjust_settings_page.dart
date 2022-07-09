@@ -8,11 +8,13 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/blocs/adjust_settings/adjust_settings_bloc.dart';
 import 'package:signtracker/blocs/adjust_settings/adjust_settings_states.dart';
+import 'package:signtracker/blocs/project_notification/project_notification_bloc.dart';
 import 'package:signtracker/feature/project/save/save_project_page.dart';
 import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/timer.dart';
+import 'package:signtracker/widgets/weekly.dart';
 
 class AdjustSettingsPageArgs {
   AdjustSettingsPageArgs(this.project, this.initial);
@@ -324,6 +326,16 @@ class _AdjustSettingsPageState extends State<AdjustSettingsPage> {
                       if (!widget.initial) ...[
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: BlocProvider(
+                            create: (context) => ProjectNotificationBloc(ProjectRepository()),
+                            child: weeklyWidget(project),
+                          ),
+                        ),
+                      ],
+                      SizedBox(height: 20),
+                      if (!widget.initial) ...[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
                           child: TimerWidget(
                             titleIcon: Icons.flag,
                             title: 'Sign Placements',
@@ -331,10 +343,10 @@ class _AdjustSettingsPageState extends State<AdjustSettingsPage> {
                             interval: '+ 10 meters -',
                             onPlusPressed: () => incrementSignPlacement(),
                             onMinusPressed: double.tryParse(
-                                        signPlacement != null
-                                            ? signPlacement
-                                            : 0) >
-                                    16
+                                signPlacement != null
+                                    ? signPlacement
+                                    : 0) >
+                                16
                                 ? () => decrementSignPlacement()
                                 : null,
                           ),
@@ -399,47 +411,46 @@ class _AdjustSettingsPageState extends State<AdjustSettingsPage> {
                           ),
                         ),
                       ],
-                      Expanded(
-                        child: ButtonBar(
-                          alignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            FlatButton(
-                              child: Text(
-                                'Cancel',
-                                style: GoogleFonts.karla(
-                                    textStyle: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.black,
-                                )),
-                              ),
-                              onPressed: () => Navigator.pop(context),
+                      SizedBox(height: 40,),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          FlatButton(
+                            child: Text(
+                              'Cancel',
+                              style: GoogleFonts.karla(
+                                  textStyle: TextStyle(
+                                fontSize: 17,
+                                color: Colors.black,
+                              )),
                             ),
-                            FlatButton(
-                              child: Text(
-                                state is AdjustSettingsLoading
-                                    ? 'Updating'
-                                    : 'Done',
-                                style: GoogleFonts.karla(
-                                    textStyle: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700)),
-                              ),
-                              onPressed: () {
-                                if (!(state is AdjustSettingsLoading)) {
-                                  bloc.saveSettings(
-                                      widget.project,
-                                      activeNotifyFrequency,
-                                      inactiveNotifyFrequency,
-                                      double.tryParse(signPlacement),
-                                      formatTimeForAPI(startDate),
-                                      formatTimeForAPI(endDate),
-                                      comment);
-                                }
-                              },
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          FlatButton(
+                            child: Text(
+                              state is AdjustSettingsLoading
+                                  ? 'Updating'
+                                  : 'Done',
+                              style: GoogleFonts.karla(
+                                  textStyle: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700)),
                             ),
-                          ],
-                        ),
+                            onPressed: () {
+                              if (!(state is AdjustSettingsLoading)) {
+                                bloc.saveSettings(
+                                    widget.project,
+                                    activeNotifyFrequency,
+                                    inactiveNotifyFrequency,
+                                    double.tryParse(signPlacement),
+                                    formatTimeForAPI(startDate),
+                                    formatTimeForAPI(endDate),
+                                    comment);
+                              }
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

@@ -9,12 +9,15 @@ import 'package:signtracker/api/model/emails.dart';
 import 'package:signtracker/api/model/project_logs.dart';
 import 'package:signtracker/api/model/request/emails_request.dart';
 import 'package:signtracker/api/model/request/project_create_request.dart';
+import 'package:signtracker/api/model/request/project_notification_request.dart';
 import 'package:signtracker/api/model/request/update_project_request.dart';
 import 'package:signtracker/api/model/request/close_project_request.dart';
 import 'package:signtracker/api/model/schedule.dart';
 import 'package:signtracker/api/model/sign_project.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/api/serializers.dart';
+
+import '../model/project_notification.dart';
 
 class ProjectApi {
   const ProjectApi({this.apiClient});
@@ -53,6 +56,8 @@ class ProjectApi {
     try {
       final response = await apiClient.dio.get(path,
           options: buildCacheOptions(Duration(hours: 1), forceRefresh: true));
+
+
 
       if (response.data != null) {
         return deserializeListOf<SignProject>(response.data['data']['data']).toList();
@@ -111,6 +116,38 @@ class ProjectApi {
     return null;
   }
 
+  //Future<List<ProjectNotification>> addProjectNotification(ProjectNotificationRequest projectNotificationRequest,int id) async {
+  Future<List<ProjectNotification>> addProjectNotification(ProjectNotificationRequest request) async {
+    if (request == null) throw Exception('SignProject is required.');
+
+    final id = request.projectId;
+    final path = '$apiPath/$id/save-schedules-notification';
+
+    print("path============" + path.toString());
+
+    final body = standardSerializers.serialize(request);
+
+    print("POST DATA IN PROJECT=============" + body.toString());
+
+    try {
+      final response = await apiClient.dio.post(
+        path,
+        data: jsonEncode(body),
+      );
+
+      if (response.data != null) {
+        print("RESPONSE DATA============ " + response.data.toString());
+        //return deserializeOf<List<ProjectNotification>>(response.data['data']);
+        return deserializeListOf<ProjectNotification>(response.data['data']).toList();
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+    return null;
+  }
+
   Future<SignProject> updateProject(
       UpdateProjectRequest signProject,
       int projectId,
@@ -119,11 +156,6 @@ class ProjectApi {
 
     print("UpdateProject");
     final path = '$apiPath/$projectId';
-
-    print(path);
-    print("Request Data====" + signProject.toString());
-    print(signProject.startDate);
-    print(signProject.endDate);
 
     final body = standardSerializers.serialize(signProject);
 
@@ -448,6 +480,49 @@ class ProjectApi {
     } on Exception catch (e) {
       print(e.toString());
     }
+    return null;
+  }
+
+  Future<List<ProjectNotification>> deleteNotificationTime(int id) async {
+    final path = '$apiPath/$id/delete-schedules-notification';
+
+    //final response = await apiClient.dio.delete(path);
+
+    /*if (response.data != null) {
+      return true;
+    }*/
+    try {
+      final response = await apiClient.dio.delete(path,
+          options: buildCacheOptions(Duration(hours: 1), forceRefresh: true));
+
+      if (response.data != null) {
+        return deserializeListOf<ProjectNotification>(response.data['data']).toList();
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+
+    return null;
+  }
+
+  Future<List<ProjectNotification>> getProjectNotificationList(int id) async {
+    final path = '$apiPath/$id/get-schedules-notification';
+
+    try {
+      final response = await apiClient.dio.get(path,
+          options: buildCacheOptions(Duration(hours: 1), forceRefresh: true));
+
+      if (response.data != null) {
+        return deserializeListOf<ProjectNotification>(response.data['data']).toList();
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+
     return null;
   }
 }

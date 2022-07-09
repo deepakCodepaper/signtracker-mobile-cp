@@ -36,7 +36,7 @@ class _$EmailsSerializer implements StructuredSerializer<Emails> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'emails':
           result.emails.replace(serializers.deserialize(value,
@@ -59,9 +59,7 @@ class _$Emails extends Emails {
       (new EmailsBuilder()..update(updates)).build();
 
   _$Emails._({this.emails}) : super._() {
-    if (emails == null) {
-      throw new BuiltValueNullFieldError('Emails', 'emails');
-    }
+    BuiltValueNullFieldError.checkNotNull(emails, 'Emails', 'emails');
   }
 
   @override
@@ -100,8 +98,9 @@ class EmailsBuilder implements Builder<Emails, EmailsBuilder> {
   EmailsBuilder();
 
   EmailsBuilder get _$this {
-    if (_$v != null) {
-      _emails = _$v.emails?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _emails = $v.emails.toBuilder();
       _$v = null;
     }
     return this;
@@ -109,9 +108,7 @@ class EmailsBuilder implements Builder<Emails, EmailsBuilder> {
 
   @override
   void replace(Emails other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Emails;
   }
 

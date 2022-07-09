@@ -19,88 +19,98 @@ class _$InviteProjectSerializer implements StructuredSerializer<InviteProject> {
   Iterable<Object> serialize(Serializers serializers, InviteProject object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.userId != null) {
+    value = object.userId;
+    if (value != null) {
       result
         ..add('user_id')
-        ..add(serializers.serialize(object.userId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.invitedById != null) {
+    value = object.invitedById;
+    if (value != null) {
       result
         ..add('invited_by_id')
-        ..add(serializers.serialize(object.invitedById,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.projectId != null) {
+    value = object.projectId;
+    if (value != null) {
       result
         ..add('project_id')
-        ..add(serializers.serialize(object.projectId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.notes != null) {
+    value = object.notes;
+    if (value != null) {
       result
         ..add('notes')
-        ..add(serializers.serialize(object.notes,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.companyId != null) {
+    value = object.companyId;
+    if (value != null) {
       result
         ..add('company_id')
-        ..add(serializers.serialize(object.companyId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.companyName != null) {
+    value = object.companyName;
+    if (value != null) {
       result
         ..add('company_name')
-        ..add(serializers.serialize(object.companyName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.projectStatus != null) {
+    value = object.projectStatus;
+    if (value != null) {
       result
         ..add('project_status')
-        ..add(serializers.serialize(object.projectStatus,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.shortSummary != null) {
+    value = object.shortSummary;
+    if (value != null) {
       result
         ..add('shorts_summary')
-        ..add(serializers.serialize(object.shortSummary,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.userName != null) {
+    value = object.userName;
+    if (value != null) {
       result
         ..add('user_name')
-        ..add(serializers.serialize(object.userName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.managerName != null) {
+    value = object.managerName;
+    if (value != null) {
       result
         ..add('manager_name')
-        ..add(serializers.serialize(object.managerName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -116,7 +126,7 @@ class _$InviteProjectSerializer implements StructuredSerializer<InviteProject> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -373,21 +383,22 @@ class InviteProjectBuilder
   InviteProjectBuilder();
 
   InviteProjectBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _userId = _$v.userId;
-      _invitedById = _$v.invitedById;
-      _projectId = _$v.projectId;
-      _status = _$v.status;
-      _notes = _$v.notes;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _companyId = _$v.companyId;
-      _companyName = _$v.companyName;
-      _projectStatus = _$v.projectStatus;
-      _shortSummary = _$v.shortSummary;
-      _userName = _$v.userName;
-      _managerName = _$v.managerName;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _userId = $v.userId;
+      _invitedById = $v.invitedById;
+      _projectId = $v.projectId;
+      _status = $v.status;
+      _notes = $v.notes;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _companyId = $v.companyId;
+      _companyName = $v.companyName;
+      _projectStatus = $v.projectStatus;
+      _shortSummary = $v.shortSummary;
+      _userName = $v.userName;
+      _managerName = $v.managerName;
       _$v = null;
     }
     return this;
@@ -395,9 +406,7 @@ class InviteProjectBuilder
 
   @override
   void replace(InviteProject other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InviteProject;
   }
 

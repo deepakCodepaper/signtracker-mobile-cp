@@ -24,186 +24,209 @@ class _$UpdateProjectRequestSerializer
       Serializers serializers, UpdateProjectRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.method != null) {
+    Object value;
+    value = object.method;
+    if (value != null) {
       result
         ..add('_method')
-        ..add(serializers.serialize(object.method,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.id != null) {
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.companyId != null) {
+    value = object.companyId;
+    if (value != null) {
       result
         ..add('company_id')
-        ..add(serializers.serialize(object.companyId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.parent != null) {
+    value = object.parent;
+    if (value != null) {
       result
         ..add('parent')
-        ..add(serializers.serialize(object.parent,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.identifier != null) {
+    value = object.identifier;
+    if (value != null) {
       result
         ..add('identifier')
-        ..add(serializers.serialize(object.identifier,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.type != null) {
+    value = object.type;
+    if (value != null) {
       result
         ..add('type')
-        ..add(serializers.serialize(object.type,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.highway != null) {
+    value = object.highway;
+    if (value != null) {
       result
         ..add('highway')
-        ..add(serializers.serialize(object.highway,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.intersection != null) {
+    value = object.intersection;
+    if (value != null) {
       result
         ..add('intersection')
-        ..add(serializers.serialize(object.intersection,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.speed != null) {
+    value = object.speed;
+    if (value != null) {
       result
         ..add('speed')
-        ..add(serializers.serialize(object.speed,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.distance != null) {
+    value = object.distance;
+    if (value != null) {
       result
         ..add('distance')
-        ..add(serializers.serialize(object.distance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.notifyFrequency != null) {
+    value = object.notifyFrequency;
+    if (value != null) {
       result
         ..add('notify_frequency')
-        ..add(serializers.serialize(object.notifyFrequency,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.inactiveNotifyFrequency != null) {
+    value = object.inactiveNotifyFrequency;
+    if (value != null) {
       result
         ..add('inactive_notify_frequency')
-        ..add(serializers.serialize(object.inactiveNotifyFrequency,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.startDate != null) {
+    value = object.startDate;
+    if (value != null) {
       result
         ..add('start_date')
-        ..add(serializers.serialize(object.startDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.endDate != null) {
+    value = object.endDate;
+    if (value != null) {
       result
         ..add('end_date')
-        ..add(serializers.serialize(object.endDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.closedAt != null) {
+    value = object.closedAt;
+    if (value != null) {
       result
         ..add('closed_at')
-        ..add(serializers.serialize(object.closedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.signPlacement != null) {
+    value = object.signPlacement;
+    if (value != null) {
       result
         ..add('sign_placement')
-        ..add(serializers.serialize(object.signPlacement,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.location != null) {
+    value = object.location;
+    if (value != null) {
       result
         ..add('location')
-        ..add(serializers.serialize(object.location,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.designation != null) {
+    value = object.designation;
+    if (value != null) {
       result
         ..add('designation')
-        ..add(serializers.serialize(object.designation,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.workArea != null) {
+    value = object.workArea;
+    if (value != null) {
       result
         ..add('work_area')
-        ..add(serializers.serialize(object.workArea,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.shortSummary != null) {
+    value = object.shortSummary;
+    if (value != null) {
       result
         ..add('short_summary')
-        ..add(serializers.serialize(object.shortSummary,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.projectCompany != null) {
+    value = object.projectCompany;
+    if (value != null) {
       result
         ..add('project_company')
-        ..add(serializers.serialize(object.projectCompany,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(ProjectCompany)));
     }
-    if (object.isSubProject != null) {
+    value = object.isSubProject;
+    if (value != null) {
       result
         ..add('is_sub_project')
-        ..add(serializers.serialize(object.isSubProject,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.userIds != null) {
+    value = object.userIds;
+    if (value != null) {
       result
         ..add('user_ids')
-        ..add(serializers.serialize(object.userIds,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(int)])));
     }
-    if (object.startedBy != null) {
+    value = object.startedBy;
+    if (value != null) {
       result
         ..add('started_by')
-        ..add(serializers.serialize(object.startedBy,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.onTime != null) {
+    value = object.onTime;
+    if (value != null) {
       result
         ..add('on_time')
-        ..add(serializers.serialize(object.onTime,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.closedEndDiff != null) {
+    value = object.closedEndDiff;
+    if (value != null) {
       result
         ..add('closed_end_diff')
-        ..add(serializers.serialize(object.closedEndDiff,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.closedEndDiffHours != null) {
+    value = object.closedEndDiffHours;
+    if (value != null) {
       result
         ..add('closed_end_diff_hours')
-        ..add(serializers.serialize(object.closedEndDiffHours,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -218,7 +241,7 @@ class _$UpdateProjectRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case '_method':
           result.method = serializers.deserialize(value,
@@ -705,37 +728,38 @@ class UpdateProjectRequestBuilder
   UpdateProjectRequestBuilder();
 
   UpdateProjectRequestBuilder get _$this {
-    if (_$v != null) {
-      _method = _$v.method;
-      _id = _$v.id;
-      _companyId = _$v.companyId;
-      _parent = _$v.parent;
-      _identifier = _$v.identifier;
-      _type = _$v.type;
-      _highway = _$v.highway;
-      _intersection = _$v.intersection;
-      _speed = _$v.speed;
-      _distance = _$v.distance;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _status = _$v.status;
-      _notifyFrequency = _$v.notifyFrequency;
-      _inactiveNotifyFrequency = _$v.inactiveNotifyFrequency;
-      _startDate = _$v.startDate;
-      _endDate = _$v.endDate;
-      _closedAt = _$v.closedAt;
-      _signPlacement = _$v.signPlacement;
-      _location = _$v.location;
-      _designation = _$v.designation;
-      _workArea = _$v.workArea;
-      _shortSummary = _$v.shortSummary;
-      _projectCompany = _$v.projectCompany?.toBuilder();
-      _isSubProject = _$v.isSubProject;
-      _userIds = _$v.userIds?.toBuilder();
-      _startedBy = _$v.startedBy;
-      _onTime = _$v.onTime;
-      _closedEndDiff = _$v.closedEndDiff;
-      _closedEndDiffHours = _$v.closedEndDiffHours;
+    final $v = _$v;
+    if ($v != null) {
+      _method = $v.method;
+      _id = $v.id;
+      _companyId = $v.companyId;
+      _parent = $v.parent;
+      _identifier = $v.identifier;
+      _type = $v.type;
+      _highway = $v.highway;
+      _intersection = $v.intersection;
+      _speed = $v.speed;
+      _distance = $v.distance;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _status = $v.status;
+      _notifyFrequency = $v.notifyFrequency;
+      _inactiveNotifyFrequency = $v.inactiveNotifyFrequency;
+      _startDate = $v.startDate;
+      _endDate = $v.endDate;
+      _closedAt = $v.closedAt;
+      _signPlacement = $v.signPlacement;
+      _location = $v.location;
+      _designation = $v.designation;
+      _workArea = $v.workArea;
+      _shortSummary = $v.shortSummary;
+      _projectCompany = $v.projectCompany?.toBuilder();
+      _isSubProject = $v.isSubProject;
+      _userIds = $v.userIds?.toBuilder();
+      _startedBy = $v.startedBy;
+      _onTime = $v.onTime;
+      _closedEndDiff = $v.closedEndDiff;
+      _closedEndDiffHours = $v.closedEndDiffHours;
       _$v = null;
     }
     return this;
@@ -743,9 +767,7 @@ class UpdateProjectRequestBuilder
 
   @override
   void replace(UpdateProjectRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateProjectRequest;
   }
 

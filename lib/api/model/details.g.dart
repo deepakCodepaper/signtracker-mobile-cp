@@ -18,11 +18,13 @@ class _$DetailsSerializer implements StructuredSerializer<Details> {
   Iterable<Object> serialize(Serializers serializers, Details object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.sign != null) {
+    Object value;
+    value = object.sign;
+    if (value != null) {
       result
         ..add('sign')
-        ..add(serializers.serialize(object.sign,
-            specifiedType: const FullType(Sign)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(Sign)));
     }
     return result;
   }
@@ -36,7 +38,7 @@ class _$DetailsSerializer implements StructuredSerializer<Details> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'sign':
           result.sign.replace(serializers.deserialize(value,
@@ -93,8 +95,9 @@ class DetailsBuilder implements Builder<Details, DetailsBuilder> {
   DetailsBuilder();
 
   DetailsBuilder get _$this {
-    if (_$v != null) {
-      _sign = _$v.sign?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _sign = $v.sign?.toBuilder();
       _$v = null;
     }
     return this;
@@ -102,9 +105,7 @@ class DetailsBuilder implements Builder<Details, DetailsBuilder> {
 
   @override
   void replace(Details other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Details;
   }
 

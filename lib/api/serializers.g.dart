@@ -23,6 +23,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ProjectCompany.serializer)
       ..add(ProjectCreateRequest.serializer)
       ..add(ProjectLogs.serializer)
+      ..add(ProjectNotification.serializer)
+      ..add(ProjectNotificationRequest.serializer)
       ..add(Schedule.serializer)
       ..add(SendInviteRequest.serializer)
       ..add(Sign.serializer)
@@ -48,6 +50,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(int)]),
           () => new ListBuilder<int>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(ProjectNotification)]),
+          () => new ListBuilder<ProjectNotification>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(SignProject)]),
           () => new ListBuilder<SignProject>())

@@ -18,52 +18,59 @@ class _$ProjectLogsSerializer implements StructuredSerializer<ProjectLogs> {
   Iterable<Object> serialize(Serializers serializers, ProjectLogs object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.message != null) {
+    value = object.message;
+    if (value != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(object.message,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.projectId != null) {
+    value = object.projectId;
+    if (value != null) {
       result
         ..add('project_id')
-        ..add(serializers.serialize(object.projectId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedAt != null) {
+    value = object.updatedAt;
+    if (value != null) {
       result
         ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    if (object.updatedBy != null) {
+    value = object.updatedBy;
+    if (value != null) {
       result
         ..add('updated_by')
-        ..add(serializers.serialize(object.updatedBy,
-            specifiedType: const FullType(User)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(User)));
     }
-    if (object.details != null) {
+    value = object.details;
+    if (value != null) {
       result
         ..add('details')
-        ..add(serializers.serialize(object.details,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(Details)));
     }
-    if (object.notes != null) {
+    value = object.notes;
+    if (value != null) {
       result
         ..add('notes')
-        ..add(serializers.serialize(object.notes,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -78,7 +85,7 @@ class _$ProjectLogsSerializer implements StructuredSerializer<ProjectLogs> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -181,8 +188,8 @@ class _$ProjectLogs extends ProjectLogs {
                     $jc(
                         $jc($jc($jc(0, id.hashCode), message.hashCode),
                             projectId.hashCode),
-                       createdAt.hashCode),
-                   updatedAt.hashCode),
+                        createdAt.hashCode),
+                    updatedAt.hashCode),
                 updatedBy.hashCode),
             details.hashCode),
         notes.hashCode));
@@ -236,20 +243,21 @@ class ProjectLogsBuilder implements Builder<ProjectLogs, ProjectLogsBuilder> {
 
   String _notes;
   String get notes => _$this._notes;
-  set notes(String message) => _$this._notes = message;
+  set notes(String notes) => _$this._notes = notes;
 
   ProjectLogsBuilder();
 
   ProjectLogsBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _message = _$v.message;
-      _projectId = _$v.projectId;
-      _createdAt = _$v.createdAt;
-      _updatedAt = _$v.updatedAt;
-      _updatedBy = _$v.updatedBy?.toBuilder();
-      _details = _$v.details?.toBuilder();
-      _notes = _$v.notes;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _message = $v.message;
+      _projectId = $v.projectId;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _updatedBy = $v.updatedBy?.toBuilder();
+      _details = $v.details?.toBuilder();
+      _notes = $v.notes;
       _$v = null;
     }
     return this;
@@ -257,9 +265,7 @@ class ProjectLogsBuilder implements Builder<ProjectLogs, ProjectLogsBuilder> {
 
   @override
   void replace(ProjectLogs other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectLogs;
   }
 
@@ -281,7 +287,7 @@ class ProjectLogsBuilder implements Builder<ProjectLogs, ProjectLogsBuilder> {
               updatedAt: updatedAt,
               updatedBy: _updatedBy?.build(),
               details: _details?.build(),
-              notes: _notes);
+              notes: notes);
     } catch (_) {
       String _$failedField;
       try {

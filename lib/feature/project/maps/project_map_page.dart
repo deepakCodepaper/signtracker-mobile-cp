@@ -170,9 +170,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     return BlocListener(
       bloc: bloc,
       listener: (context, state) async {
-        print('========================');
-        print(state);
-        print('========================');
+        //print('========================');
+        //print(state);
+        //print('========================');
         if (state is ProjectInitial) {
           await pr.hide();
         }
@@ -200,14 +200,14 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
 
             signs = state.signs;
             reloadPins();
-            print("Location DATA CLat====" +currentLat.toString());
-            print("Location DATA CLng====" +currentLng.toString());
+            //print("Location DATA CLat====" +currentLat.toString());
+            //print("Location DATA CLng====" +currentLng.toString());
            // latlngLocation = LatLng(21.1874561, 72.9672019);
             if (signs?.isNotEmpty == true) {
-              print("SIGNS LENGTH====" + signs.length.toString());
-              print("SIGNS LAT====" + signs.last.lat.toString());
-              print("SIGNS LONG====" + signs.last.lng.toString());
-                  latlngLocation = LatLng(currentLat, currentLng);
+              //print("SIGNS LENGTH====" + signs.length.toString());
+              //print("SIGNS LAT====" + signs.last.lat.toString());
+              //print("SIGNS LONG====" + signs.last.lng.toString());
+                  //latlngLocation = LatLng(currentLat, currentLng);
               recalculateDistance(
                   latlngLocation, LatLng(signs.last.lat, signs.last.lng));
             }
@@ -238,7 +238,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             }
 
             if (widget.checkSigns) {
-              print("RINGTONE PLAY===================");
+              //print("RINGTONE PLAY===================");
               FlutterRingtonePlayer.play(
                 android: AndroidSounds.notification,
                 ios: IosSounds.glass,
@@ -248,8 +248,8 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
                 // Android only - API >= 28
                 asAlarm: false, // Android only - all APIs
               );
-              print("RINGTONE PLAY1===================");
-              showSnackBar('Signs within a 50m radius checked');
+              //print("RINGTONE PLAY1===================");
+              showSnackBar('Signs within a 25m radius checked');
             }
             reloadPins();
           });
@@ -531,9 +531,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   void observerLocationChanges() {
-    print("observe Location Changed");
+    //print("observe Location Changed");
     location.onLocationChanged().listen((data) {
-      print("ONCHANGED LOCATION ----- " + data.toString());
+      //print("ONCHANGED LOCATION ----- " + data.toString());
       loadUserLocation(data);
     });
   }
@@ -551,9 +551,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
       againstTrafficController.reset();
     }
     //hideLoadingLocation();
-    print("PROJECT ID ====" + project.id.toString());
-    print("PROJECT ID ====" + withTraffic.toString());
-    print("PROJECT ID ====" + widget.project.toString());
+    //print("PROJECT ID ====" + project.id.toString());
+    //print("PROJECT ID ====" + withTraffic.toString());
+    //print("PROJECT ID ====" + widget.project.toString());
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.of(context)
@@ -567,11 +567,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             if (popResult.results['isSignAdded']) {
               //add sign here
               method = 'add-sign';
-              print('METHOD:  $method');
+              //print('METHOD:  $method');
               bloc.loadProjectSigns(project.id);
               showSnackBar('Sign Added Succesfullly!');
-              print(
-                  '===================== ${popResult.results['project'] as SignProject}');
+              //print('===================== ${popResult.results['project'] as SignProject}');
               project = project.rebuild((b) => b
                 ..templateId =
                     (popResult.results['project'] as SignProject).templateId);
@@ -636,20 +635,20 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     currentLat = currentLocation.latitude;
     currentLng = currentLocation.longitude;
 
-    print("CCC1=====" + currentLat.toString());
-    print("CCC2=====" + currentLng.toString());
+    //print("CCC1=====" + currentLat.toString());
+    //print("CCC2=====" + currentLng.toString());
 
-    print("HERE=====");
+    //print("HERE=====");
 
     if (isFirstLoad) {
       await new Future.delayed(const Duration(seconds: 3));
-      print("HERE1=====");
+      //print("HERE1=====");
 
       double lat;
       double lng;
 
       if (widget.checkSigns) {
-        print("HERE2====");
+        //print("HERE2====");
         if (signs.length > 2) {
           int middle = (signs.length ~/ 2);
           lat = signs[middle].lat;
@@ -718,8 +717,8 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
 
   void recalculateDistance(LatLng currentLocation, LatLng lastSignedLocation) {
     // compares last current location and current location
-    print("DATA========" + currentLocation.toString());
-    print("DATA2========" + lastSignedLocation.toString());
+    //print("DATA========" + currentLocation.toString());
+    //print("DATA2========" + lastSignedLocation.toString());
     //currentLocation = lastSignedLocation;
     if (!Calculator.isTwoPointsEqual(lastSignedLocation, currentLocation)) {
       final lastPinLocation = markers.last.position;
@@ -742,7 +741,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   void checkSigns(LocationData currentLocation,Sign sign) {
-    print("CALL=======");
+    //print("CALL=======");
     //signs.forEach((sign) {
       bool shouldUpdateSign = widget.checkSigns &&
           _projectMapStatus == ProjectMapStatus.Started &&
@@ -752,8 +751,11 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
               20.0;
 
       if (!isUpdatingSign && shouldUpdateSign && !isChecked(sign)) {
+        //print("MESSAGE====================== in range");
         bloc.completeSign(sign,signNotes.text);
         updateToComplete(sign);
+      }else{
+        showSnackBar('You must be within 25m to check a sign.');
       }
    // });
   }
@@ -766,8 +768,8 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     await pr.hide();
     setStarted();
     setState(() {
-      print("CUrrent LAT=====" + currentLat.toString());
-      print("CUrrent LANG=====" + currentLng.toString());
+      //print("CUrrent LAT=====" + currentLat.toString());
+      //print("CUrrent LANG=====" + currentLng.toString());
       // print("CUrrent LAT11=====" + currentLocation.latitude.toString());
       //print("CUrrent LANG11=====" + currentLocation.longitude.toString());
       markers.add(Marker(
@@ -784,13 +786,13 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   void addSignMarkerToMap(Sign sign) async {
-    print("SIGN DATA == == == " +  sign.toString());
+    //print("SIGN DATA == == == " +  sign.toString());
     await getIconDirectory(sign).then((onValue) async {
-      print("SIGN DATA222 == == == " +  onValue.toString());
+      //print("SIGN DATA222 == == == " +  onValue.toString());
       var iconDirectory = onValue;
-      print('=============================');
-      print(iconDirectory);
-      print('=============================');
+      //print('=============================');
+      //print(iconDirectory);
+      //print('=============================');
 
       int iconSize = 160;
 
@@ -799,14 +801,14 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
             screenWidth == 812 ||
             screenHeight == 896 ||
             screenWidth == 896) {
-          print('isIphoneX');
+          //print('isIphoneX');
           iconSize = 250;
         } else {
-          print('notIphone');
+          //print('notIphone');
           iconSize = 160;
         }
       } else {
-        print("ICONSIZE=========");
+        //print("ICONSIZE=========");
         iconSize = 220;
       }
 
@@ -816,23 +818,23 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
 //      Uint8List byteData = new File(iconDirectory).readAsBytesSync();
 //      ByteData data = ByteData.view(byteData.buffer);
       try {
-        print("ICONSIZE222=========");
+        //print("ICONSIZE222=========");
         await instantiateImageCodec(data.buffer.asUint8List(),
             targetWidth: iconSize);
       } catch (e) {
-        print("ICONSIZE444444444=========");
+        //print("ICONSIZE444444444=========");
         print(e);
-        print("---------------");
+        //print("---------------");
         iconDirectory = 'assets/drawables/no-sign.png';
       }
 
       await getBytesFromAsset(iconDirectory, iconSize).then((onValue) {
         BitmapDescriptor icon = BitmapDescriptor.fromBytes(onValue);
         setState(() {
-          print("SIGN DATA==============" + sign.id.toString());
-          print("SIGN DATA==============" + sign.lat.toString());
-          print("SIGN DATA==============" + sign.lng.toString());
-          print("SIGN DATA==============" + widget.checkSigns.toString());
+          //print("SIGN DATA==============" + sign.id.toString());
+          //print("SIGN DATA==============" + sign.lat.toString());
+          //print("SIGN DATA==============" + sign.lng.toString());
+          //print("SIGN DATA==============" + widget.checkSigns.toString());
           markers.add(Marker(
             onTap: () =>
             widget.checkSigns == false ? showSignOptionsDialog(sign) : !isChecked(sign) && isClickOnStartButton ? showSignUpdateDialog(sign) : '',
@@ -857,12 +859,12 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
 
   void reloadPins() {
     setState(() {
-      print("LENGHT SIGNS========" +signs.length.toString());
-      print("LENGHT SIGNS22========" +signs.reversed.toList().toString());
+      //print("LENGHT SIGNS========" +signs.length.toString());
+      //print("LENGHT SIGNS22========" +signs.reversed.toList().toString());
       signs.reversed.toList();
       if (method == 'add-sign') {
-        print("IN HERE===========");
-        print('METHOD:  $method');
+        //print("IN HERE===========");
+        //print('METHOD:  $method');
         signs.forEach((sign) {
           if (!signsWithMarkers.contains(sign.id)) {
             setState(() {
@@ -885,10 +887,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
         });
         //end add-sign
         method = '';
-        print('METHOD:  $method');
+        //print('METHOD:  $method');
       } else if (method == 'update-sign') {
-        print("IN HERE22===========");
-        print('METHOD:  $method');
+        //print("IN HERE22===========");
+        //print('METHOD:  $method');
 
         markers.remove(markers.firstWhere((Marker marker) =>
         marker.markerId.value == updatedSign.id.toString()));
@@ -910,10 +912,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
         //end update-sign
         method = '';
         updatedSign = null;
-        print('METHOD:  $method');
+        //print('METHOD:  $method');
       } else if (method == 'sign-adjusted') {
-        print("IN HERE33===========");
-        print('METHOD:  $method');
+        //print("IN HERE33===========");
+        //print('METHOD:  $method');
 
         markers.remove(markers.firstWhere((Marker marker) =>
         marker.markerId.value == adjustedSign.id.toString()));
@@ -935,9 +937,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
         //end update-sign
         method = '';
         updatedSign = null;
-        print('METHOD:  $method');
+        //print('METHOD:  $method');
       } else {
-        print("IN HERE44===========");
+        //print("IN HERE44===========");
         markers.clear();
         signsWithMarkers.clear();
         signs.forEach((sign) {
@@ -1309,10 +1311,10 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
   }
 
   Future<void> setStarted() async {
-    print("==============Call Start Method============");
+    //print("==============Call Start Method============");
     setState(() => _projectMapStatus = ProjectMapStatus.Started);
     if (widget.checkSigns) {
-      print("==============Call Start Method1============");
+      //print("==============Call Start Method1============");
       Future.delayed(const Duration(seconds: 1));
       await mapController?.animateCamera(
         CameraUpdate.newCameraPosition(
@@ -1339,7 +1341,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
 
   Future<File> _downloadFile(String url, String filename, String dir) async {
     var req = await http.Client().get(Uri.parse(url));
-    print('$dir/$filename');
+    //print('$dir/$filename');
     var file = File('$dir/$filename');
     return file.writeAsBytes(req.bodyBytes);
   }
@@ -1348,7 +1350,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     String fileName =
     (sign.idName != null ? sign.idName : sign.name).replaceAll(' ', '');
 
-    print('-----------------STATUS------------------- ${sign.status}');
+    //print('-----------------STATUS------------------- ${sign.status}');
     if (widget.checkSigns) {
       if (isChecked(sign)) {
         if ((sign.status == 'active') ||
@@ -1357,7 +1359,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
           if (sign.traffic == 1) {
             await downloadIfNotExist(
                 sign, '${p.join(appDirectory.path, fileName)}check', 'check');
-            print('${p.join(appDirectory.path, fileName)}check');
+            //print('${p.join(appDirectory.path, fileName)}check');
             return '${p.join(appDirectory.path, fileName)}check';
           } else {
             await downloadIfNotExist(
@@ -1400,14 +1402,14 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
           sign.status == 'fixed') {
         await downloadIfNotExist(
             sign, '${p.join(appDirectory.path, fileName)}', '');
-        print('TEST------');
-        print(p.join(appDirectory.path, fileName));
+        //print('TEST------');
+        //print(p.join(appDirectory.path, fileName));
         return p.join(appDirectory.path, fileName);
       } else {
         await downloadIfNotExist(
             sign, '${p.join(appDirectory.path, fileName)}shaded', 'shaded');
-        print('TEST------');
-        print('${p.join(appDirectory.path, fileName)}shaded');
+        //print('TEST------');
+        //print('${p.join(appDirectory.path, fileName)}shaded');
         return '${p.join(appDirectory.path, fileName)}shaded';
       }
     }
@@ -1433,8 +1435,8 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    print('Screen Height: $screenHeight');
-    print('Screen Width: $screenWidth');
+    //print('Screen Height: $screenHeight');
+    //print('Screen Width: $screenWidth');
   }
 
   showSignOptionsDialog(Sign sign) {
@@ -1695,9 +1697,9 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
 
     bool isExist = File(file).existsSync();
     if (!isExist) {
-      print('================download====================$folder');
-      print('$portalImagesUrl/$folder/$fileName.png');
-      print('$fileName$status');
+     // print('================download====================$folder');
+      //print('$portalImagesUrl/$folder/$fileName.png');
+      //print('$fileName$status');
       await _downloadFile('$portalImagesUrl/$folder/$fileName.png',
           '$fileName$status', appDirectory.path);
     } else {

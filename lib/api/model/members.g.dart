@@ -18,29 +18,33 @@ class _$MembersSerializer implements StructuredSerializer<Members> {
   Iterable<Object> serialize(Serializers serializers, Members object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.email != null) {
+    value = object.email;
+    if (value != null) {
       result
         ..add('email')
-        ..add(serializers.serialize(object.email,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.isInvited != null) {
+    value = object.isInvited;
+    if (value != null) {
       result
         ..add('is_invited')
-        ..add(serializers.serialize(object.isInvited,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -54,7 +58,7 @@ class _$MembersSerializer implements StructuredSerializer<Members> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -150,11 +154,12 @@ class MembersBuilder implements Builder<Members, MembersBuilder> {
   MembersBuilder();
 
   MembersBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _email = _$v.email;
-      _isInvited = _$v.isInvited;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _email = $v.email;
+      _isInvited = $v.isInvited;
       _$v = null;
     }
     return this;
@@ -162,9 +167,7 @@ class MembersBuilder implements Builder<Members, MembersBuilder> {
 
   @override
   void replace(Members other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Members;
   }
 

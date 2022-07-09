@@ -3,6 +3,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:signtracker/api/model/members.dart';
 import 'package:signtracker/api/model/project_company.dart';
+import 'package:signtracker/api/model/project_notification.dart';
 import 'package:signtracker/api/model/template.dart';
 import 'package:signtracker/api/serializers.dart';
 
@@ -148,6 +149,10 @@ abstract class SignProject implements Built<SignProject, SignProjectBuilder> {
   @BuiltValueField(wireName: "_method")
   @nullable
   String get method;
+
+  @BuiltValueField(wireName: "project_notifications")
+  @nullable
+  BuiltList<ProjectNotification> get projectNotifications;
 
   @BuiltValueField(wireName: "sub_projects")
   @nullable

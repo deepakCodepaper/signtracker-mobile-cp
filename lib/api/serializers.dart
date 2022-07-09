@@ -8,6 +8,7 @@ import 'package:signtracker/api/model/invitation.dart';
 import 'package:signtracker/api/model/login.dart';
 import 'package:signtracker/api/model/members.dart';
 import 'package:signtracker/api/model/project_company.dart';
+import 'package:signtracker/api/model/project_notification.dart';
 import 'package:signtracker/api/model/request/company_invite_request.dart';
 import 'package:signtracker/api/model/request/project_create_request.dart';
 import 'package:signtracker/api/model/request/send_invite_request.dart';
@@ -28,6 +29,7 @@ import 'model/invite.dart';
 import 'model/invite_project.dart';
 import 'model/project_logs.dart';
 import 'model/request/emails_request.dart';
+import 'model/request/project_notification_request.dart';
 import 'model/schedule.dart';
 
 part 'serializers.g.dart';
@@ -59,6 +61,8 @@ part 'serializers.g.dart';
   Company,
   CompanyInviteRequest,
   CheckSignProject,
+  ProjectNotification,
+  ProjectNotificationRequest,
 ])
 final Serializers serializers = _$serializers;
 

@@ -32,7 +32,7 @@ void main() async {
   BlocSupervisor.delegate = AppBlocDelegate();
   //OneSignal.shared.init("23fb4990-dac7-459e-8b80-d88fcbb2b565", iOSSettings: {OSiOSSettings.autoPrompt: false});
   //OneSignal.shared.setAppId("23fb4990-dac7-459e-8b80-d88fcbb2b565");
-  //OneSignal.shared.setAppId("e52724d4-9bc1-462b-99a5-b1a6dc4f304f");
+  OneSignal.shared.setAppId("e52724d4-9bc1-462b-99a5-b1a6dc4f304f");
   //OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
     print("Accepted permission: $accepted");

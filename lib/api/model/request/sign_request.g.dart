@@ -18,64 +18,72 @@ class _$SignRequestSerializer implements StructuredSerializer<SignRequest> {
   Iterable<Object> serialize(Serializers serializers, SignRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.method != null) {
+    Object value;
+    value = object.method;
+    if (value != null) {
       result
         ..add('_method')
-        ..add(serializers.serialize(object.method,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.projectId != null) {
+    value = object.projectId;
+    if (value != null) {
       result
         ..add('project_id')
-        ..add(serializers.serialize(object.projectId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.lat != null) {
+    value = object.lat;
+    if (value != null) {
       result
         ..add('lat')
-        ..add(serializers.serialize(object.lat,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.lng != null) {
+    value = object.lng;
+    if (value != null) {
       result
         ..add('lng')
-        ..add(serializers.serialize(object.lng,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.nameId != null) {
+    value = object.nameId;
+    if (value != null) {
       result
         ..add('id_name')
-        ..add(serializers.serialize(object.nameId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.signMasterId != null) {
+    value = object.signMasterId;
+    if (value != null) {
       result
         ..add('sign_master_id')
-        ..add(serializers.serialize(object.signMasterId,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.traffic != null) {
+    value = object.traffic;
+    if (value != null) {
       result
         ..add('traffic')
-        ..add(serializers.serialize(object.traffic,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.notes != null) {
+    value = object.notes;
+    if (value != null) {
       result
         ..add('notes')
-        ..add(serializers.serialize(object.notes,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -90,7 +98,7 @@ class _$SignRequestSerializer implements StructuredSerializer<SignRequest> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case '_method':
           result.method = serializers.deserialize(value,
@@ -209,7 +217,9 @@ class _$SignRequest extends SignRequest {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc($jc(0, method.hashCode), status.hashCode),
+                                $jc(
+                                    $jc($jc(0, method.hashCode),
+                                        status.hashCode),
                                     projectId.hashCode),
                                 lat.hashCode),
                             lng.hashCode),
@@ -217,7 +227,7 @@ class _$SignRequest extends SignRequest {
                     nameId.hashCode),
                 signMasterId.hashCode),
             traffic.hashCode),
-        notes.hashCode),);
+        notes.hashCode));
   }
 
   @override
@@ -283,17 +293,18 @@ class SignRequestBuilder implements Builder<SignRequest, SignRequestBuilder> {
   SignRequestBuilder();
 
   SignRequestBuilder get _$this {
-    if (_$v != null) {
-      _method = _$v.method;
-      _status = _$v.status;
-      _projectId = _$v.projectId;
-      _lat = _$v.lat;
-      _lng = _$v.lng;
-      _name = _$v.name;
-      _nameId = _$v.nameId;
-      _signMasterId = _$v.signMasterId;
-      _traffic = _$v.traffic;
-      _notes = _$v.notes;
+    final $v = _$v;
+    if ($v != null) {
+      _method = $v.method;
+      _status = $v.status;
+      _projectId = $v.projectId;
+      _lat = $v.lat;
+      _lng = $v.lng;
+      _name = $v.name;
+      _nameId = $v.nameId;
+      _signMasterId = $v.signMasterId;
+      _traffic = $v.traffic;
+      _notes = $v.notes;
       _$v = null;
     }
     return this;
@@ -301,9 +312,7 @@ class SignRequestBuilder implements Builder<SignRequest, SignRequestBuilder> {
 
   @override
   void replace(SignRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignRequest;
   }
 

@@ -24,10 +24,12 @@ class _$CompanyInviteRequestSerializer
       Serializers serializers, CompanyInviteRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.companies != null) {
+    Object value;
+    value = object.companies;
+    if (value != null) {
       result
         ..add('company_ids')
-        ..add(serializers.serialize(object.companies,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(int)])));
     }
@@ -44,7 +46,7 @@ class _$CompanyInviteRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'company_ids':
           result.companies.replace(serializers.deserialize(value,
@@ -109,8 +111,9 @@ class CompanyInviteRequestBuilder
   CompanyInviteRequestBuilder();
 
   CompanyInviteRequestBuilder get _$this {
-    if (_$v != null) {
-      _companies = _$v.companies?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _companies = $v.companies?.toBuilder();
       _$v = null;
     }
     return this;
@@ -118,9 +121,7 @@ class CompanyInviteRequestBuilder
 
   @override
   void replace(CompanyInviteRequest other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CompanyInviteRequest;
   }
 

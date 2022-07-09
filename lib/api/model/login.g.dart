@@ -46,7 +46,7 @@ class _$LoginSerializer implements StructuredSerializer<Login> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'success':
           result.success = serializers.deserialize(value,
@@ -97,21 +97,11 @@ class _$Login extends Login {
       this.expiresIn,
       this.user})
       : super._() {
-    if (success == null) {
-      throw new BuiltValueNullFieldError('Login', 'success');
-    }
-    if (accessToken == null) {
-      throw new BuiltValueNullFieldError('Login', 'accessToken');
-    }
-    if (tokenType == null) {
-      throw new BuiltValueNullFieldError('Login', 'tokenType');
-    }
-    if (expiresIn == null) {
-      throw new BuiltValueNullFieldError('Login', 'expiresIn');
-    }
-    if (user == null) {
-      throw new BuiltValueNullFieldError('Login', 'user');
-    }
+    BuiltValueNullFieldError.checkNotNull(success, 'Login', 'success');
+    BuiltValueNullFieldError.checkNotNull(accessToken, 'Login', 'accessToken');
+    BuiltValueNullFieldError.checkNotNull(tokenType, 'Login', 'tokenType');
+    BuiltValueNullFieldError.checkNotNull(expiresIn, 'Login', 'expiresIn');
+    BuiltValueNullFieldError.checkNotNull(user, 'Login', 'user');
   }
 
   @override
@@ -180,12 +170,13 @@ class LoginBuilder implements Builder<Login, LoginBuilder> {
   LoginBuilder();
 
   LoginBuilder get _$this {
-    if (_$v != null) {
-      _success = _$v.success;
-      _accessToken = _$v.accessToken;
-      _tokenType = _$v.tokenType;
-      _expiresIn = _$v.expiresIn;
-      _user = _$v.user?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _success = $v.success;
+      _accessToken = $v.accessToken;
+      _tokenType = $v.tokenType;
+      _expiresIn = $v.expiresIn;
+      _user = $v.user.toBuilder();
       _$v = null;
     }
     return this;
@@ -193,9 +184,7 @@ class LoginBuilder implements Builder<Login, LoginBuilder> {
 
   @override
   void replace(Login other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Login;
   }
 
@@ -210,10 +199,14 @@ class LoginBuilder implements Builder<Login, LoginBuilder> {
     try {
       _$result = _$v ??
           new _$Login._(
-              success: success,
-              accessToken: accessToken,
-              tokenType: tokenType,
-              expiresIn: expiresIn,
+              success: BuiltValueNullFieldError.checkNotNull(
+                  success, 'Login', 'success'),
+              accessToken: BuiltValueNullFieldError.checkNotNull(
+                  accessToken, 'Login', 'accessToken'),
+              tokenType: BuiltValueNullFieldError.checkNotNull(
+                  tokenType, 'Login', 'tokenType'),
+              expiresIn: BuiltValueNullFieldError.checkNotNull(
+                  expiresIn, 'Login', 'expiresIn'),
               user: user.build());
     } catch (_) {
       String _$failedField;
