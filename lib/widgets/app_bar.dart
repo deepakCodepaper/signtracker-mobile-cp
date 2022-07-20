@@ -15,7 +15,7 @@ class SignTrackerAppBar {
       centerTitle: false,
       actions: <Widget>[
         IconButton(
-          onPressed: () => _showLogout(context),
+          onPressed: () => showLogout(context),
           icon: Icon(Icons.account_circle, color: AppColors.yellowPrimary),
         )
       ],
@@ -23,7 +23,7 @@ class SignTrackerAppBar {
   }
 
   // user defined function
-  static _showLogout(context) {
+  static showLogout(context) {
     // flutter defined function
     showDialog(
       context: context,

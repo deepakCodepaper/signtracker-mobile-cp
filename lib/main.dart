@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -28,6 +29,7 @@ class AppBlocDelegate extends BlocDelegate {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   BlocSupervisor.delegate = AppBlocDelegate();
   //OneSignal.shared.init("23fb4990-dac7-459e-8b80-d88fcbb2b565", iOSSettings: {OSiOSSettings.autoPrompt: false});

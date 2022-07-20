@@ -51,7 +51,7 @@ class ProjectApi {
 
   Future<List<SignProject>> getProjectList({int page = 1}) async {
     //var path = 'admin/$apiPath';
-    var path = '$apiPath?page=$page';
+    var path = '$apiPath?page=$page&per_page=20';
 
     try {
       final response = await apiClient.dio.get(path,
@@ -456,19 +456,30 @@ class ProjectApi {
     return null;
   }*/
 
-  Future<bool> sendReportNow(int projectId) async {
+  Future<bool> sendReportNow(int projectId, String fromDate, String endDate) async {
     final path = '$apiPath/$projectId/send_now';
 
     final email = await fetchEmailRecipients(projectId);
 
     print("EMAIL LIST====" + email.toString());
-
-    FormData formData = new FormData.fromMap({
-      'from': null,
-      'to': null,
-      //'emails':[{'email':'deepak.codepaper@gmail.com'}]
-      'emails':[{'email': email.emails.toList()}]
-    });
+    FormData formData;
+    if(fromDate != null && endDate != null)
+    {
+       formData = new FormData.fromMap({
+        'from': fromDate,
+        'to': endDate,
+        //'emails':[{'email':'deepak.codepaper@gmail.com'}]
+        'emails': [{'email': email.emails.toList()}]
+      });
+    }else {
+      print("Recurring $fromDate && $endDate");
+      formData = new FormData.fromMap({
+        'from': null,
+        'to': null,
+        //'emails':[{'email':'deepak.codepaper@gmail.com'}]
+        'emails': [{'email': email.emails.toList()}]
+      });
+    }
 
     try {
       final response = await apiClient.dio.post(path, data: formData);

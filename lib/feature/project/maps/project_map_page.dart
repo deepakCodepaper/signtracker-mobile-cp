@@ -249,7 +249,7 @@ class _ProjectMapPageState extends State<ProjectMapPage> {
                 asAlarm: false, // Android only - all APIs
               );
               //print("RINGTONE PLAY1===================");
-              showSnackBar('Signs within a 25m radius checked');
+              //showSnackBar('Signs within a 25m radius checked');
             }
             reloadPins();
           });

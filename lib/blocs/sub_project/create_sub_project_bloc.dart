@@ -52,8 +52,8 @@ class CreateSubProjectBloc
         signProject, daily, weekly, time, day, hourly, minute, meridian));
   }
 
-  void sendNow(SignProject signProject) {
-    add(SendReportNow(signProject));
+  void sendNow(SignProject signProject, String fromDate, String endDate) {
+    add(SendReportNow(signProject, fromDate, endDate));
   }
 
   @override
@@ -116,7 +116,7 @@ class CreateSubProjectBloc
     } else if (event is SendReportNow) {
       yield GetScheduleLoading();
       final schedule =
-          await projectRepository.sendReportNow(event.signProject.id);
+          await projectRepository.sendReportNow(event.signProject.id,event.fromDate,event.endDate);
       if (schedule == null) {
         yield SendReportNowFailed();
       } else {

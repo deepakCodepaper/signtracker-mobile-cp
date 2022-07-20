@@ -416,11 +416,13 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   initDynamicLinks(BuildContext context) async {
+    print("IN INITIALIZATION==================");
     await Future.delayed(Duration(seconds: 3));
     var data = await FirebaseDynamicLinks.instance.getInitialLink();
     var deepLink = data?.link;
-    print("LNK 000 -- " + deepLink.toString());
-    final queryParams = deepLink.queryParameters;
+    print("LNK 000 --============== " + deepLink?.toString());
+    print("LNK 000 --============== " + deepLink.queryParameters.toString());
+    final queryParams = deepLink?.queryParameters;
     debugPrint('test');
 
     if (queryParams.length > 0) {
@@ -433,7 +435,8 @@ class _DashboardPageState extends State<DashboardPage> {
       Navigator.pushNamed(context, ProjectListPage.route,
           arguments: ProjectListPageArgs(projectId as int));
     }
-    FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamicLink) async {
+    /*FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamicLink) async {
+      print('HERE onLinkError22===========');
       var deepLink = dynamicLink?.link;
       print('onLinkError0===========' + deepLink.toString());
       debugPrint('test2');
@@ -443,9 +446,21 @@ class _DashboardPageState extends State<DashboardPage> {
     }, onError: (e) async {
       debugPrint('DynamicLinks onError $e');
     });
+*/
+    FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
+      var deepLink = dynamicLinkData?.link;
+      print('onLinkError0===========' + deepLink.toString());
+      debugPrint('test2');
+      debugPrint('DynamicLinks onLink $deepLink');
+      Navigator.pushNamed(context, ProjectListPage.route,
+          arguments: ProjectListPageArgs(0));
+    }).onError((error){
+      debugPrint('DynamicLinks onError $error');
+    });
 
-    FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData dynamicLink) async {
+   /* FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (dynamicLink) async {
+          print('HERE onLinkError===========');
           final Uri deepLink = dynamicLink?.link;
           print('onLinkError===========' + deepLink.toString());
           if (deepLink != null) {
@@ -457,6 +472,20 @@ class _DashboardPageState extends State<DashboardPage> {
         }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
       print(e.message);
+    });*/
+
+    FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
+      final Uri deepLink = dynamicLinkData?.link;
+      print('onLinkError===========' + deepLink.toString());
+      if (deepLink != null) {
+        print(deepLink.queryParameters['id']); // <- prints 'abc'
+        Navigator.pushNamed(context, ProjectListPage.route,
+            arguments:
+            ProjectListPageArgs(deepLink.queryParameters['id'] as int));
+      }
+    }).onError((error){
+      print('onLinkError');
+      print(error.message);
     });
   }
 

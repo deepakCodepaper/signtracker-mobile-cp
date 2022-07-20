@@ -63,9 +63,11 @@ class SetScheduleReports extends CreateSubProjectEvent {
 }
 
 class SendReportNow extends CreateSubProjectEvent {
-  SendReportNow(this.signProject) : super([]);
+  SendReportNow(this.signProject,this.fromDate,this.endDate) : super([]);
 
   final SignProject signProject;
+  String fromDate;
+  String endDate;
 
   @override
   String toString() => 'SendReportNow';

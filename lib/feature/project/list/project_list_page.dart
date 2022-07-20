@@ -17,7 +17,7 @@ import 'package:signtracker/repository/project_repository.dart';
 import 'package:signtracker/repository/user_repository.dart';
 import 'package:signtracker/styles/values/values.dart';
 import 'package:signtracker/widgets/app_bar.dart';
-
+import 'package:flutter/cupertino.dart';
 import 'expandable_item/expandable_project_item.dart';
 
 DateFormat dateFormat = DateFormat('dd MMM yyyy');
@@ -126,7 +126,8 @@ class _ProjectListPageState extends State<ProjectListPage> {
 
                 projects = tempList;
                 projects.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-                final list = projects.where((projects){ return projects.identifier.toLowerCase().contains(queryText.toLowerCase());})
+                final list = projects.where((projects){ return  projects.contractNumber?.contains(queryText) ?? false;})
+                //final list = projects
                     .map(
                       (project) =>
                       ExpandableProjectItem(
@@ -191,10 +192,18 @@ class _ProjectListPageState extends State<ProjectListPage> {
                           child: LazyLoadScrollView(
                             onEndOfPage: () => bloc.add(FetchNextPage()),
                             child: ListView.separated(
-                              itemBuilder: (context, index) => list[index],
+                              itemBuilder: (context, index) {
+                                if(index == list.length){
+                                  if(state is ProjectsLoading) {
+                                    return Center(child: CupertinoActivityIndicator());
+                                  }
+                                }else {
+                                  return list[index];
+                                }
+                                },
                               separatorBuilder: (context, index) =>
                                   SizedBox(height: 10),
-                              itemCount: list.length,
+                              itemCount: list.length+1,
                             ),
                           ),
                         ),

@@ -126,6 +126,7 @@ class _StatefulAppState extends State<StatefulApp> {
   }
 
   initDynamicLinks(BuildContext context) async {
+    print("IN INITIALIZATION111==================");
     await Future.delayed(Duration(seconds: 3));
     var data = await FirebaseDynamicLinks.instance.getInitialLink();
     var deepLink = data?.link;
@@ -156,15 +157,26 @@ class _StatefulAppState extends State<StatefulApp> {
       debugPrint('DynamicLinks onError $e');
     });*/
 
-    FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamicLink) async {
+
+   /* FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData dynamicLink) async {
       var deepLink = dynamicLink?.link;
       debugPrint('test2');
       debugPrint('DynamicLinks onLink $deepLink');
-    }, onError: (e) async {
+    }, onError: (OnLinkErrorException e) async {
       debugPrint('DynamicLinks onError $e');
+    });*/
+
+    FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
+      print("IN INITIALIZATION1115335==================");
+      var deepLink = dynamicLinkData?.link;
+      debugPrint('test2');
+      debugPrint('DynamicLinks onLink $deepLink');
+    }).onError((error){
+      debugPrint('DynamicLinks onError $error');
     });
 
-    FirebaseDynamicLinks.instance.onLink(
+    /*FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData dynamicLink) async {
           final Uri deepLink = dynamicLink?.link;
           if (deepLink != null) {
@@ -173,6 +185,17 @@ class _StatefulAppState extends State<StatefulApp> {
         }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
       print(e.message);
+    });*/
+
+    FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
+      print("IN INITIALIZATION11153354544==================");
+      final Uri deepLink = dynamicLinkData?.link;
+      if (deepLink != null) {
+        print(deepLink.queryParameters['id']); // <- prints 'abc'
+      }
+    }).onError((error){
+      print('onLinkError');
+      print(error.message);
     });
   }
 

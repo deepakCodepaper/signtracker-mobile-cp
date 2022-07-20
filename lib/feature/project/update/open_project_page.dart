@@ -88,7 +88,7 @@ class OpenProjectPageState extends State<OpenProjectPage> {
 
     if (newProject != null) {
       project = newProject;
-      showSnackBar('Settings saved successfully!');
+      showSnackBar(context, 'Settings saved successfully!');
     }
   }
 
@@ -131,23 +131,8 @@ class OpenProjectPageState extends State<OpenProjectPage> {
       Navigator.pop(context);
       var fromTemplate = false;
       print("IMAGE PATH====" + imagepath);
-      showSnackBar("File size limit exceeded.");
+      showSnackBar(context, "File size limit exceeded.");
     }
-  }
-
-  void showSnackBar(String message) {
-    Flushbar(
-      flushbarStyle: FlushbarStyle.FLOATING,
-      margin: EdgeInsets.all(8),
-      borderRadius: BorderRadius.circular(8),
-      message: message,
-      icon: Icon(
-        Icons.info,
-        color: Colors.yellow[700],
-        size: 20.0,
-      ),
-      duration: Duration(seconds: 1),
-    ).show(context);
   }
 
   @override
@@ -205,7 +190,7 @@ class OpenProjectPageState extends State<OpenProjectPage> {
               arguments: AdjustSettingsPageArgs(project, false),
             );
             if (result != null) {
-              showSnackBar(
+              showSnackBar(context,
                   'Settings saved successfully!');
               project = result;
             }
@@ -241,7 +226,7 @@ class OpenProjectPageState extends State<OpenProjectPage> {
               project = project.rebuild((b) => b..plan = state.project.plan);
             });
             pr.hide();
-            showSnackBar('Project Template Selected');
+            showSnackBar(context, 'Project Template Selected');
           }
           if (state is ClosingProject) {
             pr.style(message: 'Updating');
@@ -803,7 +788,8 @@ class OpenProjectPageState extends State<OpenProjectPage> {
   Future<void> navigateBackToProjectList() async {
     await pr.hide();
     pr.style(message: 'Loading');
-    showSnackBar('Project Closed Successfully!');
+    showSnackBar(context
+        , 'Project Closed Successfully!');
     await Future<void>.delayed(Duration(milliseconds: 2000));
     Navigator.pop(context);
   }
@@ -910,8 +896,14 @@ class ViewProjectPlanPageOnlineState extends State<ViewProjectPlanPageOnline> {
                   onChanged: (bool val){
                     setState((){
                       if(defaultPlan == false) {
-                        defaultPlan = val;
-                        Navigator.pop(context, false);
+                        if(widget.project.templateId != null) {
+                          defaultPlan = val;
+                          Navigator.pop(context, false);
+                        }else{
+                          defaultPlan = val;
+                          Navigator.pop(context);
+                          showSnackBar(context, "No Project Plan Template");
+                        }
                       }
                     });
                   },
@@ -963,4 +955,19 @@ class _ViewProjectPlanPageOffline extends StatelessWidget {
       ),
     );
   }
+}
+
+void showSnackBar(BuildContext context, String message) {
+  Flushbar(
+    flushbarStyle: FlushbarStyle.FLOATING,
+    margin: EdgeInsets.all(8),
+    borderRadius: BorderRadius.circular(8),
+    message: message,
+    icon: Icon(
+      Icons.info,
+      color: Colors.yellow[700],
+      size: 20.0,
+    ),
+    duration: Duration(seconds: 1),
+  ).show(context);
 }

@@ -175,8 +175,8 @@ class ProjectRepository {
         projectId, daily, weekly, time, day, hour, minute, meridian);
   }
 
-  Future<bool> sendReportNow(int projectId) async {
+  Future<bool> sendReportNow(int projectId,String fromDate, String endDate) async {
     final api = await _signTrackerClient.getProjectAPI();
-    return await api.sendReportNow(projectId);
+    return await api.sendReportNow(projectId, fromDate, endDate);
   }
 }

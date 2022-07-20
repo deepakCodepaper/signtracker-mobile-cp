@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "437218980617-8gadirov344ngc8983p3ckfq51obnq5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cardanmarketing.signtrackerapp",
+            "certificate_hash": "abf7facd74f21f1f9f1c80b8393f37d80c697e82"
+          }
+        },
+        {
           "client_id": "437218980617-41kr2lfm905asshltvqo4o408mshclb5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,14 @@
             {
               "client_id": "437218980617-41kr2lfm905asshltvqo4o408mshclb5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "437218980617-09gnv9crp1cqj94anq0gn6pdvjpmiu82.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cardanmarketing.signtrackerapp",
+                "app_store_id": "1493004386"
+              }
             }
           ]
         }
