@@ -87,7 +87,7 @@ class _weeklyWidgetState extends State<weeklyWidget> {
     if (selectedTimeOfDay != null) {
       setState(() {
         String tm = selectedTimeOfDay.hour.toString() + ":" + selectedTimeOfDay.minute.toString();
-        bloc.addNotificationTime(projectId, weekIndex, tm);
+        bloc.addNotificationTime(projectId, weekIndex.toString(), tm);
       });
     }
   }
@@ -148,7 +148,7 @@ class _weeklyWidgetState extends State<weeklyWidget> {
     ).show();
   }
 
- /* void changeWeekday(String newDay) {
+  /* void changeWeekday(String newDay) {
     setState(() {
       weekday = newDay;
     });
@@ -164,99 +164,99 @@ class _weeklyWidgetState extends State<weeklyWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.follow_the_signs,
-                  size: 15,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  "Schedule Sign Checks",
-                  style: GoogleFonts.karla(
-                      textStyle: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700)),
-                ),
-              ],
+            Icon(
+              Icons.follow_the_signs,
+              size: 15,
+              color: Colors.black,
             ),
-            SizedBox(height: 10,),
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: weekdays.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                   onTap: (){
-                     updateDayColor(index);
-                   },
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 3, right: 3),
-                      height: MediaQuery.of(context).size.width / 8.3,
-                      width: MediaQuery.of(context).size.width / 8.3,
-                      decoration: BoxDecoration(
-                          color: cardColorList[index][0],
-                          borderRadius: const BorderRadius.all(Radius.circular(10))
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(weekdays[index], style: TextStyle(fontSize: 14, color: cardColorList[index][1], fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                    ),
-                  );
+            SizedBox(width: 10),
+            Text(
+              "Schedule Sign Checks",
+              style: GoogleFonts.karla(
+                  textStyle: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700)),
+            ),
+          ],
+        ),
+        SizedBox(height: 10,),
+        SizedBox(
+          height: 50,
+          width: double.infinity,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: weekdays.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: (){
+                  updateDayColor(index);
                 },
-              ),
-            ),
-            SizedBox(height: 10,),
-            SizedBox(
-              height: 40,
-              width: double.infinity,
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      weekIndex != 0 ?
-                      displayTimePicker(TimeOfDay.fromDateTime(DateTime.now())) : '';
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 5, right: 5),
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: activeCardColor,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Add", style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                    ),
+                child: Container(
+                  margin: const EdgeInsets.only(left: 3, right: 3),
+                  height: MediaQuery.of(context).size.width / 8.3,
+                  width: MediaQuery.of(context).size.width / 8.3,
+                  decoration: BoxDecoration(
+                      color: cardColorList[index][0],
+                      borderRadius: const BorderRadius.all(Radius.circular(10))
                   ),
-                  Expanded(
-                    child: BlocBuilder<ProjectNotificationBloc, ProjectNotificationState>(
-                      bloc: bloc,
-                    builder: (context, state) {
-                      if (state is ProjectNotificationLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                      if(state is ProjectNotificationLoaded){
-                        projectNotification = state.projects;
-                        if(state.status == false) {
-                          timeNotification.clear();
-                          for (int i = 0; i < projectNotification.length; i++) {
-                            if (weekIndex == projectNotification[i].day) {
-                              timeNotification.add(projectNotification[i]);
-                            }
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(weekdays[index], style: TextStyle(fontSize: 14, color: cardColorList[index][1], fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        SizedBox(height: 10,),
+        SizedBox(
+          height: 40,
+          width: double.infinity,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: (){
+                  weekIndex != 0 ?
+                  displayTimePicker(TimeOfDay.fromDateTime(DateTime.now())) : '';
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(left: 5, right: 5),
+                  width: 80,
+                  decoration: BoxDecoration(
+                    color: activeCardColor,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Add", style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: BlocBuilder<ProjectNotificationBloc, ProjectNotificationState>(
+                  bloc: bloc,
+                  builder: (context, state) {
+                    if (state is ProjectNotificationLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if(state is ProjectNotificationLoaded){
+                      projectNotification = state.projects;
+                      if(state.status == false) {
+                        timeNotification.clear();
+                        for (int i = 0; i < projectNotification.length; i++) {
+                          if (weekIndex == projectNotification[i].day) {
+                            timeNotification.add(projectNotification[i]);
                           }
                         }
                       }
+                    }
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: timeNotification.length,
@@ -282,14 +282,14 @@ class _weeklyWidgetState extends State<weeklyWidget> {
                         );
                       },
                     );
-  },
-),
-                  ),
-                ],
+                  },
+                ),
               ),
-            ),
-          ],
-        );
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
 

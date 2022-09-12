@@ -8,7 +8,10 @@ import 'package:signtracker/api/apis/users_api.dart';
 import 'package:signtracker/utilities/token_helper.dart';
 
 class SignTrackerClient {
+  //Prod
   final String _apiBaseUrl = 'https://api.thesigntracker.com/api/v1/';
+
+  //STG
   //final String _apiBaseUrl = 'https://api.thesigntracker.online/api/v1/';
   //final String _apiBaseUrl = 'https://staging-api.thesigntracker.com/api/v1/';
 

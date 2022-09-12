@@ -18,7 +18,7 @@ class ProjectNotificationBloc extends Bloc<ProjectNotificationEvent, ProjectNoti
 
   void addNotificationTime(
       int id,
-      int day,
+      String day,
       String time
       ){
     add(AddIsClicked(ProjectNotificationRequest().rebuild((b) => b

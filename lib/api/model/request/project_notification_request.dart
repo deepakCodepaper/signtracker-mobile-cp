@@ -12,11 +12,11 @@ abstract class ProjectNotificationRequest implements Built<ProjectNotificationRe
 
   ProjectNotificationRequest._();
 
-  ProjectNotificationRequest copy(ProjectNotification projectNotification) {
+  ProjectNotificationRequest copy(int id,String day,String time) {
     return _$ProjectNotificationRequest._(
-      projectId: projectNotification.id,
-      day: projectNotification.day,
-      time: projectNotification.time,
+      projectId: id,
+      day: day,
+      time: time,
     );
   }
 
@@ -29,7 +29,7 @@ abstract class ProjectNotificationRequest implements Built<ProjectNotificationRe
   int get projectId;
 
   @nullable
-  int get day;
+  String get day;
 
   @nullable
   String get time;

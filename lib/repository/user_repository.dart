@@ -19,7 +19,7 @@ class UserRepository {
   }) async {
     final api = authClient.getAuthApi();
     final result = await api.login(username, password);
-    print(result.toString());
+    print("LOGIN RESULT============= + " + result.toString());
     if (result is Login &&
         result?.success == true &&
         result?.accessToken != null &&
@@ -86,6 +86,11 @@ class UserRepository {
   Future<User> getUserDetails() async {
     final api = await signTrackerClient.getUsersApi();
     return api.getUserDetails();
+  }
+
+  Future<bool> deleteUserDetails() async {
+    final api = await signTrackerClient.getUsersApi();
+    return api.deleteUserDetails();
   }
 
   Future<UserDevice> registerDevice(String playerId) async {

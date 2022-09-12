@@ -239,7 +239,7 @@ class _StatefulAppState extends State<StatefulApp> {
               color: Color(0xFFF5F5F5),
             ),
           ),
-          title: 'Dexy',
+          title: 'SignTracker',
           theme: defaultAppTheme,
           home: SplashPage(
             isLoggedIn: isLoggedIn,

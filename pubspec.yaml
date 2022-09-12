@@ -2,7 +2,11 @@ name: signtracker
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.3.5+2
+#Android
+#version: 1.3.7+13700
+
+#ios
+version: 1.3.7+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

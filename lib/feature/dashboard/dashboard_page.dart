@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signtracker/feature/check_signs/check_signs_page.dart';
 import 'package:signtracker/feature/login/login_page.dart';
@@ -18,6 +19,9 @@ import 'package:signtracker/utilities/token_helper.dart';
 import 'package:signtracker/widgets/app_bar.dart';
 import 'package:signtracker/widgets/menu_button.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../repository/user_repository.dart';
+import '../landing/landing_page.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String route = "/dashboard";
@@ -38,6 +42,7 @@ class _DashboardPageState extends State<DashboardPage> {
   bool signLibraryTapped = false;
   bool helpTapped = false;
   bool notificationsTapped = false;
+  UserRepository userRepository;
 
   @override
   void initState() {
@@ -46,6 +51,7 @@ class _DashboardPageState extends State<DashboardPage> {
     print(isNotificationON);
     loadNotificationState();
     getNumberOfNotif();
+    userRepository = UserRepository();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkIfShowTutorial();
@@ -213,7 +219,15 @@ class _DashboardPageState extends State<DashboardPage> {
             }),
         onPressed: () => Navigator.pushNamed(context, CheckSignsPage.route,
             arguments: CheckSignsPageArgs(true)),
-      )
+      ),
+      MenuButton(
+        backgroundColor: helpTapped
+            ? AppColors.yellowPrimary
+            : AppColors.grayButtonsBackground,
+        text: 'Delete Account',
+        leading: Icon(Icons.no_accounts_sharp, color: Colors.black),
+        onPressed: () => showConfirmationDialog(context),
+      ),
     ];
 
     return WillPopScope(
@@ -336,12 +350,61 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
+  showConfirmationDialog(BuildContext context) {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "Warning",
+      desc:
+      'Are you sure you want to permanently delete your account?',
+      buttons: [
+        DialogButton(
+          color: AppColors.blueDialogButton,
+          child: Text(
+            "CANCEL",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          width: 150,
+        ),
+        DialogButton(
+          color: AppColors.blueDialogButton,
+          child: Center(
+            child: Text(
+              "DELETE",
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            _deleteAccount();
+            //showWhereToUse(context);
+          },
+          width: 150,
+        ),
+      ],
+    ).show();
+  }
+
   _launchURL() async {
     const url = 'http://admin.thesigntracker.com/tutorials';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  _deleteAccount() async {
+    final deleted = await userRepository.deleteUserDetails();
+
+    if(deleted){
+      final tokenHelper = TokenHelper();
+      await tokenHelper.deleteToken();
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          LandingPage.route, (Route<dynamic> route) => false);
     }
   }
 

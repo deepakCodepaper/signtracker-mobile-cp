@@ -87,7 +87,7 @@ class _SplashPageState extends State<SplashPage> {
             bottom: 100,
             left: 100,
             right: 100,
-            child: CircularProgressIndicator(),
+            child: Center(child: CircularProgressIndicator()),
           )
         ],
       ),

@@ -31,12 +31,13 @@ class AuthApi {
       Response<dynamic> response = await apiClient.dio.post(
         path,
         data: jsonEncode(requestBody),
-        options: buildCacheOptions(
-          Duration(hours: 1),
-        ),
+        // options: buildCacheOptions(
+        //   Duration(hours: 1),
+        // ),
       );
 
       if (response.data != null) {
+        print(response.data.toString());
         print("yes");
         var message = (response.data['message'] ?? "").toString().toLowerCase();
         print("MESSAGE====" + message);
